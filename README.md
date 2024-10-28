@@ -11,7 +11,7 @@ User service의 경우 api > service > user > UserService.java
 ####
  - domain
  > entity와 관련된 로직  
- > repository도 해당 패키지 안에 포함 시킨다.  
+ > repository도 포함
 
  - api
- > controller에서 받는 request의 경우 service용 request와 분리 해준다.
+ > controller에서 받는 request와 service용 request는 분리
