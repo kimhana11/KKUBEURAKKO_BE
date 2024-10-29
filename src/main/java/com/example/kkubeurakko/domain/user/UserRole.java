@@ -13,7 +13,7 @@ public enum UserRole {
     GUEST("비회원",0);
 
     private final String text;
-    private final int accessLevel;  // 권한 레벨
+    private final int accessLevel;  // 권한 레벨 부여
 
     public boolean hasAccess(int requiredLevel) {
         return this.accessLevel >= requiredLevel;
