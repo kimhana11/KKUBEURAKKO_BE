@@ -2,6 +2,7 @@ package com.example.kkubeurakko.domain.menu;
 
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.menuOption.MenuOption;
+import com.example.kkubeurakko.domain.store.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -26,4 +27,9 @@ public class Menu extends BaseEntity {
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuOption> options = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
 }

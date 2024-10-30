@@ -1,16 +1,16 @@
 package com.example.kkubeurakko.domain.store;
 
 import com.example.kkubeurakko.domain.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.kkubeurakko.domain.menu.Menu;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,4 +31,6 @@ public class Store extends BaseEntity {
     private BigDecimal deliveryTip; //기본 배달비
     private double rating; //별점
 
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<Menu> menuList = new ArrayList<>();
 }
