@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
+import java.util.*;
 
 @Entity
 @Getter
@@ -18,10 +17,13 @@ public class MenuOption extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String optionName;  // 옵션 이름
-    private BigDecimal additionalPrice;  // 옵션 추가 금액
+    private String label;  // 옵션 제목(ex 맛선택, 사리추가...)
+    private boolean mult_select; //옵션 다중 선택 가능 여부
 
     @ManyToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;
+
+    @OneToMany(mappedBy = "menuOption", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MenuOptionDetail> details = new ArrayList<>();
 }

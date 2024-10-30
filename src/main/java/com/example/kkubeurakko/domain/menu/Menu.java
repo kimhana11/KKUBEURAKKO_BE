@@ -19,9 +19,10 @@ public class Menu extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; //메뉴이름
+    private String name; //메뉴 이름
     private BigDecimal price; //가격
-    private String menuPictureUrl; //메뉴 이미지
+    private String description; //메뉴 설명
+    private String imageUrl; //메뉴 이미지
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuOption> options = new ArrayList<>();
