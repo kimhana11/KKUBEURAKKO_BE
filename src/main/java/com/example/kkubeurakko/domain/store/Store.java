@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 
 @Entity
@@ -25,9 +26,9 @@ public class Store extends BaseEntity {
     private Time open_time;  //오픈 시간
     private Time close_time; //마감시간
     private Boolean is_open; //현재 영업 상태
-    private int minimum_order_price; //최소주문금액
+    private BigDecimal minimum_order_price; //최소주문금액
     private Integer delivery_radius; //배달 가능 반경 km
-    private int deliveryTip; //기본 배달비
+    private BigDecimal deliveryTip; //기본 배달비
     private double rating; //별점
 
 }
