@@ -35,6 +35,7 @@ public class Order extends BaseEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "order")
-    private List<Review> reviews = new ArrayList<>(); // 리뷰 목록
+    // 주문에 대한 리뷰 일대일
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Review review;
 }

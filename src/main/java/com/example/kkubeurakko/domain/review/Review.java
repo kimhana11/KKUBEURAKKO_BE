@@ -8,9 +8,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-
+import java.util.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -21,13 +19,14 @@ public class Review extends BaseEntity {
 
     private String content; // 리뷰 내용
     private double rate;//별점
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // 리뷰 작성자
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "order_id")
-    private Order order; // 리뷰에 연결된 주문 항목
+    private Order order; // 주문과의 연관관계
 
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)

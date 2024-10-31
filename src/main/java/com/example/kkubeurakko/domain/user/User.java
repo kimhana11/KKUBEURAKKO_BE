@@ -4,6 +4,7 @@ import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.cart.Cart;
 import com.example.kkubeurakko.domain.order.Order;
+import com.example.kkubeurakko.domain.review.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -38,4 +39,7 @@ public class User extends BaseEntity {
     // User와 Order 일대다
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
 }
