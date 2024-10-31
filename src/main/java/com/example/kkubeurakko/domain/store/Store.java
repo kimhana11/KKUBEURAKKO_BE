@@ -20,6 +20,7 @@ public class Store extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;  //가게명
     private String address; //가게 위치
     private String phone; //가게 번호
