@@ -36,7 +36,6 @@ public class Menu extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-
     @OneToMany(mappedBy = "menu")
     private List<OrderItem> orderItems = new ArrayList<>(); // 주문 항목 목록
 
