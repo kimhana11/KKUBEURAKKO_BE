@@ -22,4 +22,5 @@ public class MenuOptionDetail {
     @ManyToOne
     @JoinColumn(name = "menu_option_id")
     private MenuOption menuOption;
+
 }

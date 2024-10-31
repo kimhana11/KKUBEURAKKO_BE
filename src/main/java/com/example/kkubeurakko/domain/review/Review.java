@@ -26,7 +26,7 @@ public class Review extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    private Order order; // 주문과의 연관관계
+    private Order order;
 
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
