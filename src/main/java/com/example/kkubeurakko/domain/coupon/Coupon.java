@@ -21,7 +21,7 @@ public class Coupon extends BaseEntity {
 
     private String name; // 쿠폰 이름
     private BigDecimal discountAmount; // 할인 금액 (또는 비율)
-
+    private BigDecimal minOrderAmount; // 최소 주문 금액
     private LocalDateTime validFrom; // 쿠폰 유효 시작일
     private LocalDateTime validUntil; // 쿠폰 유효 종료일
 
