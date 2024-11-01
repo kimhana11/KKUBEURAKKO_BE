@@ -20,11 +20,10 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;
+    private int quantity;
 
     @ElementCollection
     private List<Long> selectedOptionIds = new ArrayList<>(); // 선택된 옵션 ID 리스트
-
-    private int quantity;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
