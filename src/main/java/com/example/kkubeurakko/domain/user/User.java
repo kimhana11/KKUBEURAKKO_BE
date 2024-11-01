@@ -3,6 +3,7 @@ package com.example.kkubeurakko.domain.user;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.cart.Cart;
+import com.example.kkubeurakko.domain.coupon.UserCoupon;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
 import jakarta.persistence.*;
@@ -42,4 +43,8 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserCoupon> userCoupons = new ArrayList<>();
+
 }
