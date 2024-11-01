@@ -29,6 +29,9 @@ public class Menu extends BaseEntity {
     private String description; //메뉴 설명
     private String imageUrl; //메뉴 이미지
 
+    @Enumerated(EnumType.STRING)
+    private MenuType type;
+
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuOption> options = new ArrayList<>();
 
