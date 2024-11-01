@@ -24,9 +24,12 @@ public class Order extends BaseEntity {
 
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
+    private LocalDateTime estimatedCompletionTime; // 예상 완료 시간
+    private LocalDateTime receivedTime; // 주문을 받은 시간 (사장님이 확인한 시간)
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
