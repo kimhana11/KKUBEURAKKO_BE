@@ -32,6 +32,11 @@ public class Menu extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MenuType type;
 
+    @ElementCollection(targetClass = MenuStatus.class)
+    @CollectionTable(name = "menu_status", joinColumns = @JoinColumn(name = "menu_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<MenuStatus> statuses = new HashSet<>();
+
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuOption> options = new ArrayList<>();
 
