@@ -29,6 +29,8 @@ public class Order extends BaseEntity {
     private String requestMessage;//요청 사항
 
     @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod; // 결제 수단
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     @ManyToOne
@@ -45,7 +47,5 @@ public class Order extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "guest_info_id", nullable = true)
     private GuestInfo guestInfo;
-
-
 
 }
