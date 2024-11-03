@@ -3,7 +3,6 @@ package com.example.kkubeurakko.domain.order;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.User;
-import com.example.kkubeurakko.domain.user.GuestInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,7 +27,6 @@ public class Order extends BaseEntity {
     private LocalDateTime estimatedCompletionTime;
     private String storeRequests;
     private String deliveryInstructions;
-
     private String addressLine;
     private String postalCode;
 
@@ -50,7 +48,7 @@ public class Order extends BaseEntity {
     private Review review;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "guest_info_id", nullable = true)
-    private GuestInfo guestInfo;
+    @JoinColumn(name = "guest_order_id", nullable = true)
+    private GuestOrder guestOrder;
 
 }
