@@ -29,7 +29,8 @@ public class Order extends BaseEntity {
     private String requestMessage;//요청 사항
 
     @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod; // 결제 수단
+    private Payment payment; // 결제 수단
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
