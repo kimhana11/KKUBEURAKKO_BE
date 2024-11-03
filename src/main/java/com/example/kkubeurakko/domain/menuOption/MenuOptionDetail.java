@@ -16,8 +16,8 @@ public class MenuOptionDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String optionValue; // 세부 옵션 내용
-    private BigDecimal additionalPrice;  // 옵션별 추가 금액
+    private String optionValue;
+    private BigDecimal additionalPrice;
 
     @ManyToOne
     @JoinColumn(name = "menu_option_id")

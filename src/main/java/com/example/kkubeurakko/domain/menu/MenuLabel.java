@@ -5,10 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum MenuStatus {
-    BEST_SELLER("베스트 메뉴"),
-    TRENDING("조회수 상승"),
+public enum MenuLabel {
+    BEST_SELLER("베스트"),
+    TRENDING("인기"),
+    SALE("할인"),
     NEW("신메뉴");
 
-    private final String description;
+    private final String text;
 }

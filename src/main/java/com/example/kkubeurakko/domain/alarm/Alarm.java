@@ -18,10 +18,10 @@ public class Alarm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;//공지 내용
-    private LocalDateTime startDate; // 공지 시작 날짜
-    private LocalDateTime endDate; // 공지 종료 날짜
-    private boolean isActive; // 공지 활성화 여부
+    private String content;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "store_id")

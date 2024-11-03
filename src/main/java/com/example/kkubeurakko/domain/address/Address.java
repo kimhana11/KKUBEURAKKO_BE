@@ -16,9 +16,9 @@ public class Address extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String addressLine;  // 상세 주소
-    private String postalCode;   // 우편번호
-    private Boolean isPrimary;   // 기본 주소 선택 여부
+    private String addressLine;
+    private String postalCode;
+    private Boolean isPrimary;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,5 +28,4 @@ public class Address extends BaseEntity {
     public void setSelected(Boolean selected) {
         this.isPrimary = selected;
     }
-
 }

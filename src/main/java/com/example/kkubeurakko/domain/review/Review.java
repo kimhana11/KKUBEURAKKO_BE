@@ -2,7 +2,6 @@ package com.example.kkubeurakko.domain.review;
 
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.order.Order;
-import com.example.kkubeurakko.domain.order.OrderItem;
 import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -17,12 +16,12 @@ public class Review extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content; // 리뷰 내용
-    private double rate;//별점
+    private String content;
+    private double rate;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user; // 리뷰 작성자
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "order_id")
@@ -30,5 +29,5 @@ public class Review extends BaseEntity {
 
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewImage> images = new ArrayList<>(); // 리뷰 이미지 목록
+    private List<ReviewImage> images = new ArrayList<>();
 }

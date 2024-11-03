@@ -19,11 +19,16 @@ public class Coupon extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // 쿠폰 이름
-    private BigDecimal discountAmount; // 할인 금액 (또는 비율)
-    private BigDecimal minOrderAmount; // 최소 주문 금액
-    private LocalDateTime validFrom; // 쿠폰 유효 시작일
-    private LocalDateTime validUntil; // 쿠폰 유효 종료일
+    private String name;
+    private BigDecimal discountAmount;
+    private LocalDateTime validFrom;
+    private LocalDateTime validUntil;
+    private BigDecimal minOrderAmount;
+    private String code;
+    private String content;
+
+    @Enumerated(EnumType.STRING)
+    private CouponType couponType;
 
     @ManyToOne
     @JoinColumn(name = "store_id")

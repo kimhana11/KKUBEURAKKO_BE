@@ -4,7 +4,6 @@ import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,13 +21,17 @@ public class Cart extends BaseEntity {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
 
-    //유저와 일대일 매핑
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     // 장바구니 비우기
     public void clear() {
         items.clear();
+    }
+
+    // 장바구니에 아이템 추가
+    public void addItem(CartItem item) {
+        items.add(item);
     }
 }

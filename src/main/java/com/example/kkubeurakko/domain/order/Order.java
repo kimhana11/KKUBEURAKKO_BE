@@ -24,21 +24,29 @@ public class Order extends BaseEntity {
 
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
-    private LocalDateTime estimatedCompletionTime; // 예상 완료 시간
-    private LocalDateTime receivedTime; // 주문을 받은 시간 (사장님이 확인한 시간)
+    private LocalDateTime estimatedCompletionTime;
+    private String storeRequests;
+    private String deliveryInstructions;
+    private String addressLine;
+    private String postalCode;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod; // 결제 수단
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    // 주문에 대한 리뷰 일대일
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guest_order_id", nullable = true)
+    private GuestOrder guestOrder;
 }
