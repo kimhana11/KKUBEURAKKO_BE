@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Payment {
+public enum PaymentMethod {
     CREDIT_CARD("카카오페이"),
     DEBIT_CARD("신용카드");
 
