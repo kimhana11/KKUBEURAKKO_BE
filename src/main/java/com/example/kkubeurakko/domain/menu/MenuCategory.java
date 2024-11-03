@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum MenuType {
+public enum MenuCategory {
 
     CHICKEN("치킨"),
     SIDE("사이드 메뉴"),
@@ -15,5 +15,4 @@ public enum MenuType {
     OTHER  ("기타");
 
     private final String text;
-
 }

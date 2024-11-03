@@ -28,5 +28,4 @@ public class Address extends BaseEntity {
     public void setSelected(Boolean selected) {
         this.isPrimary = selected;
     }
-
 }

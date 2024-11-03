@@ -3,6 +3,7 @@ package com.example.kkubeurakko.domain.order;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.User;
+import com.example.kkubeurakko.domain.user.GuestInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,14 +26,13 @@ public class Order extends BaseEntity {
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
     private LocalDateTime estimatedCompletionTime; // 예상 완료 시간
-    private LocalDateTime receivedTime; // 주문을 받은 시간 (사장님이 확인한 시간)
+    private String requestMessage;//요청 사항
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -41,4 +41,11 @@ public class Order extends BaseEntity {
     // 주문에 대한 리뷰 일대일
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guest_info_id", nullable = true)
+    private GuestInfo guestInfo;
+
+
+
 }

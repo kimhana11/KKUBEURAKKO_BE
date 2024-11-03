@@ -24,11 +24,16 @@ public class Cart extends BaseEntity {
 
     //유저와 일대일 매핑
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     // 장바구니 비우기
     public void clear() {
         items.clear();
+    }
+
+    // 장바구니에 아이템 추가
+    public void addItem(CartItem item) {
+        items.add(item);
     }
 }
