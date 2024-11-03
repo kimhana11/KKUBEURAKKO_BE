@@ -25,8 +25,9 @@ public class Order extends BaseEntity {
 
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
-    private LocalDateTime estimatedCompletionTime; // 예상 완료 시간
-    private String requestMessage;//요청 사항
+    private LocalDateTime estimatedCompletionTime;
+    private String storeRequests;
+    private String deliveryInstructions;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod; // 결제 수단
