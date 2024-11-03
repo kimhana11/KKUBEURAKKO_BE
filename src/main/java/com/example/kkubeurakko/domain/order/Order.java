@@ -29,6 +29,9 @@ public class Order extends BaseEntity {
     private String storeRequests;
     private String deliveryInstructions;
 
+    private String addressLine;
+    private String postalCode;
+
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod; // 결제 수단
 
