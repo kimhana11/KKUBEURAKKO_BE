@@ -8,7 +8,7 @@ ex) User entity의 경우 domain > user > User.java
 User service의 경우 api > service > user > UserService.java  
 형태로 생성
 
-ERD
+ERD  
 https://www.erdcloud.com/d/NSHRJKDaXjERp2FPf
   
 ####
