@@ -17,7 +17,8 @@ public class UserCoupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean isUsed; // 쿠폰 사용 여부
+    private boolean isUsed;
+    private LocalDateTime issuedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,9 +26,7 @@ public class UserCoupon {
 
     @ManyToOne
     @JoinColumn(name = "coupon_id")
-    private Coupon coupon; // 사용자가 소유한 쿠폰
-
-    private LocalDateTime issuedAt; // 쿠폰 발급일자
+    private Coupon coupon;
 
     // 쿠폰 사용 메서드
     public void useCoupon() {

@@ -46,10 +46,10 @@ public class Menu extends BaseEntity {
     private Store store;
 
     @OneToMany(mappedBy = "menu")
-    private List<OrderItem> orderItems = new ArrayList<>(); // 주문 항목 목록
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "menu")
-    private List<CartItem> cartItems = new ArrayList<>(); // 장바구니 항목 목록
+    private List<CartItem> cartItems = new ArrayList<>();
 
     //메뉴에 달린 모든 리뷰 조회
     public List<Review> getReviews() {

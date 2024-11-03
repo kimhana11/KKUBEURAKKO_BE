@@ -17,8 +17,8 @@ public class MenuOption extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String label;  // 옵션 제목(ex 맛선택, 사리추가...)
-    private boolean mult_select; //옵션 다중 선택 가능 여부
+    private String label;
+    private boolean mult_select;
 
     @ManyToOne
     @JoinColumn(name = "menu_id")

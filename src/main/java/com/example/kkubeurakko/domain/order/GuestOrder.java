@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//비회원 주문 조회를 위한 엔티티
 public class GuestOrder extends BaseEntity {
 
     @Id
