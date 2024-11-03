@@ -51,4 +51,5 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "guest_order_id", nullable = true)
     private GuestOrder guestOrder;
 
+
 }
