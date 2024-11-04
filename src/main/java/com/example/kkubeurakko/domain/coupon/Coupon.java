@@ -23,12 +23,17 @@ public class Coupon extends BaseEntity {
     private BigDecimal discountAmount;
     private LocalDateTime validFrom;
     private LocalDateTime validUntil;
-    private BigDecimal minOrderAmount;
     private String code;
     private String content;
 
     @Enumerated(EnumType.STRING)
     private CouponType couponType;
+
+    @Enumerated(EnumType.STRING)
+    private CouponConditionType conditionType;
+
+    private BigDecimal minOrderAmount; //최소 주문 금액
+    private String requiredMenuItems; //특정 메뉴 id
 
     @ManyToOne
     @JoinColumn(name = "store_id")
