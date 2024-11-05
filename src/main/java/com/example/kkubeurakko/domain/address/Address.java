@@ -16,7 +16,8 @@ public class Address extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String addressLine;
+    private String roadName;
+    private String detailedAddress;
     private String postalCode;
     private Boolean isPrimary;
 
