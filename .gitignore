@@ -34,7 +34,8 @@ out/
 /.nb-gradle/
 
 ### yml ###
-/src/main/resources/application.yml
+KKUBEURAKKO_BE/src/main/resources/**
+#KKU/src/main/resources/application.yml
 application.yml
 
 ### VS Code ###
