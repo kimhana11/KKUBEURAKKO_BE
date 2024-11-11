@@ -31,3 +31,7 @@ spring:
   h2:
     console:
       enabled: true
+
+kakao:
+  client_id: b73d1824d0eaff0315ea6abc6c256d91
+  redirect_uri: http://localhost:8080/callback
