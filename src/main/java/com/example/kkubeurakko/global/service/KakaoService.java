@@ -1,38 +1,37 @@
 package com.example.kkubeurakko.global.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.example.kkubeurakko.global.config.KakaoProperties;
 import com.example.kkubeurakko.global.dto.KakaoTokenResponseDto;
 
 import io.netty.handler.codec.http.HttpHeaderValues;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@ConfigurationProperties(prefix = "kakao")
 public class KakaoService {
-	private String clientId;
+	private final KakaoProperties kakaoProperties;
 
 	private final String KAUTH_TOKEN_URL_HOST = "https://kauth.kakao.com";
-	private final String KAUTH_USER_URL_HOST = "https://kapi.kakao.com";
+
 	public String getAccessTokenFromKakao(String code) {
-		log.info(clientId);
-		KakaoTokenResponseDto kakaoTokenResponseDto = WebClient.create(KAUTH_TOKEN_URL_HOST).post()
+		log.info("Kakao Client ID: {}", kakaoProperties.getClientId());
+
+		KakaoTokenResponseDto kakaoTokenResponseDto = WebClient.create(KAUTH_TOKEN_URL_HOST)
+			.post()
 			.uri(uriBuilder -> uriBuilder
-				.scheme("https")
 				.path("/oauth/token")
 				.queryParam("grant_type", "authorization_code")
-				.queryParam("client_id", "b73d1824d0eaff0315ea6abc6c256d91")
+				.queryParam("client_id", kakaoProperties.getClientId())
+				.queryParam("client_secret", kakaoProperties.getClientSecret())
+				.queryParam("redirect_uri", kakaoProperties.getRedirectUri())
 				.queryParam("code", code)
-				.build(true))
+				.build())
 			.header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED.toString())
 			.retrieve()
 			.bodyToMono(KakaoTokenResponseDto.class)
