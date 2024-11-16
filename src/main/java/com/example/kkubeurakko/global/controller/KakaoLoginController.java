@@ -21,7 +21,9 @@ public class KakaoLoginController {
 	@GetMapping("/callback")
 	public ResponseEntity<?> callback(@RequestParam("code") String code) {
 		String accessToken = kakaoService.getAccessTokenFromKakao(code);
-
+		if(kakaoService.saveUserInfo(accessToken)){
+			throw new RuntimeException();
+		};
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

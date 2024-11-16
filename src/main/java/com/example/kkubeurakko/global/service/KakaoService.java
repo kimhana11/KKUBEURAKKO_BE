@@ -4,21 +4,25 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.example.kkubeurakko.domain.user.User;
+import com.example.kkubeurakko.domain.user.repository.UserRepository;
 import com.example.kkubeurakko.global.config.KakaoProperties;
+import com.example.kkubeurakko.global.dto.KaKaoUserInfoDto;
 import com.example.kkubeurakko.global.dto.KakaoTokenResponseDto;
 
 import io.netty.handler.codec.http.HttpHeaderValues;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class KakaoService {
 	private final KakaoProperties kakaoProperties;
-
+	private final UserRepository userRepository;
 	private final String KAUTH_TOKEN_URL_HOST = "https://kauth.kakao.com";
-
+	private final String KAUTH_USERINFO_URL_HOST = "https://kapi.kakao.com";
 	public String getAccessTokenFromKakao(String code) {
 		log.info("Kakao Client ID: {}", kakaoProperties.getClientId());
 
@@ -43,5 +47,25 @@ public class KakaoService {
 		log.info(" [Kakao Service] Scope ------> {}", kakaoTokenResponseDto.getScope());
 
 		return kakaoTokenResponseDto.getAccessToken();
+	}
+
+	//응답 dto 설계 예정
+	public boolean saveUserInfo(String accessToken){
+		KaKaoUserInfoDto userInfoDto = WebClient.create(KAUTH_USERINFO_URL_HOST)
+			.get()
+			.uri(uriBuilder -> uriBuilder
+				.scheme("https")
+				.path("/v2/user/me")
+				.build(true)
+			)
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.header(HttpHeaders.CONTENT_TYPE, HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED.toString())
+			.retrieve()
+			//TODO : Custom Exception
+			.bodyToMono(KaKaoUserInfoDto.class)
+			.block();
+
+		log.info(userInfoDto.getKakaoAccount().getEmail());
+		return true;
 	}
 }
