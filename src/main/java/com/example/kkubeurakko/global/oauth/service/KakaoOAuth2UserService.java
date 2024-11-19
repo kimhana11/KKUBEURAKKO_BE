@@ -1,19 +1,17 @@
-package com.example.kkubeurakko.global.service;
+package com.example.kkubeurakko.global.oauth.service;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.example.kkubeurakko.domain.user.User;
 import com.example.kkubeurakko.domain.user.repository.UserRepository;
-import com.example.kkubeurakko.global.config.KakaoProperties;
+import com.example.kkubeurakko.global.oauth.config.KakaoProperties;
 import com.example.kkubeurakko.global.dto.KaKaoUserInfoDto;
 import com.example.kkubeurakko.global.dto.KakaoTokenResponseDto;
 
 import io.netty.handler.codec.http.HttpHeaderValues;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
