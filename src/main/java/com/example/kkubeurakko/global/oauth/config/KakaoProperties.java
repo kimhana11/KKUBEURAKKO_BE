@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.global.config;
+package com.example.kkubeurakko.global.oauth.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
