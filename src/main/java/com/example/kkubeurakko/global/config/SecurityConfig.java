@@ -14,8 +14,9 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
+
 			.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/oauth2/**", "/login/**", "/logout").permitAll() // 인증 필요 없는 경로
+				.requestMatchers("/oauth2/**", "/login/**", "/logout", "/h2-console").permitAll() // 인증 필요 없는 경로
 				.anyRequest().authenticated() // 나머지 요청은 인증 필요
 			)
 			.oauth2Login(oauth2 -> oauth2
@@ -24,7 +25,15 @@ public class SecurityConfig {
 			)
 			.logout(logout -> logout
 				.logoutSuccessUrl("/") // 로그아웃 성공 시 리디렉션 URL
+			)
+			// H2 콘솔 접근 허용 설정
+			.headers(headers -> headers
+				.frameOptions(xFrameOptions -> xFrameOptions.disable()) // iframe 차단 해제
+			)
+			.csrf(csrf -> csrf
+				.ignoringRequestMatchers("/h2-console/**") // H2 콘솔에 대한 CSRF 보호 비활성화
 			);
+
 
 		return http.build();
 	}
