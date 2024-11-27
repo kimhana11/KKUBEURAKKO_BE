@@ -2,39 +2,51 @@ package com.example.kkubeurakko.global.oauth.service;
 
 import java.util.Map;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import com.example.kkubeurakko.domain.user.repository.UserRepository;
-import com.example.kkubeurakko.global.oauth.config.KakaoProperties;
-import com.example.kkubeurakko.global.dto.KaKaoUserInfoDto;
-import com.example.kkubeurakko.global.dto.KakaoTokenResponseDto;
+import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
+import com.example.kkubeurakko.global.oauth.dto.KakaoResponse;
+import com.example.kkubeurakko.global.oauth.dto.OAuth2Response;
+import com.example.kkubeurakko.global.oauth.dto.UserDto;
 
-import io.netty.handler.codec.http.HttpHeaderValues;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class KakaoOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-	private final DefaultOAuth2UserService defaultOAuth2UserService = new DefaultOAuth2UserService();
+public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
 	@Override
-	public OAuth2User loadUser(OAuth2UserRequest userRequest) {
-		OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
+	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
-		// 카카오 사용자 정보를 가공하거나 추가 로직을 구현
-		String id = oAuth2User.getAttribute("id").toString();
-		Map<String, Object> kakaoAccount = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
-		String email = (String) kakaoAccount.get("email");
-		log.info(id);
-		log.info(email);
+		OAuth2User oAuth2User = super.loadUser(userRequest);
 
-		return new DefaultOAuth2User(oAuth2User.getAuthorities(), oAuth2User.getAttributes(), "id");
+		log.info("oAuth2User:{}",oAuth2User);
+
+		String registrationId = userRequest.getClientRegistration().getRegistrationId();
+		OAuth2Response oAuth2Response = null;
+		if (registrationId.equals("kakao")) {
+			oAuth2Response = new KakaoResponse(oAuth2User.getAttributes());
+		}
+		// else if (registrationId.equals("naver")) {
+		//
+		// 	oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
+		// }
+		// else if (registrationId.equals("google")) {
+		//
+		// 	oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
+		// }
+		else {
+			return null;
+		}
+		String userNumber = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
+		String nickname = oAuth2Response.getNickname();
+		String email = oAuth2Response.getEmail();
+		UserDto userDto = new UserDto("ROLE_USER", nickname, email, userNumber);
+
+		return new CustomOAuth2User(userDto);
 	}
 }
