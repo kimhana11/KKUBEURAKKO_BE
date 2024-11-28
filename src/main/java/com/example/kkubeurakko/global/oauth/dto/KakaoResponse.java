@@ -5,7 +5,7 @@ import java.util.Map;
 public class KakaoResponse implements OAuth2Response{
 	private final Map<String, Object> attribute;
 	public KakaoResponse(Map<String, Object> attribute){
-		this.attribute = (Map<String, Object>) attribute.get("response");
+		this.attribute = attribute;
 	}
 	@Override
 	public String getProvider(){
@@ -19,11 +19,21 @@ public class KakaoResponse implements OAuth2Response{
 
 	@Override
 	public String getEmail() {
-		return attribute.get("email").toString();
+		// kakao_account를 추출하고 email 값을 가져옴
+		Map<String, Object> kakaoAccount = (Map<String, Object>) attribute.get("kakao_account");
+		if (kakaoAccount != null && kakaoAccount.containsKey("email")) {
+			return kakaoAccount.get("email").toString();
+		}
+		return null; // 이메일이 없는 경우 null 반환
 	}
 
 	@Override
 	public String getNickname() {
-		return attribute.get("nickname").toString();
+		// properties를 추출하고 nickname 값을 가져옴
+		Map<String, Object> properties = (Map<String, Object>) attribute.get("properties");
+		if (properties != null && properties.containsKey("nickname")) {
+			return properties.get("nickname").toString();
+		}
+		return null; // 닉네임이 없는 경우 null 반환
 	}
 }
