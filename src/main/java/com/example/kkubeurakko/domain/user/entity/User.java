@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.user;
+package com.example.kkubeurakko.domain.user.entity;
 
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.address.Address;

@@ -1,6 +1,4 @@
-package com.example.kkubeurakko.domain.user;
-
-import java.util.Objects;
+package com.example.kkubeurakko.domain.user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
