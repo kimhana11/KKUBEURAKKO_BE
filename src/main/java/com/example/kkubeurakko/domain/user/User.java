@@ -8,7 +8,6 @@ import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
