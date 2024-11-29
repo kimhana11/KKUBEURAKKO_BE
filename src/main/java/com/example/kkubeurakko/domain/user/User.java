@@ -11,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.util.*;
 
 @Entity
@@ -54,7 +55,12 @@ public class User extends BaseEntity {
     private List<UserCoupon> userCoupons = new ArrayList<>();
 
     @Builder
-    User(String userNumber, String email, String nickname, UserRole role){
+    User(
+        String userNumber,
+        String email,
+        String nickname,
+        UserRole role
+    ){
         this.userNumber = userNumber;
         this.email = email;
         this.nickname = nickname;
@@ -63,4 +69,6 @@ public class User extends BaseEntity {
     User(String nickname){
         this.nickname = nickname;
     }
+
+
 }
