@@ -1,7 +1,7 @@
 package com.example.kkubeurakko.domain.cart;
 
 import com.example.kkubeurakko.domain.BaseEntity;
-import com.example.kkubeurakko.domain.user.User;
+import com.example.kkubeurakko.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
