@@ -33,5 +33,9 @@ out/
 /nbdist/
 /.nb-gradle/
 
+### yml ###
+/KKUBEURAKKO_BE/src/main/resources/**
+application.yml
+
 ### VS Code ###
 .vscode/

@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.user;
+package com.example.kkubeurakko.domain.user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +16,14 @@ public enum UserRole {
 
     public boolean hasAccess(int requiredLevel) {
         return this.accessLevel >= requiredLevel;
+    }
+    public static UserRole findRole(String role){
+        if(role.equals(ADMIN.getText())){
+            return ADMIN;
+        } else if (role.equals(CUSTOMER.getText())) {
+            return CUSTOMER;
+        } else{
+            throw new RuntimeException(); // 예외처리 로직 추가 예정
+        }
     }
 }
