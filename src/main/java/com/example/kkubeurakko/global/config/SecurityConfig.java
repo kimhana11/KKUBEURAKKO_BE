@@ -9,11 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.example.kkubeurakko.global.jwt.CustomLogoutFilter;
 import com.example.kkubeurakko.global.jwt.JwtFilter;
 import com.example.kkubeurakko.global.jwt.JwtUtil;
+import com.example.kkubeurakko.global.jwt.RefreshTokenRepository;
 import com.example.kkubeurakko.global.oauth.handler.CustomSuccessHandler;
 import com.example.kkubeurakko.global.oauth.service.CustomOAuth2UserService;
 
@@ -27,6 +30,7 @@ public class SecurityConfig {
 	private final CustomOAuth2UserService customOAuth2UserService;
 	private final CustomSuccessHandler customSuccessHandler;
 	private final JwtUtil jwtUtil;
+	private final RefreshTokenRepository refreshTokenRepository;
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 		http
@@ -59,6 +63,11 @@ public class SecurityConfig {
 			.addFilterBefore(
 				new JwtFilter(jwtUtil),
 				UsernamePasswordAuthenticationFilter.class
+			);
+		http
+			.addFilterBefore(
+				new CustomLogoutFilter(jwtUtil, refreshTokenRepository),
+				LogoutFilter.class
 			);
 		http
 			.oauth2Login(
