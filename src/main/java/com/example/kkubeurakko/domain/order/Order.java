@@ -49,4 +49,9 @@ public class Order extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "guest_order_id", nullable = true)
     private GuestOrder guestOrder;
+
+    // 주문 상태 변경 메서드
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }
