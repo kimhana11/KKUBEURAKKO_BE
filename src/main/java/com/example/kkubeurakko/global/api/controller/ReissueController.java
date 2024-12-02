@@ -1,65 +1,41 @@
-package com.example.kkubeurakko.global.api;
+package com.example.kkubeurakko.global.api.controller;
 
+import com.example.kkubeurakko.global.api.service.ReissueService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.kkubeurakko.global.jwt.JwtUtil;
-
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequiredArgsConstructor
 public class ReissueController {
-	private final JwtUtil jwtUtil;
 
+	private final ReissueService reissueService;
+
+	// 리프레시 토큰으로 엑세스 토큰 재발급 api
+	// 예외처리 수정 예정
 	@PostMapping("/reissue")
 	public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
+		// 쿠키에서 리프레시 토큰 추출
+		String refreshToken = reissueService.extractRefreshTokenFromCookies(request);
 
-		//get refresh token
-		String refresh = null;
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-
-			if (cookie.getName().equals("refresh")) {
-
-				refresh = cookie.getValue();
-			}
-		}
-
-		if (refresh == null) {
-
-			//response status code
+		if (refreshToken == null) {
 			return new ResponseEntity<>("refresh token null", HttpStatus.BAD_REQUEST);
 		}
 
-		//expired check
 		try {
-			jwtUtil.isExpired(refresh);
-		} catch (ExpiredJwtException e) {
+			// 새로운 액세스 토큰 생성
+			String newAccessToken = reissueService.processTokenReissue(refreshToken);
 
-			//response status code
-			return new ResponseEntity<>("refresh token expired", HttpStatus.BAD_REQUEST);
+			// 응답 헤더에 액세스 토큰 설정
+			response.setHeader("Authorization", newAccessToken);
+
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (IllegalArgumentException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-
-		// 토큰이 refresh인지 확인 (발급시 페이로드에 명시)
-		String category = jwtUtil.getCategory(refresh);
-
-		if (!category.equals("refresh")) {
-
-			//response status code
-			return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
-		}
-
-		String username = jwtUtil.getUsername(refresh);
-		String role = jwtUtil.getRole(refresh);
-
-		//make new JWT
-		String newAccess = jwtUtil.createJwt("access", username, role, 600000L);
-
-		//response
-		response.setHeader("access", newAccess);
-
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
