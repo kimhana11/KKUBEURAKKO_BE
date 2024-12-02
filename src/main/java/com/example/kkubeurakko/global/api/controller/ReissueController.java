@@ -1,5 +1,7 @@
 package com.example.kkubeurakko.global.api.controller;
 
+import java.util.Map;
+
 import com.example.kkubeurakko.global.api.service.ReissueService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,18 +22,13 @@ public class ReissueController {
 	@PostMapping("/reissue")
 	public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
 		// 쿠키에서 리프레시 토큰 추출
-		String refreshToken = reissueService.extractRefreshTokenFromCookies(request);
-
-		if (refreshToken == null) {
-			return new ResponseEntity<>("refresh token null", HttpStatus.BAD_REQUEST);
-		}
-
 		try {
-			// 새로운 액세스 토큰 생성
-			String newAccessToken = reissueService.processTokenReissue(refreshToken);
+			// Reissue service 호출
+			Map<String, String> tokens = reissueService.reissue(request);
 
-			// 응답 헤더에 액세스 토큰 설정
-			response.setHeader("Authorization", newAccessToken);
+			// 응답에 새로운 토큰 설정
+			response.setHeader("Authorization", tokens.get("access"));
+			response.addCookie(reissueService.createCookie("Authorization", tokens.get("refresh")));
 
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IllegalArgumentException e) {

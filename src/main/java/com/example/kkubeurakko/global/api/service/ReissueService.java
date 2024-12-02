@@ -1,5 +1,8 @@
 package com.example.kkubeurakko.global.api.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.kkubeurakko.global.jwt.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
@@ -12,41 +15,66 @@ import org.springframework.stereotype.Service;
 public class ReissueService {
 
 	private final JwtUtil jwtUtil;
+	public Map<String, String> reissue(HttpServletRequest request) {
+		// Refresh 토큰 가져오기
+		String refresh = getRefreshTokenFromCookies(request);
 
-	// 리프레시 토큰 추출
-	public String extractRefreshTokenFromCookies(HttpServletRequest request) {
+		if (refresh == null) {
+			throw new IllegalArgumentException("Refresh token null");
+		}
+
+		// Refresh 토큰 유효성 검증
+		validateRefreshToken(refresh);
+
+		// 사용자 정보 추출
+		String userNumber = jwtUtil.getUserNumber(refresh);
+		String role = jwtUtil.getRole(refresh);
+
+		// 새로운 토큰 생성
+		String newAccess = jwtUtil.createJwt("access", userNumber, role, 60*60*60L);
+		String newRefresh = jwtUtil.createJwt("refresh", userNumber, role, 60*60*2400L);
+
+		// 생성된 토큰 반환
+		Map<String, String> tokens = new HashMap<>();
+		tokens.put("access", newAccess);
+		tokens.put("refresh", newRefresh);
+
+		return tokens;
+	}
+
+	private String getRefreshTokenFromCookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
-			return null;										//예외를 던지도록 업데이트 예정
+			return null;
 		}
 
 		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("Authorization")) {
+			if ("refresh".equals(cookie.getName())) {
 				return cookie.getValue();
 			}
 		}
-		return null;											//예외를 던지도록 업데이트 예정
+		return null;
 	}
 
-	// 리프레시 토큰 검증 및 액세스 토큰 새로 발급
-	public String processTokenReissue(String refreshToken) {
-		// 토큰 검증
+	private void validateRefreshToken(String refresh) {
 		try {
-			jwtUtil.isExpired(refreshToken);
+			jwtUtil.isExpired(refresh);
 		} catch (ExpiredJwtException e) {
-			throw new IllegalArgumentException("refresh token expired");
+			throw new IllegalArgumentException("Refresh token expired");
 		}
 
-		String category = jwtUtil.getCategory(refreshToken);
+		String category = jwtUtil.getCategory(refresh);
 		if (!"refresh".equals(category)) {
-			throw new IllegalArgumentException("invalid refresh token");
+			throw new IllegalArgumentException("Invalid refresh token");
 		}
+	}
 
-		// 유저 정보 추출
-		String userNumber = jwtUtil.getUserNumber(refreshToken);
-		String role = jwtUtil.getRole(refreshToken);
-
-		// 새로운 액세스 토큰 생성
-		return jwtUtil.createJwt("access", userNumber, role, 60*60*60L);
+	public Cookie createCookie(String name, String value) {
+		Cookie cookie = new Cookie(name, value);
+		// cookie.setHttpOnly(true);
+		cookie.setPath("/");
+		cookie.setMaxAge(24 * 60 * 60); // 7일
+		return cookie;
 	}
 }
+
