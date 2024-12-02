@@ -71,7 +71,7 @@ public class ReissueService {
 
 	public Cookie createCookie(String name, String value) {
 		Cookie cookie = new Cookie(name, value);
-		// cookie.setHttpOnly(true);
+		cookie.setHttpOnly(true);
 		cookie.setPath("/");
 		cookie.setMaxAge(24 * 60 * 60); // 7일
 		return cookie;
