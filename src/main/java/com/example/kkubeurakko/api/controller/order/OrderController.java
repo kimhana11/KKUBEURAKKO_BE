@@ -18,8 +18,8 @@ public class OrderController {
 
     @MessageMapping("/start")
     public void startOrder(OrderStatusRequest orderStatusRequest) {
-        // 주문 상태를 'RECEIVED'로 변경
-        Order updatedOrder = orderService.updateOrderStatus(orderStatusRequest.getOrderId(), OrderStatus.RECEIVED);
+        // 주문 상태를 변경
+        Order updatedOrder = orderService.updateOrderStatus(orderStatusRequest);
 
         // 변경된 주문 정보를 소켓 구독자들에게 전달
         messagingTemplate.convertAndSend("/topic/orders", updatedOrder);
