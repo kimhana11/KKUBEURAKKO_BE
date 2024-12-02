@@ -1,13 +1,19 @@
 package com.example.kkubeurakko.global.api.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.example.kkubeurakko.global.jwt.JwtUtil;
+import com.example.kkubeurakko.global.jwt.RefreshToken;
+import com.example.kkubeurakko.global.jwt.RefreshTokenRepository;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class ReissueService {
 
 	private final JwtUtil jwtUtil;
+	private final RefreshTokenRepository refreshTokenRepository;
 	public Map<String, String> reissue(HttpServletRequest request) {
 		// Refresh 토큰 가져오기
 		String refresh = getRefreshTokenFromCookies(request);
@@ -25,7 +32,7 @@ public class ReissueService {
 
 		// Refresh 토큰 유효성 검증
 		validateRefreshToken(refresh);
-
+		isExistRefreshToken(refresh);
 		// 사용자 정보 추출
 		String userNumber = jwtUtil.getUserNumber(refresh);
 		String role = jwtUtil.getRole(refresh);
@@ -34,12 +41,26 @@ public class ReissueService {
 		String newAccess = jwtUtil.createJwt("access", userNumber, role, 60*60*60L);
 		String newRefresh = jwtUtil.createJwt("refresh", userNumber, role, 60*60*2400L);
 
+		refreshTokenRepository.deleteByRefresh(refresh);
+		saveRefreshToken(userNumber, newRefresh, 86400000L);
+
 		// 생성된 토큰 반환
 		Map<String, String> tokens = new HashMap<>();
 		tokens.put("access", newAccess);
 		tokens.put("refresh", newRefresh);
 
 		return tokens;
+	}
+
+	public void saveRefreshToken(String userNumber, String refresh, Long expiredMs){
+		Date date = new Date(System.currentTimeMillis() + expiredMs);
+		RefreshToken refreshToken = RefreshToken.builder()
+			.userNumber(userNumber)
+			.refresh(refresh)
+			.expiration(date.toString())
+			.build();
+
+		refreshTokenRepository.save(refreshToken);
 	}
 
 	private String getRefreshTokenFromCookies(HttpServletRequest request) {
@@ -66,6 +87,13 @@ public class ReissueService {
 		String category = jwtUtil.getCategory(refresh);
 		if (!"refresh".equals(category)) {
 			throw new IllegalArgumentException("Invalid refresh token");
+		}
+	}
+
+	private void isExistRefreshToken(String refresh){
+		Boolean isExist = refreshTokenRepository.existsByRefresh(refresh);
+		if (!isExist) {
+			throw new RuntimeException();
 		}
 	}
 
