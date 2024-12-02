@@ -8,15 +8,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.kkubeurakko.domain.user.entity.User;
-import com.example.kkubeurakko.domain.user.entity.UserRole;
+import com.example.kkubeurakko.domain.user.UserRole;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 import com.example.kkubeurakko.global.oauth.dto.UserDto;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
