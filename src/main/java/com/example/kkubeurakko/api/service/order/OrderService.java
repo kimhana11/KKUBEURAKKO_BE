@@ -6,6 +6,8 @@ import com.example.kkubeurakko.domain.order.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -26,11 +28,12 @@ public class OrderService {
             // 완료 상태로 변경 시, 예상 완료 시간은 유지됨
             order.setEstimatedCompletionTime(order.getEstimatedCompletionTime());
         }
-
         // 상태 업데이트
         order.setOrderStatus(status);
 
         // 저장
         return orderRepository.save(order);
     }
+
+
 }
