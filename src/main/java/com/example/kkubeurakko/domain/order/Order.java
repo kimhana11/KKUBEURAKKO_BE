@@ -4,9 +4,7 @@ import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,7 +12,7 @@ import java.util.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
@@ -50,8 +48,26 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "guest_order_id", nullable = true)
     private GuestOrder guestOrder;
 
+    @Builder
+    public Order(BigDecimal totalAmount,LocalDateTime orderDate, String storeRequests,String deliveryInstructions,
+                 String addressLine,String postalCode, PaymentMethod paymentMethod, User user, List<OrderItem> orderItems,GuestOrder guestOrder){
+        this.totalAmount = totalAmount;
+        this.orderDate = orderDate;
+        this.storeRequests =  storeRequests;
+        this.deliveryInstructions = deliveryInstructions;
+        this.addressLine = addressLine;
+        this.postalCode = postalCode;
+        this.paymentMethod = paymentMethod;
+        this.user = user;
+        this.orderItems = orderItems;
+        this.guestOrder = guestOrder;
+
+    }
     // 주문 상태 변경 메서드
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+    public void setEstimatedCompletionTime(LocalDateTime estimatedCompletionTime){
+        this.estimatedCompletionTime = estimatedCompletionTime;
     }
 }
