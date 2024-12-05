@@ -4,10 +4,7 @@ import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,7 +12,7 @@ import java.util.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
@@ -61,7 +58,7 @@ public class Order extends BaseEntity {
         this.addressLine = addressLine;
         this.postalCode = postalCode;
         this.paymentMethod = paymentMethod;
-        this.user =user;
+        this.user = user;
         this.orderItems = orderItems;
         this.guestOrder = guestOrder;
 
