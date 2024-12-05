@@ -1,6 +1,6 @@
 package com.example.kkubeurakko.api.controller.order;
 
-import com.example.kkubeurakko.api.controller.order.request.OrderStatusRequest;
+import com.example.kkubeurakko.api.controller.order.request.UpdateOrderStatusRequest;
 import com.example.kkubeurakko.api.service.order.OrderService;
 import com.example.kkubeurakko.domain.order.Order;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +23,11 @@ public class OrderController {
     private final SimpMessagingTemplate messagingTemplate; // 소켓 메시지 전송
 
     @MessageMapping("/start")
-    public void startOrder(OrderStatusRequest orderStatusRequest, Principal principal) {
+    public void startOrder(UpdateOrderStatusRequest request, Principal principal) {
         // 현재 사용자의 userNumber를 Principal에서 가져오기
         String currentUserNumber = principal.getName();
         // 주문 상태를 변경
-        Order updatedOrder = orderService.updateOrderStatus(orderStatusRequest.getId(), orderStatusRequest.getStatus());
+        Order updatedOrder = orderService.updateOrderStatus(request.getId(), request.getStatus(), request.getEstimatedMinutes());
 
         if (!updatedOrder.getUser().getUserNumber().equals(currentUserNumber)) {
             throw new AccessDeniedException("Unauthorized access");
@@ -39,8 +39,8 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}/status")
-    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long orderId, @RequestBody OrderStatusRequest request) {
-        Order updatedOrder = orderService.updateOrderStatus(orderId, request.getStatus());
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long orderId, @RequestBody UpdateOrderStatusRequest request) {
+        Order updatedOrder = orderService.updateOrderStatus(request.getId(), request.getStatus(), request.getEstimatedMinutes());
         messagingTemplate.convertAndSend("/topic/orders/" + orderId, updatedOrder); // 상태 변경을 실시간으로 전송
         return ResponseEntity.ok().build();
     }

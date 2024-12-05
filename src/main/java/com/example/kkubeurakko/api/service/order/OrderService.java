@@ -1,10 +1,8 @@
 package com.example.kkubeurakko.api.service.order;
 
-import com.example.kkubeurakko.api.controller.order.request.OrderStatusRequest;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderRepository;
 import com.example.kkubeurakko.domain.order.OrderStatus;
-import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +12,20 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public Order updateOrderStatus(Long id, OrderStatus status) {
+    public Order updateOrderStatus(Long id, String newStatus,Integer estimatedMinutes) {
         // 주문 ID로 주문 찾기
         Order order = orderRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다."));
+
+        OrderStatus status = OrderStatus.valueOf(newStatus); // 상태 문자열을 Enum으로 변환
+
+        if (status == OrderStatus.RECEIVED && estimatedMinutes != null) {
+            // 접수 상태로 변경 시, 예상 완료 시간 계산
+            order.setEstimatedCompletionTime(LocalDateTime.now().plusMinutes(estimatedMinutes));
+        } else if (status == OrderStatus.COMPLETED) {
+            // 완료 상태로 변경 시, 예상 완료 시간은 유지됨
+            order.setEstimatedCompletionTime(order.getEstimatedCompletionTime());
+        }
 
         // 상태 업데이트
         order.setOrderStatus(status);
