@@ -22,21 +22,21 @@ public class OrderController {
     private final OrderService orderService;
     private final SimpMessagingTemplate messagingTemplate; // 소켓 메시지 전송
 
-    @MessageMapping("/start")
-    public void startOrder(UpdateOrderStatusRequest request, Principal principal) {
-        // 현재 사용자의 userNumber를 Principal에서 가져오기
-        String currentUserNumber = principal.getName();
-        // 주문 상태를 변경
-        Order updatedOrder = orderService.updateOrderStatus(request.getId(), request.getStatus(), request.getEstimatedMinutes());
-
-        if (!updatedOrder.getUser().getUserNumber().equals(currentUserNumber)) {
-            throw new AccessDeniedException("Unauthorized access");
-        }
-        // 특정 사용자만 해당 메시지를 수신하도록 경로 설정
-        String userDestination = "/user/" + updatedOrder.getUser().getId() + "/queue/orders";
-        messagingTemplate.convertAndSend(userDestination, updatedOrder);
-
-    }
+//    @MessageMapping("/start")
+//    public void startOrder(UpdateOrderStatusRequest request, Principal principal) {
+//        // 현재 사용자의 userNumber를 Principal에서 가져오기
+//        String currentUserNumber = principal.getName();
+//        // 주문 상태를 변경
+//        Order updatedOrder = orderService.updateOrderStatus(request.getId(), request.getStatus(), request.getEstimatedMinutes());
+//
+//        if (!updatedOrder.getUser().getUserNumber().equals(currentUserNumber)) {
+//            throw new AccessDeniedException("Unauthorized access");
+//        }
+//        // 특정 사용자만 해당 메시지를 수신하도록 경로 설정
+//        String userDestination = "/user/" + updatedOrder.getUser().getId() + "/queue/orders";
+//        messagingTemplate.convertAndSend(userDestination, updatedOrder);
+//
+//    }
 
     @PostMapping("/{orderId}/status")
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long orderId, @RequestBody UpdateOrderStatusRequest request) {
