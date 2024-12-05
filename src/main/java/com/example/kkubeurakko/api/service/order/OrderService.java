@@ -14,13 +14,13 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
-    public Order updateOrderStatus(OrderStatusRequest orderStatusRequest) {
+    public Order updateOrderStatus(Long id, OrderStatus status) {
         // 주문 ID로 주문 찾기
-        Order order = orderRepository.findById(orderStatusRequest.getId())
-                .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 ID: " + orderStatusRequest.getId()));
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 ID: " + id));
 
         // 상태 업데이트
-        order.setOrderStatus(orderStatusRequest.getStatus());
+        order.setOrderStatus(status);
 
         // 저장
         return orderRepository.save(order);
