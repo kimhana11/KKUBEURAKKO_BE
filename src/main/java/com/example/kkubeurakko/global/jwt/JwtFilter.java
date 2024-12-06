@@ -2,6 +2,7 @@ package com.example.kkubeurakko.global.jwt;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.jar.JarException;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -9,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.example.kkubeurakko.domain.user.UserRole;
+import com.example.kkubeurakko.global.common.ResponseMsgEnum;
+import com.example.kkubeurakko.global.exception.JwtException;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 import com.example.kkubeurakko.global.oauth.dto.UserDto;
 
@@ -43,28 +46,14 @@ public class JwtFilter extends OncePerRequestFilter {
 		try {
 			jwtUtil.isExpired(accessToken);
 		} catch (ExpiredJwtException e) {
-
-			//response body
-			PrintWriter writer = response.getWriter();
-			writer.print("access token expired");
-
-			//response status code
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			return;
+			throw new JwtException(ResponseMsgEnum.JWT_ACCESS_EXPIRED);
 		}
 
 		// 토큰이 access인지 확인 (발급시 페이로드에 명시)
 		String category = jwtUtil.getCategory(accessToken);
 
 		if (!category.equals("access")) {
-
-			//response body
-			PrintWriter writer = response.getWriter();
-			writer.print("invalid access token");
-
-			//response status code
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			return;
+			throw new JwtException(ResponseMsgEnum.JWT_ACCESS_NULL);
 		}
 
 		// username, role 값을 획득
