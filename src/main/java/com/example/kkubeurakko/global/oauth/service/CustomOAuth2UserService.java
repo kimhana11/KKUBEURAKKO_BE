@@ -6,9 +6,9 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.example.kkubeurakko.domain.user.entity.User;
-import com.example.kkubeurakko.domain.user.entity.UserRole;
-import com.example.kkubeurakko.domain.user.repository.UserRepository;
+import com.example.kkubeurakko.domain.user.User;
+import com.example.kkubeurakko.domain.user.UserRole;
+import com.example.kkubeurakko.domain.user.UserRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 import com.example.kkubeurakko.global.oauth.dto.KakaoResponse;
 import com.example.kkubeurakko.global.oauth.dto.OAuth2Response;
