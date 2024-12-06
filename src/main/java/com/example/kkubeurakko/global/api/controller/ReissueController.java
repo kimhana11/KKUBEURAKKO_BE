@@ -23,18 +23,13 @@ public class ReissueController {
 	// 첫 accessToken 발급 api
 	@PostMapping("/reissue")
 	public ResponseEntity<?> reissue(HttpServletRequest request) {
-		// 쿠키에서 리프레시 토큰 추출
-		try {
-			// Reissue service 호출
-			String newAccessToken = reissueService.reissue(request);
-			// 응답에 새로운 토큰 설정
-			HttpHeaders headers = new HttpHeaders();
-			headers.set("Authorization", newAccessToken);
-			return ResponseEntity.ok()
-				.headers(headers)
-				.body(new CommonResponse(200, "토큰이 재발급 되었습니다", null));
-		} catch (IllegalArgumentException e) {
-			return ResponseEntity.badRequest().body(new CommonResponse(500, "서버에러", null));
-		}
+		// Reissue service 호출
+		String newAccessToken = reissueService.reissue(request);
+		// 응답에 새로운 토큰 설정
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", newAccessToken);
+		return ResponseEntity.ok()
+			.headers(headers)
+			.body(new CommonResponse(200, "토큰이 재발급 되었습니다", null));
 	}
 }
