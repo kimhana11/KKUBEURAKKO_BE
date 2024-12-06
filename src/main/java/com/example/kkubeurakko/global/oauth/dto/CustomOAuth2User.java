@@ -2,6 +2,7 @@ package com.example.kkubeurakko.global.oauth.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -14,20 +15,17 @@ public class CustomOAuth2User implements OAuth2User {
 	}
 	@Override
 	public Map<String, Object> getAttributes() {
-
-		return null;
+		return Map.of(
+			"email", userDto.getEmail(),
+			"nickname", userDto.getNickname(),
+			"userNumber", userDto.getUserNumber(),
+			"role", userDto.getRole().toString()
+		);
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> collection = new ArrayList<>();
-		collection.add(new GrantedAuthority() {
-			@Override
-			public String getAuthority() {
-				return userDto.getRole().toString();
-			}
-		});
-		return collection;
+		return List.of((GrantedAuthority) () -> userDto.getRole().toString());
 	}
 
 	@Override

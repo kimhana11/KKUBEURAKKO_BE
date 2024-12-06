@@ -63,7 +63,7 @@ public class ReissueService {
 		refreshTokenRepository.save(refreshToken);
 	}
 
-	private String getRefreshTokenFromCookies(HttpServletRequest request) {
+	public String getRefreshTokenFromCookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			return null;
@@ -90,7 +90,7 @@ public class ReissueService {
 		}
 	}
 
-	private void isExistRefreshToken(String refresh){
+	public void isExistRefreshToken(String refresh){
 		Boolean isExist = refreshTokenRepository.existsByRefresh(refresh);
 		if (!isExist) {
 			throw new RuntimeException();

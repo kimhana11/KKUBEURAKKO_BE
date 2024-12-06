@@ -42,13 +42,13 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		GrantedAuthority auth = iterator.next();
 		String role = auth.getAuthority();
 
-		String access = jwtUtil.createJwt("access", userNumber, role, 60*60*60L);
+		// String access = jwtUtil.createJwt("access", userNumber, role, 60*60*60L);
 		String refresh = jwtUtil.createJwt("refresh", userNumber, role, 60*60*2400L);
 		reissueService.saveRefreshToken(userNumber, refresh, 86400000L);
 
-		response.setHeader("Authorization", access);
+		// response.setHeader("Authorization", access);
 		response.addCookie(createCookie("Authorization", refresh));
-		response.sendRedirect("http://localhost:3000/");
+		response.sendRedirect("http://localhost:3000/?redirectedFromSocialLogin=true");
 	}
 
 	private Cookie createCookie(String key, String value) {
