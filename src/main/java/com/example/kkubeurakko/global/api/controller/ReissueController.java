@@ -1,12 +1,13 @@
 package com.example.kkubeurakko.global.api.controller;
 
-import java.util.Map;
-
 import com.example.kkubeurakko.global.api.service.ReissueService;
+import com.example.kkubeurakko.global.common.CommonResponse;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,20 +20,21 @@ public class ReissueController {
 
 	// 리프레시 토큰으로 엑세스 토큰 재발급 api
 	// 예외처리 수정 예정
+	// 첫 accessToken 발급 api
 	@PostMapping("/reissue")
-	public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<?> reissue(HttpServletRequest request) {
 		// 쿠키에서 리프레시 토큰 추출
 		try {
 			// Reissue service 호출
-			Map<String, String> tokens = reissueService.reissue(request);
-
+			String newAccessToken = reissueService.reissue(request);
 			// 응답에 새로운 토큰 설정
-			response.setHeader("Authorization", tokens.get("access"));
-			response.addCookie(reissueService.createCookie("Authorization", tokens.get("refresh")));
-
-			return new ResponseEntity<>(HttpStatus.OK);
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("Authorization", newAccessToken);
+			return ResponseEntity.ok()
+				.headers(headers)
+				.body(new CommonResponse(200, "토큰이 재발급 되었습니다", null));
 		} catch (IllegalArgumentException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return ResponseEntity.badRequest().body(new CommonResponse(500, "서버에러", null));
 		}
 	}
 }
