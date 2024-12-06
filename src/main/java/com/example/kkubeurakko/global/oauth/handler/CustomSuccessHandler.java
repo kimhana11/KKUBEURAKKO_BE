@@ -46,7 +46,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		saveRefreshToken(userNumber, refresh, 86400000L);
 
 		response.addCookie(createCookie("Authorization", refresh));
-		response.sendRedirect("http://localhost:3000/?redirectedFromSocialLogin=ture");
+		response.sendRedirect("http://localhost:3000/?redirectedFromSocialLogin=true");
 	}
 
 	private Cookie createCookie(String key, String value) {
