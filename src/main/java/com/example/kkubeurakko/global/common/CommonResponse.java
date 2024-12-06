@@ -1,10 +1,9 @@
-package com.example.kkubeurakko.api;
+package com.example.kkubeurakko.global.common;
 
 import org.springframework.http.HttpStatus;
 
 public record CommonResponse(
 	int code,
-	HttpStatus httpStatus,
 	String message,
 	Object data
 ) {
