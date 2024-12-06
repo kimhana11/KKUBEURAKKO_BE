@@ -26,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	private final JwtUtil jwtUtil;
 	private final ReissueService reissueService;
+	private final RefreshTokenRepository refreshTokenRepository;
 	@Override
 	public void onAuthenticationSuccess(
 		HttpServletRequest request,
@@ -42,7 +43,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		GrantedAuthority auth = iterator.next();
 		String role = auth.getAuthority();
 		String refresh = jwtUtil.createJwt("refresh", userNumber, role, 60*60*2400L);
-		reissueService.saveRefreshToken(userNumber, refresh, 86400000L);
+		saveRefreshToken(userNumber, refresh, 86400000L);
 
 		response.addCookie(createCookie("Authorization", refresh));
 		response.sendRedirect("http://localhost:3000/?redirectedFromSocialLogin=ture");
@@ -57,6 +58,17 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		cookie.setHttpOnly(true);		//js가 쿠키 가져가지 못하도록
 
 		return cookie;
+	}
+
+	private void saveRefreshToken(String userNumber, String refresh, Long expiredMs){
+		Date date = new Date(System.currentTimeMillis() + expiredMs);
+		RefreshToken refreshToken = RefreshToken.builder()
+			.userNumber(userNumber)
+			.refresh(refresh)
+			.expiration(date.toString())
+			.build();
+
+		refreshTokenRepository.save(refreshToken);
 	}
 
 }
