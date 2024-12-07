@@ -4,12 +4,11 @@ import com.example.kkubeurakko.global.api.service.ReissueService;
 import com.example.kkubeurakko.global.common.CommonResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,7 +20,7 @@ public class ReissueController {
 	// 리프레시 토큰으로 엑세스 토큰 재발급 api
 	// 예외처리 수정 예정
 	// 첫 accessToken 발급 api
-	@PostMapping("/reissue")
+	@GetMapping("/reissue")
 	public ResponseEntity<?> reissue(HttpServletRequest request) {
 		// Reissue service 호출
 		String newAccessToken = reissueService.reissue(request);
