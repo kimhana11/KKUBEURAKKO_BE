@@ -2,6 +2,7 @@ package com.example.kkubeurakko.global.oauth.handler;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.springframework.security.core.Authentication;
@@ -9,7 +10,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.example.kkubeurakko.global.api.service.ReissueService;
 import com.example.kkubeurakko.global.jwt.JwtUtil;
+import com.example.kkubeurakko.global.jwt.RefreshToken;
+import com.example.kkubeurakko.global.jwt.RefreshTokenRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import jakarta.servlet.ServletException;
@@ -21,7 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	private final JwtUtil jwtUtil;
-
+	private final ReissueService reissueService;
+	private final RefreshTokenRepository refreshTokenRepository;
 	@Override
 	public void onAuthenticationSuccess(
 		HttpServletRequest request,
@@ -37,11 +42,11 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
 		GrantedAuthority auth = iterator.next();
 		String role = auth.getAuthority();
+		String refresh = jwtUtil.createJwt("refresh", userNumber, role, 60*60*2400L);
+		saveRefreshToken(userNumber, refresh, 86400000L);
 
-		String token = jwtUtil.createJwt(userNumber, role, 60*60*60L);
-
-		response.addCookie(createCookie("Authorization", token));
-		response.sendRedirect("http://localhost:3000/");
+		response.addCookie(createCookie("Authorization", refresh));
+		response.sendRedirect("http://localhost:3000/?redirectedFromSocialLogin=true");
 	}
 
 	private Cookie createCookie(String key, String value) {
@@ -53,6 +58,17 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		cookie.setHttpOnly(true);		//js가 쿠키 가져가지 못하도록
 
 		return cookie;
+	}
+
+	private void saveRefreshToken(String userNumber, String refresh, Long expiredMs){
+		Date date = new Date(System.currentTimeMillis() + expiredMs);
+		RefreshToken refreshToken = RefreshToken.builder()
+			.userNumber(userNumber)
+			.refresh(refresh)
+			.expiration(date.toString())
+			.build();
+
+		refreshTokenRepository.save(refreshToken);
 	}
 
 }

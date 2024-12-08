@@ -1,6 +1,6 @@
 package com.example.kkubeurakko.global.oauth.dto;
 
-import com.example.kkubeurakko.domain.user.entity.UserRole;
+import com.example.kkubeurakko.domain.user.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
