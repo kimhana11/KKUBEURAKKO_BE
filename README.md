@@ -18,3 +18,12 @@ https://www.erdcloud.com/d/NSHRJKDaXjERp2FPf
 
  - api
  > controller에서 받는 request와 service용 request는 분리
+
+## 응답코드
+ - BAD
+
+|제목|내용|설명|
+|------|---|---|
+|506|콘텐츠 없음|조회된 데이터가 없음|
+|테스트1|테스트2|테스트3|
+|테스트1|테스트2|테스트3|
