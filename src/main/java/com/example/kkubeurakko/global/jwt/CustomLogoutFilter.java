@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.GenericFilterBean;
+
+import com.example.kkubeurakko.global.common.ResponseMsgEnum;
+import com.example.kkubeurakko.global.exception.JwtException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -47,7 +48,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
 		try {
 			// 2. Refresh 토큰 추출
 			String refreshToken = extractRefreshToken(request)
-				.orElseThrow(() -> new IllegalArgumentException("Refresh token is missing"));
+				.orElseThrow(() -> new JwtException(ResponseMsgEnum.JWT_REFRESH_NULL));
 
 			// 3. Refresh 토큰 검증
 			validateRefreshToken(refreshToken);
@@ -56,7 +57,12 @@ public class CustomLogoutFilter extends GenericFilterBean {
 			performLogout(refreshToken, response);
 
 			// 5. 성공 응답 반환
-			response.setStatus(HttpServletResponse.SC_OK);
+
+			response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+			response.setHeader("Access-Control-Allow-Credentials", "true");
+			response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+
 			log.info("Logout successful for refresh token: {}", refreshToken);
 		} catch (IllegalArgumentException | ExpiredJwtException e) {
 			log.error("Logout failed: {}", e.getMessage());

@@ -6,6 +6,7 @@ import com.example.kkubeurakko.domain.cart.Cart;
 import com.example.kkubeurakko.domain.coupon.UserCoupon;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -46,6 +47,7 @@ public class User extends BaseEntity {
     private Cart cart;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Order> orders = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")

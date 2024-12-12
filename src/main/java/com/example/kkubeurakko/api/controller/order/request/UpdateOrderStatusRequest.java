@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class UpdateOrderStatusRequest {
-    private Long id;
+    private Long orderId;
     private String status;
     private int estimatedMinutes;
 }

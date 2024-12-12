@@ -42,9 +42,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		//
 		// 	oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
 		// }
-		else {
-			return null;
-		}
 		String userNumber = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 		String email = oAuth2Response.getEmail();
 		String nickname = oAuth2Response.getNickname();
