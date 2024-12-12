@@ -2,7 +2,8 @@ package com.example.kkubeurakko.domain.order;
 
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.review.Review;
-import com.example.kkubeurakko.domain.user.entity.User;
+import com.example.kkubeurakko.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.util.*;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
@@ -36,6 +37,7 @@ public class Order extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
+    @JsonBackReference
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -61,9 +63,8 @@ public class Order extends BaseEntity {
         this.user = user;
         this.orderItems = orderItems;
         this.guestOrder = guestOrder;
-
     }
-    // 주문 상태 변경 메서드
+
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }

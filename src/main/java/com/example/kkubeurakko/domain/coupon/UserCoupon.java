@@ -1,6 +1,6 @@
 package com.example.kkubeurakko.domain.coupon;
 
-import com.example.kkubeurakko.domain.user.entity.User;
+import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

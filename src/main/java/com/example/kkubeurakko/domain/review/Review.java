@@ -2,7 +2,7 @@ package com.example.kkubeurakko.domain.review;
 
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.order.Order;
-import com.example.kkubeurakko.domain.user.entity.User;
+import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
