@@ -20,14 +20,12 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String type;
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
     private LocalDateTime estimatedCompletionTime;
     private String storeRequests;
     private String deliveryInstructions;
-    private String addressLine;
-    private String postalCode;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod; // 결제 수단
@@ -49,21 +47,6 @@ public class Order extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "guest_order_id", nullable = true)
     private GuestOrder guestOrder;
-
-    @Builder
-    public Order(BigDecimal totalAmount,LocalDateTime orderDate, String storeRequests,String deliveryInstructions,
-                 String addressLine,String postalCode, PaymentMethod paymentMethod, User user, List<OrderItem> orderItems,GuestOrder guestOrder){
-        this.totalAmount = totalAmount;
-        this.orderDate = orderDate;
-        this.storeRequests =  storeRequests;
-        this.deliveryInstructions = deliveryInstructions;
-        this.addressLine = addressLine;
-        this.postalCode = postalCode;
-        this.paymentMethod = paymentMethod;
-        this.user = user;
-        this.orderItems = orderItems;
-        this.guestOrder = guestOrder;
-    }
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
