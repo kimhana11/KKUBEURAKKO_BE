@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.kkubeurakko.global.common.CommonResponse;
 
-@RestControllerAdvice(basePackages = "com.example.kkubeurakko.api")
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler({GlobalException.class})
 	protected ResponseEntity<CommonResponse> apiExceptionHandler(GlobalException globalException){
