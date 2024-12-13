@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.exception;
+package com.example.kkubeurakko.global.exception;
 
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
 
@@ -7,6 +7,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ApiException extends RuntimeException{
-	private BadResponseMsgEnum apiExceptionCode;
+public class GlobalException extends RuntimeException{
+	private BadResponseMsgEnum globalExceptionCode;
 }
