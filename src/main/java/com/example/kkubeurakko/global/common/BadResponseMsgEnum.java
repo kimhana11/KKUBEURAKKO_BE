@@ -7,8 +7,12 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BadResponseMsgEnum {
 	//조회시 null 506
+
+	//
+	USER_NOT_FOUND(506, "조회된 유저가 없습니다."),
+
 	//주소 관련 응답
-	ADDRESS_NULL(506, "조회된 주소가 없습니다."),
+	ADDRESS_NOT_FOUND(506, "조회된 주소가 없습니다."),
 
 	//
 	JWT_ACCESS_EXPIRED(401, "access토큰이 만료되었습니다."),
