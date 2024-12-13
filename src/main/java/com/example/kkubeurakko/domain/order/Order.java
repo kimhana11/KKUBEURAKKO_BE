@@ -20,7 +20,7 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String type;
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
     private LocalDateTime estimatedCompletionTime;
