@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.example.kkubeurakko.api.user.UserNotFoundException;
 import com.example.kkubeurakko.domain.user.User;
 import com.example.kkubeurakko.domain.user.UserRole;
 import com.example.kkubeurakko.domain.user.UserRepository;
@@ -45,21 +46,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		String userNumber = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 		String email = oAuth2Response.getEmail();
 		String nickname = oAuth2Response.getNickname();
-		User existUser = userRepository.findByUserNumber(userNumber);
-		if(existUser == null){
-			User user = User.builder()
-				.userNumber(userNumber)
-				.email(email)
-				.nickname(nickname)
-				.role(UserRole.CUSTOMER)
-				.build();
+		try{
+			User existUser = userRepository.findByUserNumber(userNumber)
+				.orElseThrow(()-> new UserNotFoundException());
 
-			userRepository.save(user);
-			UserDto userDto = new UserDto(UserRole.CUSTOMER, nickname, email, userNumber);
-
-			return new CustomOAuth2User(userDto);
-		} else{
-			existUser = User.builder()
+			existUser = existUser.builder()
 				.nickname(nickname)			//닉네임 변경 가능성 염두
 				.build();
 			userRepository.save(existUser);
@@ -72,7 +63,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			);
 
 			return new CustomOAuth2User(userDto);
-		}
+		} catch (UserNotFoundException e){
+			User user = User.builder()
+				.userNumber(userNumber)
+				.email(email)
+				.nickname(nickname)
+				.role(UserRole.CUSTOMER)
+				.build();
 
+			userRepository.save(user);
+			UserDto userDto = new UserDto(UserRole.CUSTOMER, nickname, email, userNumber);
+
+			return new CustomOAuth2User(userDto);
+		}
 	}
 }
