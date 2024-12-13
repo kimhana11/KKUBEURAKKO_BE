@@ -14,7 +14,7 @@ import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.address.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
 import com.example.kkubeurakko.domain.user.UserRepository;
-import com.example.kkubeurakko.exception.ApiException;
+import com.example.kkubeurakko.global.exception.GlobalException;
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
@@ -31,7 +31,7 @@ public class AddressService {
 	public List<AddressResponse> findAddressAll(CustomOAuth2User customOAuth2User){
 		User user = findUser(customOAuth2User);
 		List<Address> addressList = addressRepository.findAllByUser(user)
-			.orElseThrow(()-> new ApiException(BadResponseMsgEnum.ADDRESS_NULL));
+			.orElseThrow(()-> new GlobalException(BadResponseMsgEnum.ADDRESS_NULL));
 
 		List<AddressResponse> addressResponseList = addressMapper.addressListToAddressResponseList(addressList);
 		return addressResponseList;
@@ -51,7 +51,7 @@ public class AddressService {
 	@Transactional
 	public void updateAddress(CustomOAuth2User customOAuth2User, Long addressId, AddressRequest addressRequest){
 		Address address = addressRepository.findById(addressId)
-			.orElseThrow(()-> new ApiException(BadResponseMsgEnum.ADDRESS_NULL));
+			.orElseThrow(()-> new GlobalException(BadResponseMsgEnum.ADDRESS_NULL));
 		User user = findUser(customOAuth2User);
 
 		if(addressRequest.isPrimary() && !address.getIsPrimary()){
@@ -62,7 +62,7 @@ public class AddressService {
 
 	public void deleteAddress(Long addressId){
 		if(!addressRepository.existsById(addressId)){
-			throw new ApiException(BadResponseMsgEnum.ADDRESS_NULL);
+			throw new GlobalException(BadResponseMsgEnum.ADDRESS_NULL);
 		}
 		addressRepository.deleteById(addressId);
 	}
@@ -73,7 +73,7 @@ public class AddressService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updatePrimary(User user){
 		Address address = addressRepository.findPrimaryAddressByUser(user)
-			.orElseThrow(()->new ApiException(BadResponseMsgEnum.ADDRESS_NULL));
+			.orElseThrow(()->new GlobalException(BadResponseMsgEnum.ADDRESS_NULL));
 		address.updatePrimary(!address.getIsPrimary());
 	}
 
