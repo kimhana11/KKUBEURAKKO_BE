@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.api.address.service.response;
+package com.example.kkubeurakko.api.address.controller.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
