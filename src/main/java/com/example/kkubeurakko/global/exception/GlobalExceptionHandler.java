@@ -9,7 +9,7 @@ import com.example.kkubeurakko.global.common.CommonResponse;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler({GlobalException.class})
-	protected ResponseEntity<CommonResponse> apiExceptionHandler(GlobalException globalException){
+	protected ResponseEntity<CommonResponse> globalExceptionHandler(GlobalException globalException){
 		return ResponseEntity.internalServerError().body(
 			new CommonResponse(
 				globalException.getGlobalExceptionCode().getCode(),
