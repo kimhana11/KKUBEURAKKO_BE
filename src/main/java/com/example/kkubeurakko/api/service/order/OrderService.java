@@ -1,5 +1,7 @@
 package com.example.kkubeurakko.api.service.order;
 
+import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
+import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderRepository;
 import com.example.kkubeurakko.domain.order.OrderStatus;
@@ -13,8 +15,9 @@ import java.time.LocalDateTime;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
-    public Order updateOrderStatus(Long id, String newStatus,Integer estimatedMinutes) {
+    public OrderResponseDTO updateOrderStatus(Long id, String newStatus, Integer estimatedMinutes) {
         // 주문 ID로 주문 찾기
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("주문을 찾을 수 없습니다."));
@@ -29,7 +32,8 @@ public class OrderService {
             order.setEstimatedCompletionTime(order.getEstimatedCompletionTime());
         }
         order.setOrderStatus(status);
-        return orderRepository.save(order);
+        orderRepository.save(order);
+        return orderMapper.toOrderResponseDTO(order);
     }
 
 
