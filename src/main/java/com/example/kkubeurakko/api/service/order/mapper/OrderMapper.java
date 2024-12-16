@@ -10,7 +10,7 @@ import org.mapstruct.Named;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {MenuMapper.class})
+@Mapper(componentModel = "spring")
 public interface OrderMapper {
 
     @Mapping(target = "isMember", expression = "java(order.getUser() != null)")
