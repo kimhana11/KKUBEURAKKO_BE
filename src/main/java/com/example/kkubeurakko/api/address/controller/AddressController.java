@@ -39,6 +39,14 @@ public class AddressController {
 		return ResponseEntity.status(HttpStatus.OK).body(addressList);
 	}
 
+	//기본 주소 조회 api
+	public ResponseEntity<AddressResponse> findPrimaryAddress(
+		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
+	){
+		AddressResponse addressResponse = addressService.findPrimaryAddress(customOAuth2User);
+		return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
+	}
+
 	// 주소 저장 api
 	@PostMapping("")
 	public ResponseEntity<CommonResponse> saveAddress(

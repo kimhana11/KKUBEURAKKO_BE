@@ -37,6 +37,17 @@ public class AddressService {
 		return addressResponseList;
 	}
 
+	//기본 배송지 조회 메서드
+	//주문 창에서 사용하도록 구현
+	public AddressResponse findPrimaryAddress(CustomOAuth2User customOAuth2User){
+		User user = findUser(customOAuth2User);
+		Address address = addressRepository.findPrimaryAddressByUser(user)
+			.or(() -> addressRepository.findFirstByUserOrderById(user))
+			.orElseThrow(() -> new AddressNotFoundException());
+
+		return addressMapper.addressToAddressResponse(address);
+	}
+
 	//배송지 저장 메서드
 	public void saveAddress(CustomOAuth2User customOAuth2User, AddressRequest addressRequest){
 		User user = findUser(customOAuth2User);
