@@ -57,7 +57,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
-    //valid
+    // valid
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
