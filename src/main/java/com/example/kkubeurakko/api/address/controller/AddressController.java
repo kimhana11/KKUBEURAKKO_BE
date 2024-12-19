@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,7 +42,7 @@ public class AddressController {
 	@PostMapping("")
 	public ResponseEntity<CommonResponse> saveAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-		AddressRequest addressRequest
+		@RequestBody AddressRequest addressRequest
 	){
 		addressService.saveAddress(customOAuth2User, addressRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -58,7 +59,7 @@ public class AddressController {
 	public ResponseEntity<CommonResponse> updateAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@PathVariable(name = "addressId") Long addressId,
-		AddressRequest addressRequest
+		@RequestBody AddressRequest addressRequest
 	){
 		addressService.updateAddress(customOAuth2User, addressId, addressRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(
