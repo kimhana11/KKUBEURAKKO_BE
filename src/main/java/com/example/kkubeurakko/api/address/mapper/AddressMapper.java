@@ -9,7 +9,7 @@ import com.example.kkubeurakko.api.address.controller.response.AddressResponse;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.user.User;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface AddressMapper {
 	AddressResponse addressToAddressResponse(Address address);
 	Address addressRequestToAddress(AddressRequest addressRequest, User user);
