@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kkubeurakko.api.address.controller.request.AddressRequest;
 import com.example.kkubeurakko.api.address.controller.response.AddressResponse;
+import com.example.kkubeurakko.api.address.exception.AddressNotFoundException;
 import com.example.kkubeurakko.api.address.mapper.AddressMapper;
+import com.example.kkubeurakko.api.user.UserNotFoundException;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.address.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
 import com.example.kkubeurakko.domain.user.UserRepository;
-import com.example.kkubeurakko.global.exception.GlobalException;
-import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class AddressService {
 	public List<AddressResponse> findAddressAll(CustomOAuth2User customOAuth2User){
 		User user = findUser(customOAuth2User);
 		List<Address> addressList = addressRepository.findAllByUser(user)
-			.orElseThrow(()-> new GlobalException(BadResponseMsgEnum.ADDRESS_NULL));
+			.orElseThrow(()-> new AddressNotFoundException());
 
 		List<AddressResponse> addressResponseList = addressMapper.addressListToAddressResponseList(addressList);
 		return addressResponseList;
@@ -40,7 +40,7 @@ public class AddressService {
 	//배송지 저장 메서드
 	public void saveAddress(CustomOAuth2User customOAuth2User, AddressRequest addressRequest){
 		User user = findUser(customOAuth2User);
-		if(addressRequest.isPrimary()){
+		if(addressRepository.existsByUser(user) && addressRequest.isPrimary()){
 			updatePrimary(user);
 		}
 		Address address = addressMapper.addressRequestToAddress(addressRequest, user);
@@ -51,7 +51,7 @@ public class AddressService {
 	@Transactional
 	public void updateAddress(CustomOAuth2User customOAuth2User, Long addressId, AddressRequest addressRequest){
 		Address address = addressRepository.findById(addressId)
-			.orElseThrow(()-> new GlobalException(BadResponseMsgEnum.ADDRESS_NULL));
+			.orElseThrow(()-> new AddressNotFoundException());
 		User user = findUser(customOAuth2User);
 
 		if(addressRequest.isPrimary() && !address.getIsPrimary()){
@@ -62,7 +62,7 @@ public class AddressService {
 
 	public void deleteAddress(Long addressId){
 		if(!addressRepository.existsById(addressId)){
-			throw new GlobalException(BadResponseMsgEnum.ADDRESS_NULL);
+			throw new AddressNotFoundException();
 		}
 		addressRepository.deleteById(addressId);
 	}
@@ -73,12 +73,13 @@ public class AddressService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updatePrimary(User user){
 		Address address = addressRepository.findPrimaryAddressByUser(user)
-			.orElseThrow(()->new GlobalException(BadResponseMsgEnum.ADDRESS_NULL));
+			.orElseThrow(()->new AddressNotFoundException());
 		address.updatePrimary(!address.getIsPrimary());
 	}
 
 	private User findUser(CustomOAuth2User customOAuth2User){
 		String userNumber = customOAuth2User.getUserNumber();
-		return userRepository.findByUserNumber(userNumber);
+		return userRepository.findByUserNumber(userNumber)
+			.orElseThrow(()-> new UserNotFoundException());
 	}
 }
