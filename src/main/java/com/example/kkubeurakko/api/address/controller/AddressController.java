@@ -21,6 +21,7 @@ import com.example.kkubeurakko.global.common.CommonResponse;
 import com.example.kkubeurakko.global.common.ResponseMsgEnum;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -42,7 +43,7 @@ public class AddressController {
 	@PostMapping("")
 	public ResponseEntity<CommonResponse> saveAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
-		@RequestBody AddressRequest addressRequest
+		@Valid @RequestBody AddressRequest addressRequest
 	){
 		addressService.saveAddress(customOAuth2User, addressRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -59,7 +60,7 @@ public class AddressController {
 	public ResponseEntity<CommonResponse> updateAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@PathVariable(name = "addressId") Long addressId,
-		@RequestBody AddressRequest addressRequest
+		@Valid @RequestBody AddressRequest addressRequest
 	){
 		addressService.updateAddress(customOAuth2User, addressId, addressRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(
