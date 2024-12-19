@@ -1,11 +1,15 @@
 package com.example.kkubeurakko.api.controller.order.response;
 
+import com.example.kkubeurakko.domain.order.OrderStatus;
+import com.example.kkubeurakko.domain.order.PaymentMethod;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Accessors(fluent = false)// Lombok이 표준 Getter/Setter를 생성하도록 설정
 public class OrderResponseDTO {
     private Long id;
     private boolean isMember;

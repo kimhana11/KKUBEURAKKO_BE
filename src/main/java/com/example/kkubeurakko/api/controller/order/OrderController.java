@@ -1,6 +1,7 @@
 package com.example.kkubeurakko.api.controller.order;
 
 import com.example.kkubeurakko.api.controller.order.request.UpdateOrderStatusRequest;
+import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
 import com.example.kkubeurakko.api.service.order.OrderService;
 import com.example.kkubeurakko.domain.order.Order;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,8 @@ public class OrderController {
 
 
     @MessageMapping("/start")
-    public ResponseEntity<Order> updateOrderStatus(@Payload UpdateOrderStatusRequest request) {
-        Order updatedOrder = orderService.updateOrderStatus(request.getOrderId(), request.getStatus(), request.getEstimatedMinutes());
+    public ResponseEntity<OrderResponseDTO> updateOrderStatus(@Payload UpdateOrderStatusRequest request) {
+        OrderResponseDTO updatedOrder = orderService.updateOrderStatus(request.getOrderId(), request.getStatus(), request.getEstimatedMinutes());
         messagingTemplate.convertAndSend("/topic/orders/" + request.getOrderId(), updatedOrder); // 상태 변경을 실시간으로 전송
         return ResponseEntity.ok().build();
     }
