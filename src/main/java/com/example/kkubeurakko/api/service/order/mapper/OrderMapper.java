@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
 
-    @Mapping(target = "isMember", expression = "java(order.getUser() != null)")
+    @Mapping(target = "member", expression = "java(order.getUser() != null)")
     @Mapping(target = "nickname", expression = "java(order.getUser() != null ? order.getUser().getNickname() : null)")
     @Mapping(target = "phone", expression = "java(order.getUser() != null ? order.getUser().getPhone() : order.getGuestOrder().getGuestContact())")
     @Mapping(target = "type", source = "orderType")
     @Mapping(target = "orderDate", expression = "java(order.getOrderDate().toLocalTime().toString())")
-    @Mapping(target = "paymentMethod", source = "paymentMethod.name")
-    @Mapping(target = "orderStatus", source = "orderStatus.name")
+    @Mapping(target = "paymentMethod", source = "paymentMethod")
+    @Mapping(target = "orderStatus", source = "orderStatus")
     @Mapping(target = "roadName", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getRoadName() : null)")
     @Mapping(target = "detailedAddress", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getDetailedAddress() : null)")
     @Mapping(target = "postalCode", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getPostalCode() : null)")
