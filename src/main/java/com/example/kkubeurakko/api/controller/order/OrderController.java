@@ -10,12 +10,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +28,13 @@ public class OrderController {
         OrderResponseDTO updatedOrder = orderService.updateOrderStatus(request.getOrderId(), request.getStatus(), request.getEstimatedMinutes());
         messagingTemplate.convertAndSend("/topic/orders/" + request.getOrderId(), updatedOrder); // 상태 변경을 실시간으로 전송
         return ResponseEntity.ok().build();
+    }
+
+
+    // 여러 주문 반환
+    @GetMapping("/api/orders")
+    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
+        List<OrderResponseDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 }

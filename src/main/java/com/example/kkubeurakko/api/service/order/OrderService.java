@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +38,11 @@ public class OrderService {
         return orderMapper.toOrderResponseDTO(order);
     }
 
+    public List<OrderResponseDTO> getAllOrders() {
+        List<Order> orders = orderRepository.findAll(); // 모든 주문 가져오기
+        return orders.stream()
+                .map(orderMapper::toOrderResponseDTO) // Order를 OrderResponseDTO로 변환
+                .collect(Collectors.toList());
+    }
 
 }
