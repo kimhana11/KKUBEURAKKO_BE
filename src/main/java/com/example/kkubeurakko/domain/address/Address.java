@@ -1,6 +1,6 @@
 package com.example.kkubeurakko.domain.address;
 
-import com.example.kkubeurakko.api.address.controller.request.AddressRequest;
+import com.example.kkubeurakko.api.controller.address.request.AddressRequest;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
