@@ -31,8 +31,8 @@ public class AddressController {
 	private final AddressService addressService;
 
 	// 모든 주소 조회 API
-	@GetMapping("")
-	public ResponseEntity<List<AddressResponse>> getAllAddresses(
+	@GetMapping("/list")
+	public ResponseEntity<List<AddressResponse>> listAddresses(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	) {
 		List<AddressResponse> addressList = addressService.findAddressAll(customOAuth2User);
@@ -49,7 +49,7 @@ public class AddressController {
 	}
 
 	// 주소 추가 API
-	@PostMapping("")
+	@PostMapping("/create")
 	public ResponseEntity<CommonResponse> createAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@Valid @RequestBody AddressRequest addressRequest
@@ -65,7 +65,7 @@ public class AddressController {
 	}
 
 	// 주소 수정 API
-	@PutMapping("/{addressId}")
+	@PutMapping("/update/{addressId}")
 	public ResponseEntity<CommonResponse> updateAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@PathVariable(name = "addressId") Long addressId,
@@ -82,7 +82,7 @@ public class AddressController {
 	}
 
 	// 주소 삭제 API
-	@DeleteMapping("/{addressId}")
+	@DeleteMapping("/delete/{addressId}")
 	public ResponseEntity<CommonResponse> deleteAddress(@PathVariable(name = "addressId") Long addressId) {
 		addressService.deleteAddress(addressId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(
@@ -94,3 +94,4 @@ public class AddressController {
 		);
 	}
 }
+
