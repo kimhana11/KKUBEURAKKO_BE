@@ -26,33 +26,34 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/address")
+@RequestMapping("/api/addresses")
 public class AddressController {
 	private final AddressService addressService;
 
-	//모든 주소 찾는 api
+	// 모든 주소 조회 API
 	@GetMapping("")
-	public ResponseEntity<List<AddressResponse>> findAddressAll(
+	public ResponseEntity<List<AddressResponse>> getAllAddresses(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
-	){
+	) {
 		List<AddressResponse> addressList = addressService.findAddressAll(customOAuth2User);
 		return ResponseEntity.status(HttpStatus.OK).body(addressList);
 	}
 
-	//기본 주소 조회 api
-	public ResponseEntity<AddressResponse> findPrimaryAddress(
+	// 기본 주소 조회 API
+	@GetMapping("/primary")
+	public ResponseEntity<AddressResponse> getPrimaryAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
-	){
+	) {
 		AddressResponse addressResponse = addressService.findPrimaryAddress(customOAuth2User);
 		return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
 	}
 
-	// 주소 저장 api
+	// 주소 추가 API
 	@PostMapping("")
-	public ResponseEntity<CommonResponse> saveAddress(
+	public ResponseEntity<CommonResponse> createAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@Valid @RequestBody AddressRequest addressRequest
-	){
+	) {
 		addressService.saveAddress(customOAuth2User, addressRequest);
 		return ResponseEntity.status(HttpStatus.CREATED).body(
 			new CommonResponse(
@@ -63,13 +64,13 @@ public class AddressController {
 		);
 	}
 
-	// 주소 수정 api
+	// 주소 수정 API
 	@PutMapping("/{addressId}")
 	public ResponseEntity<CommonResponse> updateAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@PathVariable(name = "addressId") Long addressId,
 		@Valid @RequestBody AddressRequest addressRequest
-	){
+	) {
 		addressService.updateAddress(customOAuth2User, addressId, addressRequest);
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
@@ -80,8 +81,9 @@ public class AddressController {
 		);
 	}
 
+	// 주소 삭제 API
 	@DeleteMapping("/{addressId}")
-	public ResponseEntity<CommonResponse> deleteAddress(@PathVariable(name = "addressId") Long addressId){
+	public ResponseEntity<CommonResponse> deleteAddress(@PathVariable(name = "addressId") Long addressId) {
 		addressService.deleteAddress(addressId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(
 			new CommonResponse(
