@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.api.address.controller;
+package com.example.kkubeurakko.api.controller.address;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.kkubeurakko.api.address.controller.request.AddressRequest;
-import com.example.kkubeurakko.api.address.controller.response.AddressResponse;
-import com.example.kkubeurakko.api.address.service.AddressService;
+import com.example.kkubeurakko.api.controller.address.request.AddressRequest;
+import com.example.kkubeurakko.api.controller.address.response.AddressResponse;
+import com.example.kkubeurakko.api.service.address.AddressService;
 import com.example.kkubeurakko.global.common.CommonResponse;
 import com.example.kkubeurakko.global.common.ResponseMsgEnum;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;

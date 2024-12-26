@@ -1,11 +1,11 @@
-package com.example.kkubeurakko.api.address.mapper;
+package com.example.kkubeurakko.api.service.address.mapper;
 
 import java.util.List;
 
 import org.mapstruct.Mapper;
 
-import com.example.kkubeurakko.api.address.controller.request.AddressRequest;
-import com.example.kkubeurakko.api.address.controller.response.AddressResponse;
+import com.example.kkubeurakko.api.controller.address.request.AddressRequest;
+import com.example.kkubeurakko.api.controller.address.response.AddressResponse;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.user.User;
 

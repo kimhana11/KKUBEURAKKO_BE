@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.api.address.controller.request;
+package com.example.kkubeurakko.api.controller.address.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

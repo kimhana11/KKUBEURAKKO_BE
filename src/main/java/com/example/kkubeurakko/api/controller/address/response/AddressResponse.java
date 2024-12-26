@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.api.address.controller.response;
+package com.example.kkubeurakko.api.controller.address.response;
 
 public record AddressResponse (
 	Long id,

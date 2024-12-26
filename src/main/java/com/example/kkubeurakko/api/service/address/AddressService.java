@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.api.address.service;
+package com.example.kkubeurakko.api.service.address;
 
 
 import java.util.List;
@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.kkubeurakko.api.address.controller.request.AddressRequest;
-import com.example.kkubeurakko.api.address.controller.response.AddressResponse;
-import com.example.kkubeurakko.api.address.exception.AddressNotFoundException;
-import com.example.kkubeurakko.api.address.mapper.AddressMapper;
-import com.example.kkubeurakko.api.user.UserNotFoundException;
+import com.example.kkubeurakko.api.controller.address.request.AddressRequest;
+import com.example.kkubeurakko.api.controller.address.response.AddressResponse;
+import com.example.kkubeurakko.api.exception.address.AddressNotFoundException;
+import com.example.kkubeurakko.api.service.address.mapper.AddressMapper;
+import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.address.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
