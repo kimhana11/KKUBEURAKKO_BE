@@ -3,8 +3,6 @@ package com.example.kkubeurakko.api.controller.order.response;
 import java.math.BigDecimal;
 import java.util.List;
 
-//@Data
-//@Accessors(fluent = false)
 public record OrderResponseDTO(
         Long id,
         boolean member,
