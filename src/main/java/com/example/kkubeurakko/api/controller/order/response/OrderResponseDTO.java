@@ -1,38 +1,29 @@
 package com.example.kkubeurakko.api.controller.order.response;
 
-import com.example.kkubeurakko.domain.order.OrderStatus;
-import com.example.kkubeurakko.domain.order.PaymentMethod;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
-@Accessors(fluent = false)// Lombok이 표준 Getter/Setter를 생성하도록 설정
-public class OrderResponseDTO {
-    private Long id;
-    private boolean member;
-    private String nickname;
-    private String phone;
-    private String type;
-    private BigDecimal totalAmount;
-    private String orderDate;
-    private String storeRequests;
-    private String deliveryInstructions;
-    private String paymentMethod;
-    private String orderStatus;
-    private String roadName;
-    private String detailedAddress;
-    private String postalCode;
-    private List<OrderItemDTO> orderItems;
+public record OrderResponseDTO(
+        Long id,
+        boolean member,
+        String nickname,
+        String phone,
+        String type,
+        BigDecimal totalAmount,
+        String orderDate,
+        String storeRequests,
+        String deliveryInstructions,
+        String paymentMethod,
+        String orderStatus,
+        String roadName,
+        String detailedAddress,
+        String postalCode,
+        List<OrderItemDTO> orderItems
+) {
 
-    @Data
-    public static class OrderItemDTO {
-        private String name;
-        private int quantity;
-        private List<String> options; // 선택된 옵션의 라벨들
-    }
+    public static record OrderItemDTO(
+            String name,
+            int quantity,
+            List<String> options // 선택된 옵션의 라벨들
+    ) {}
 }
