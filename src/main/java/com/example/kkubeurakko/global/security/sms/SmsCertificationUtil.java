@@ -11,7 +11,7 @@ import net.nurigo.sdk.message.service.DefaultMessageService;
 import jakarta.annotation.PostConstruct;
 
 @Component
-public class SmsCretificationUtil {
+public class SmsCertificationUtil {
 	@Value("${spring.coolsms.api-key}")
 	private String apiKey;
 	@Value("${spring.coolsms.api-secret}")
@@ -23,7 +23,7 @@ public class SmsCretificationUtil {
 
 	DefaultMessageService messageService; //메시지 서비스 객체
 
-	@PostConstruct // 의존성 주입이 완료된 후 초기화를 수행하는 메서드
+	@PostConstruct
 	public void init(){
 		this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, apiUrl);
 	}
