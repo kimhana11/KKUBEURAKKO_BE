@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.example.kkubeurakko.global.common.ResponseMsgEnum;
-import com.example.kkubeurakko.global.exception.JwtException;
+import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
+import com.example.kkubeurakko.global.exception.GlobalException;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -48,7 +48,7 @@ public class CustomLogoutFilter extends GenericFilterBean {
 		try {
 			// 2. Refresh 토큰 추출
 			String refreshToken = extractRefreshToken(request)
-				.orElseThrow(() -> new JwtException(ResponseMsgEnum.JWT_REFRESH_NULL));
+				.orElseThrow(() -> new GlobalException(BadResponseMsgEnum.JWT_REFRESH_NULL));
 
 			// 3. Refresh 토큰 검증
 			validateRefreshToken(refreshToken);
