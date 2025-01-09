@@ -43,8 +43,8 @@ public class SmsController {
 		smsService.verifyCode(smsVerify);
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
-				ResponseMsgEnum.SEND_CERTIFICATION_CODE_SUCCESS.getCode(),
-				ResponseMsgEnum.SEND_CERTIFICATION_CODE_SUCCESS.getResponseMsg(),
+				ResponseMsgEnum.VERIFY_CERTIFICATION_CODE_SUCCESS.getCode(),
+				ResponseMsgEnum.VERIFY_CERTIFICATION_CODE_SUCCESS.getResponseMsg(),
 				null
 			)
 		);
