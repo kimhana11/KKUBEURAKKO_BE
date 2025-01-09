@@ -5,6 +5,6 @@ import com.example.kkubeurakko.global.exception.GlobalException;
 
 public class SmsVerifyException extends GlobalException {
 	public SmsVerifyException(){
-		super(BadResponseMsgEnum.USER_NOT_FOUND);
+		super(BadResponseMsgEnum.SMS_CERTIFICATION_CODE_MISMATCH);
 	}
 }
