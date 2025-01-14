@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.global.api.controller;
+package com.example.kkubeurakko.global.api.controller.reissue;
 
 import com.example.kkubeurakko.global.api.service.ReissueService;
 import com.example.kkubeurakko.global.common.CommonResponse;
