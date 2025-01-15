@@ -19,7 +19,7 @@ public interface OrderMapper {
     @Mapping(target = "type", source = "orderType")
     @Mapping(target = "orderDate", expression = "java(order.getOrderDate().toLocalTime().toString())")
     @Mapping(target = "paymentMethod", expression = "java(order.getPaymentMethod().getText())")
-    @Mapping(target = "orderStatus", source = "orderStatus")
+    @Mapping(target = "orderStatus", expression = "java(order.getOrderStatus().getText())")
     @Mapping(target = "roadName", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getRoadName() : null)")
     @Mapping(target = "detailedAddress", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getDetailedAddress() : null)")
     @Mapping(target = "postalCode", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getPostalCode() : null)")
