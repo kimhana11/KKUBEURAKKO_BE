@@ -10,6 +10,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
+import com.example.kkubeurakko.domain.user.User;
+import com.example.kkubeurakko.domain.user.UserRepository;
 import com.example.kkubeurakko.global.api.service.ReissueService;
 import com.example.kkubeurakko.global.jwt.JwtUtil;
 import com.example.kkubeurakko.global.jwt.RefreshToken;
@@ -25,8 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	private final JwtUtil jwtUtil;
-	private final ReissueService reissueService;
 	private final RefreshTokenRepository refreshTokenRepository;
+	private final UserRepository userRepository;
 	@Override
 	public void onAuthenticationSuccess(
 		HttpServletRequest request,
@@ -45,13 +48,13 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 		String refresh = jwtUtil.createJwt("refresh", userNumber, role, 60*60*2400L);
 		saveRefreshToken(userNumber, refresh, 86400000L);
 
-		response.addCookie(createCookie("Authorization", refresh));
+		response.addCookie(createCookie(refresh));
 		response.sendRedirect("http://localhost:3000/?redirectedFromSocialLogin=true");
 	}
 
-	private Cookie createCookie(String key, String value) {
+	private Cookie createCookie(String value) {
 
-		Cookie cookie = new Cookie(key, value);
+		Cookie cookie = new Cookie("Authorization", value);
 		cookie.setMaxAge(60*60*60);
 		//cookie.setSecure(true);		https
 		cookie.setPath("/");
