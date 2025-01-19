@@ -37,13 +37,28 @@ public class SmsController {
 		);
 	}
 
-	//sms 인증번호 검사 api
-	@PostMapping("/api/sms/verify")
-	public ResponseEntity<CommonResponse> verifyCode(
+	//sms 인증번호 검사 api(회원용)
+	@PostMapping("/api/sms/verify/member")
+	public ResponseEntity<CommonResponse> verifyCodeForMember(
 		@RequestBody @Valid SmsVerify smsVerify,
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	){
-		smsService.verifyCode(smsVerify, customOAuth2User);
+		smsService.verifyCodeForMember(smsVerify, customOAuth2User);
+		return ResponseEntity.status(HttpStatus.OK).body(
+			new CommonResponse(
+				ResponseMsgEnum.VERIFY_CERTIFICATION_CODE_SUCCESS.getCode(),
+				ResponseMsgEnum.VERIFY_CERTIFICATION_CODE_SUCCESS.getResponseMsg(),
+				null
+			)
+		);
+	}
+
+	//sms 인증번호 검사 api (비회원용)
+	@PostMapping("/api/sms/verify/guest")
+	public ResponseEntity<CommonResponse> verifyCodeForGuest(
+		@RequestBody @Valid SmsVerify smsVerify
+	){
+		smsService.verifyCodeForGuest(smsVerify);
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
 				ResponseMsgEnum.VERIFY_CERTIFICATION_CODE_SUCCESS.getCode(),
