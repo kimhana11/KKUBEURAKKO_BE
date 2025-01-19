@@ -30,11 +30,11 @@ public class AddressService {
 	//모든 배송지 조회메서드
 	public List<AddressResponse> findAddressAll(CustomOAuth2User customOAuth2User){
 		User user = findUser(customOAuth2User);
-		List<Address> addressList = addressRepository.findAllByUser(user)
-			.orElseThrow(()-> new AddressNotFoundException());
-
-		List<AddressResponse> addressResponseList = addressMapper.addressListToAddressResponseList(addressList);
-		return addressResponseList;
+		List<Address> addressList = addressRepository.findAllByUser(user);
+		if(addressList == null){
+			return null;
+		}
+		return addressMapper.addressListToAddressResponseList(addressList);
 	}
 
 	//기본 배송지 조회 메서드
