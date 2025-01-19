@@ -23,6 +23,7 @@ public class SmsService {
 	private final SmsRepository smsRepository;
 	private final UserService userService;
 
+	//인증번호 생성 및 redis저장 메서드 호출하는 메서드
 	public void SendSms(SmsRequest smsRequest){
 		try{
 			String phoneNum = smsRequest.phoneNum();
@@ -34,15 +35,26 @@ public class SmsService {
 		}
 	}
 
-	public void verifyCode(SmsVerify smsVerify, CustomOAuth2User customOAuth2User){
-		if(isVerify(smsVerify.phoneNum(), smsVerify.certificationCode())){
-			smsRepository.deleteSmsCertification(smsVerify.phoneNum());
-			userService.saveUserPhone(smsVerify.phoneNum(), customOAuth2User);
-			log.info("sms 인증번호 삭제");
-		} else{
-			log.error("sms 인증 실패");
+	//회원 인증번호 검증 메서드
+	public void verifyCodeForMember(SmsVerify smsVerify, CustomOAuth2User customOAuth2User){
+		verifyPhone(smsVerify);
+		userService.saveUserPhone(smsVerify.phoneNum(), customOAuth2User);
+		log.info("사용자 전화번호 저장");
+	}
+
+	//비회원 인증번호 검증 메서드
+	public void verifyCodeForGuest(SmsVerify smsVerify){
+		verifyPhone(smsVerify);
+		log.info("비회원 인증 완료");
+	}
+
+	private void verifyPhone(SmsVerify smsVerify){
+		if(!isVerify(smsVerify.phoneNum(), smsVerify.certificationCode())){
+			log.error("인증 실패");
 			throw new SmsVerifyException();
 		}
+		smsRepository.deleteSmsCertification(smsVerify.phoneNum());
+		log.info("인증 성공");
 	}
 
 	private boolean isVerify(String phoneNum, String certificationCode){
