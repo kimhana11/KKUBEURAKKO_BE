@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.global.api.service.user;
+package com.example.kkubeurakko.api.service.user;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 	private final UserRepository userRepository;
 
+	//전화번호 저장이 필요한지(새로 가입하는 유저인지 확인)
+	public boolean checkExistsUserPhone(CustomOAuth2User customOAuth2User){
+		return userRepository.existsUserPhoneByUserNumber(customOAuth2User.getUserNumber());
+	}
+
+
 	//전화번호 인증 후 해당 유저의 전화번호 저장
 	@Transactional
-	public void saveUserPhone(String phone, Authentication authentication){
-		CustomOAuth2User customUserDetails = (CustomOAuth2User) authentication.getPrincipal();
-		String userNumber = customUserDetails.getUserNumber();
+	public void saveUserPhone(String phone, CustomOAuth2User customOAuth2User){
+		String userNumber = customOAuth2User.getUserNumber();
 		User user = userRepository.findByUserNumber(userNumber).orElseThrow(
 			() -> new UserNotFoundException()
 		);
