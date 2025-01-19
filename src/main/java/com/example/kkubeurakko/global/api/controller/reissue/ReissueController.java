@@ -21,7 +21,7 @@ public class ReissueController {
 	// 예외처리 수정 예정
 	// 첫 accessToken 발급 api
 	@GetMapping("/reissue")
-	public ResponseEntity<?> reissue(HttpServletRequest request) {
+	public ResponseEntity<CommonResponse> reissue(HttpServletRequest request) {
 		// Reissue service 호출
 		String newAccessToken = reissueService.reissue(request);
 		// 응답에 새로운 토큰 설정
