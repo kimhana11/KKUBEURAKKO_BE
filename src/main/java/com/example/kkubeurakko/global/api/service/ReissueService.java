@@ -32,7 +32,7 @@ public class ReissueService {
 		String userNumber = jwtUtil.getUserNumber(refresh);
 		String role = jwtUtil.getRole(refresh);
 		// 새로운 토큰 생성
-		String newAccess = jwtUtil.createJwt("access", userNumber, role, 60 * 60 * 60L);
+		String newAccess = jwtUtil.createJwt("access", userNumber, role, 60 * 60 * 1000L); //1시간으로 설정
 		return newAccess;
 	}
 
