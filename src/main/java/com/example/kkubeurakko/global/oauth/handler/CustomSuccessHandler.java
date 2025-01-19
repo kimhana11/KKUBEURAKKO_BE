@@ -4,21 +4,15 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
-import com.example.kkubeurakko.domain.user.User;
 import com.example.kkubeurakko.domain.user.UserRepository;
-import com.example.kkubeurakko.global.api.service.ReissueService;
 import com.example.kkubeurakko.global.jwt.JwtUtil;
 import com.example.kkubeurakko.global.jwt.RefreshToken;
 import com.example.kkubeurakko.global.jwt.RefreshTokenRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
