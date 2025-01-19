@@ -2,6 +2,7 @@ package com.example.kkubeurakko.global.api.controller.sms;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import com.example.kkubeurakko.global.api.controller.sms.request.SmsVerify;
 import com.example.kkubeurakko.global.api.service.sms.SmsService;
 import com.example.kkubeurakko.global.common.CommonResponse;
 import com.example.kkubeurakko.global.common.ResponseMsgEnum;
+import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +40,10 @@ public class SmsController {
 	//sms 인증번호 검사 api
 	@PostMapping("/api/sms/verify")
 	public ResponseEntity<CommonResponse> verifyCode(
-		@RequestBody @Valid SmsVerify smsVerify
+		@RequestBody @Valid SmsVerify smsVerify,
+		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	){
-		smsService.verifyCode(smsVerify);
+		smsService.verifyCode(smsVerify, customOAuth2User);
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
 				ResponseMsgEnum.VERIFY_CERTIFICATION_CODE_SUCCESS.getCode(),
