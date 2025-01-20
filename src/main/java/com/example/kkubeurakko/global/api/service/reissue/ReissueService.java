@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.global.api.service;
+package com.example.kkubeurakko.global.api.service.reissue;
 
 
 import com.example.kkubeurakko.domain.user.UserRole;

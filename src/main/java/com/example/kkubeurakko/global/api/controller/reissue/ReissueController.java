@@ -1,7 +1,7 @@
 package com.example.kkubeurakko.global.api.controller.reissue;
 
 import com.example.kkubeurakko.global.api.controller.reissue.request.GuestRequest;
-import com.example.kkubeurakko.global.api.service.ReissueService;
+import com.example.kkubeurakko.global.api.service.reissue.ReissueService;
 import com.example.kkubeurakko.global.common.CommonResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
