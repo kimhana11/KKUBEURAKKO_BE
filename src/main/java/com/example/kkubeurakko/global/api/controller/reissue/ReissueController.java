@@ -1,7 +1,7 @@
 package com.example.kkubeurakko.global.api.controller.reissue;
 
 import com.example.kkubeurakko.global.api.controller.reissue.request.GuestRequest;
-import com.example.kkubeurakko.global.api.service.reissue.ReissueServiceImpl;
+import com.example.kkubeurakko.global.api.service.reissue.ReissueService;
 import com.example.kkubeurakko.global.common.CommonResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ReissueController {
 
-	private final ReissueServiceImpl reissueServiceImpl;
+	private final ReissueService reissueService;
 
 	// 리프레시 토큰으로 엑세스 토큰 재발급 api
 	// 예외처리 수정 예정
@@ -27,7 +27,7 @@ public class ReissueController {
 	@GetMapping("/reissue")
 	public ResponseEntity<CommonResponse> reissue(HttpServletRequest request) {
 		// Reissue service 호출
-		String newAccessToken = reissueServiceImpl.reissue(request);
+		String newAccessToken = reissueService.reissue(request);
 		// 응답에 새로운 토큰 설정
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", newAccessToken);
@@ -40,7 +40,7 @@ public class ReissueController {
 	// 비회원은 리프레시 토큰이 없는 대신 만료시간이 짧도록 설정
 	@PostMapping("/reissue/guest")
 	public ResponseEntity<CommonResponse> reissueForGuest(@Valid @RequestBody GuestRequest guestRequest){
-		String guestAccessToken = reissueServiceImpl.reissueForGuest(guestRequest);
+		String guestAccessToken = reissueService.reissueForGuest(guestRequest);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", guestAccessToken);
 		return ResponseEntity.ok()
