@@ -22,6 +22,8 @@ public enum UserRole {
             return ADMIN;
         } else if ("CUSTOMER".equals(role)) {
             return CUSTOMER;
+        } else if ("GUEST".equals(role)) {
+            return GUEST;
         } else{
             throw new RuntimeException(); // 예외처리 로직 추가 예정
         }
