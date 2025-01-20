@@ -3,6 +3,7 @@ package com.example.kkubeurakko.global.api.service.reissue;
 
 import com.example.kkubeurakko.domain.user.UserRole;
 import com.example.kkubeurakko.global.api.controller.reissue.request.GuestRequest;
+import com.example.kkubeurakko.global.api.repository.guest.GuestRepository;
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
 import com.example.kkubeurakko.global.exception.GlobalException;
 import com.example.kkubeurakko.global.jwt.JwtUtil;
@@ -20,6 +21,7 @@ public class ReissueService {
 
 	private final JwtUtil jwtUtil;
 	private final RefreshTokenRepository refreshTokenRepository;
+	private final GuestRepository guestRepository;
 	public String reissue(HttpServletRequest request) {
 		// Refresh 토큰 가져오기
 		String refresh = getRefreshTokenFromCookies(request);
@@ -41,11 +43,12 @@ public class ReissueService {
 	public String reissueForGuest(GuestRequest guestRequest){
 
 		// 새로운 토큰 생성
-		String newAccess = jwtUtil.createJwt(
+		String newAccess = jwtUtil.createJwtForGuest(
 			"access",
 			guestRequest.phoneNum(),
 			UserRole.GUEST.toString(),
 			60 * 10 * 1000L); //10분으로 설정
+		guestRepository.createGuestInformation(guestRequest);
 		return newAccess;
 	}
 
