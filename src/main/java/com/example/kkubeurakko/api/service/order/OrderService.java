@@ -5,6 +5,7 @@ import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderRepository;
 import com.example.kkubeurakko.domain.order.OrderStatus;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
 
+    @Transactional
     public OrderResponseDTO updateOrderStatus(Long id, String newStatus, Integer estimatedMinutes) {
         // 주문 ID로 주문 찾기
         Order order = orderRepository.findById(id)

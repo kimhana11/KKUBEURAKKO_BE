@@ -11,6 +11,7 @@ public record OrderResponseDTO(
         String type,
         BigDecimal totalAmount,
         String orderDate,
+        String estimatedCompletionTime,
         String storeRequests,
         String deliveryInstructions,
         String paymentMethod,
