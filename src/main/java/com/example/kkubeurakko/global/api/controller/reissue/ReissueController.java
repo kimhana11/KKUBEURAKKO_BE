@@ -1,14 +1,18 @@
 package com.example.kkubeurakko.global.api.controller.reissue;
 
+import com.example.kkubeurakko.global.api.controller.reissue.request.GuestRequest;
 import com.example.kkubeurakko.global.api.service.ReissueService;
 import com.example.kkubeurakko.global.common.CommonResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,5 +34,17 @@ public class ReissueController {
 		return ResponseEntity.ok()
 			.headers(headers)
 			.body(new CommonResponse(200, "토큰이 재발급 되었습니다", null));
+	}
+
+	// 비회원용 엑세스 토큰 발급 및 재발급 api
+	// 비회원은 리프레시 토큰이 없는 대신 만료시간이 짧도록 설정
+	@PostMapping("/reissue/guest")
+	public ResponseEntity<CommonResponse> reissueForGuest(@Valid @RequestBody GuestRequest guestRequest){
+		String guestAccessToken = reissueService.reissueForGuest(guestRequest);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", guestAccessToken);
+		return ResponseEntity.ok()
+			.headers(headers)
+			.body(new CommonResponse(200, "비회원 토큰이 재발급 되었습니다", null));
 	}
 }
