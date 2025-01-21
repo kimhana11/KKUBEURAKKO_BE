@@ -4,7 +4,6 @@ package com.example.kkubeurakko.api.service.address;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kkubeurakko.api.controller.address.request.AddressRequest;
@@ -12,6 +11,7 @@ import com.example.kkubeurakko.api.controller.address.response.AddressResponse;
 import com.example.kkubeurakko.api.exception.address.AddressNotFoundException;
 import com.example.kkubeurakko.api.service.address.mapper.AddressMapper;
 import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
+import com.example.kkubeurakko.api.service.address.transaction.AddressTransactionService;
 import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.address.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
@@ -28,6 +28,7 @@ public class AddressService {
 	private final AddressRepository addressRepository;
 	private final UserRepository userRepository;
 	private final AddressMapper addressMapper;
+	private final AddressTransactionService addressTransactionService;
 
 	//모든 배송지 조회메서드
 	public List<AddressResponse> findAddressAll(CustomOAuth2User customOAuth2User){
@@ -54,7 +55,7 @@ public class AddressService {
 	public void saveAddress(CustomOAuth2User customOAuth2User, AddressRequest addressRequest){
 		User user = findUser(customOAuth2User);
 		if(addressRepository.existsByUser(user) && addressRequest.isPrimary()){
-			updatePrimary(user);
+			addressTransactionService.updatePrimary(user);
 		}
 		Address address = addressMapper.addressRequestToAddress(addressRequest, user);
 		addressRepository.save(address);
@@ -68,7 +69,7 @@ public class AddressService {
 		User user = findUser(customOAuth2User);
 
 		if(addressRequest.isPrimary() && !address.getIsPrimary()){
-			updatePrimary(user);
+			addressTransactionService.updatePrimary(user);
 			log.info("기본 주소 수정 완료 : {}", user.getId());
 		}
 		address.updateAddress(addressId, addressRequest);
@@ -81,16 +82,6 @@ public class AddressService {
 		}
 		addressRepository.deleteById(addressId);
 		log.info("주소 삭제 완료 : {}", addressId);
-	}
-
-	//새로 저장하는 주소가 기본주소로 설정한다면 기존 기본주소를 해제
-	//트랜잭션 범위에 둠으로써 영속성 컨테이너에 포함시켜 필요한 필드만 더티체킹을 통해 업데이트
-	//트랜잭션을 최대한 짧게 가져가기 위해
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void updatePrimary(User user){
-		Address address = addressRepository.findPrimaryAddressByUser(user)
-			.orElseThrow(()->new AddressNotFoundException());
-		address.updatePrimary(!address.getIsPrimary());
 	}
 
 	private User findUser(CustomOAuth2User customOAuth2User){
