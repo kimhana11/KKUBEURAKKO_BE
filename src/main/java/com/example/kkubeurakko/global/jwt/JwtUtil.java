@@ -20,6 +20,9 @@ public class JwtUtil {
 	public String getUserNumber(String token){
 		return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userNumber", String.class);
 	}
+	public String getUserPhone(String token){
+		return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("phone", String.class);
+	}
 	public String getRole(String token) {
 
 		return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
@@ -37,6 +40,17 @@ public class JwtUtil {
 		return Jwts.builder()
 			.claim("category", category)
 			.claim("userNumber", userNumber)
+			.claim("role", role)
+			.issuedAt(new Date(System.currentTimeMillis()))
+			.expiration(new Date(System.currentTimeMillis() + expiredMs))
+			.signWith(secretKey)
+			.compact();
+	}
+
+	public String createJwtForGuest(String category, String phone, String role, Long expiredMs){
+		return Jwts.builder()
+			.claim("category", category)
+			.claim("phone", phone)
 			.claim("role", role)
 			.issuedAt(new Date(System.currentTimeMillis()))
 			.expiration(new Date(System.currentTimeMillis() + expiredMs))
