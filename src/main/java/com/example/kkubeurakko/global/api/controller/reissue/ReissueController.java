@@ -40,7 +40,7 @@ public class ReissueController {
 	// 비회원은 리프레시 토큰이 없는 대신 만료시간이 짧도록 설정
 	@PostMapping("/reissue/guest")
 	public ResponseEntity<CommonResponse> reissueForGuest(@Valid @RequestBody GuestRequest guestRequest){
-		String guestAccessToken = reissueService.reissueForGuest(guestRequest);
+		String guestAccessToken = reissueService.reissue(guestRequest);
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Authorization", guestAccessToken);
 		return ResponseEntity.ok()

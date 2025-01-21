@@ -40,7 +40,8 @@ public class ReissueService {
 		return newAccess;
 	}
 	//인터페이스로 공통된 로직 구현하도록 , 클래스 분리
-	public String reissueForGuest(GuestRequest guestRequest){
+	//오버로딩
+	public String reissue(GuestRequest guestRequest){
 
 		// 새로운 토큰 생성
 		String newAccess = jwtUtil.createJwtForGuest(
