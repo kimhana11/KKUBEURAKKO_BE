@@ -1,5 +1,7 @@
 package com.example.kkubeurakko.global.api.service.sms;
 
+import java.security.SecureRandom;
+
 import org.springframework.stereotype.Service;
 
 import com.example.kkubeurakko.api.service.user.UserService;
@@ -22,12 +24,13 @@ public class SmsService {
 	private final SmsCertificationUtil smsCertificationUtil;
 	private final SmsRepository smsRepository;
 	private final UserService userService;
+	private final int CERTIFICATION_CODE_BOUND = 1_000_000;
 
 	//인증번호 생성 및 redis저장 메서드 호출하는 메서드
 	public void SendSms(SmsRequest smsRequest){
 		try{
 			String phoneNum = smsRequest.phoneNum();
-			String certificationCode = Integer.toString((int)(Math.random() * (999_999 - 100_000 + 1))+ 100_000);
+			String certificationCode = generateCertificationCode();
 			smsCertificationUtil.sendSMS(phoneNum, certificationCode);
 			smsRepository.createSmsCertification(phoneNum, certificationCode);
 		} catch (Exception e){
@@ -46,6 +49,11 @@ public class SmsService {
 	public void verifyCodeForGuest(SmsVerify smsVerify){
 		verifyPhone(smsVerify);
 		log.info("비회원 인증 완료");
+	}
+
+	private String generateCertificationCode(){
+		SecureRandom random = new SecureRandom();
+		return String.format("%06d", random.nextInt(CERTIFICATION_CODE_BOUND));
 	}
 
 	private void verifyPhone(SmsVerify smsVerify){
