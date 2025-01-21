@@ -19,9 +19,11 @@ import com.example.kkubeurakko.domain.user.UserRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AddressService {
 	private final AddressRepository addressRepository;
 	private final UserRepository userRepository;
@@ -67,8 +69,10 @@ public class AddressService {
 
 		if(addressRequest.isPrimary() && !address.getIsPrimary()){
 			updatePrimary(user);
+			log.info("기본 주소 수정 완료 : {}", user.getId());
 		}
 		address.updateAddress(addressId, addressRequest);
+		log.info("주소 수정 완료 : {}", addressId);
 	}
 
 	public void deleteAddress(Long addressId){
@@ -76,6 +80,7 @@ public class AddressService {
 			throw new AddressNotFoundException();
 		}
 		addressRepository.deleteById(addressId);
+		log.info("주소 삭제 완료 : {}", addressId);
 	}
 
 	//새로 저장하는 주소가 기본주소로 설정한다면 기존 기본주소를 해제
