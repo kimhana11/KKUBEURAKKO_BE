@@ -31,6 +31,6 @@ public class UserService {
 			() -> new UserNotFoundException()
 		);
 		user.updateUserPhone(phone);
-		log.info("전화번호 저장 완료");
+		log.info("전화번호 저장 완료 : {}", phone);
 	}
 }
