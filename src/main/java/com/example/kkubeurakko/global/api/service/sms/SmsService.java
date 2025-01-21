@@ -33,6 +33,7 @@ public class SmsService {
 			String certificationCode = generateCertificationCode();
 			smsCertificationUtil.sendSMS(phoneNum, certificationCode);
 			smsRepository.createSmsCertification(phoneNum, certificationCode);
+			log.info("인증번호 발송 및 저장 완료 : {}", phoneNum);
 		} catch (Exception e){
 			throw new SmsNotEnoughBalanceException();
 		}
@@ -41,14 +42,14 @@ public class SmsService {
 	//회원 인증번호 검증 메서드
 	public void verifyCodeForMember(SmsVerify smsVerify, CustomOAuth2User customOAuth2User){
 		verifyPhone(smsVerify);
+		log.info("사용자 전화번호 저장:{}", smsVerify.phoneNum());
 		userService.saveUserPhone(smsVerify.phoneNum(), customOAuth2User);
-		log.info("사용자 전화번호 저장");
 	}
 
 	//비회원 인증번호 검증 메서드
 	public void verifyCodeForGuest(SmsVerify smsVerify){
 		verifyPhone(smsVerify);
-		log.info("비회원 인증 완료");
+		log.info("비회원 인증 완료 : {}", smsVerify.phoneNum());
 	}
 
 	private String generateCertificationCode(){
@@ -58,15 +59,16 @@ public class SmsService {
 
 	private void verifyPhone(SmsVerify smsVerify){
 		if(!isVerify(smsVerify.phoneNum(), smsVerify.certificationCode())){
-			log.error("인증 실패");
+			log.error("인증 실패 : {}", smsVerify.phoneNum());
 			throw new SmsVerifyException();
 		}
 		smsRepository.deleteSmsCertification(smsVerify.phoneNum());
-		log.info("인증 성공");
+		log.info("인증 성공 : {}", smsVerify.phoneNum());
 	}
 
 	private boolean isVerify(String phoneNum, String certificationCode){
 		if(!smsRepository.hasKey(phoneNum)){
+			log.error("조회 실패 : {}", phoneNum);
 			throw new SmsCertificationCodeExpiredException();
 		}
 		return smsRepository.getSmsCertification(phoneNum).equals(certificationCode);
