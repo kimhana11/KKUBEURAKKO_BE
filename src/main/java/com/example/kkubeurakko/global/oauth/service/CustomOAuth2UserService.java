@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import com.example.kkubeurakko.api.user.UserNotFoundException;
+import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
 import com.example.kkubeurakko.domain.user.User;
 import com.example.kkubeurakko.domain.user.UserRole;
 import com.example.kkubeurakko.domain.user.UserRepository;
@@ -37,27 +37,24 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		}
 		// else if (registrationId.equals("naver")) {
 		//
-		// 	oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
+		//    oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
 		// }
 		// else if (registrationId.equals("google")) {
 		//
-		// 	oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
+		//    oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
 		// }
 		String userNumber = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 		String email = oAuth2Response.getEmail();
 		String nickname = oAuth2Response.getNickname();
 		try{
 			User existUser = userRepository.findByUserNumber(userNumber)
-				.orElseThrow(()-> new UserNotFoundException());
+				.orElseThrow(UserNotFoundException::new);
 
-			existUser = existUser.builder()
-				.nickname(nickname)			//닉네임 변경 가능성 염두
-				.build();
-			userRepository.save(existUser);
+			existUser.updateNickname(nickname);
 
 			UserDto userDto = new UserDto(
 				existUser.getRole(),
-				nickname,
+				existUser.getNickname(),
 				existUser.getEmail(),
 				existUser.getUserNumber()
 			);

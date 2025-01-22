@@ -14,6 +14,10 @@ public enum BadResponseMsgEnum {
 	//주소 관련 응답
 	ADDRESS_NOT_FOUND(506, "조회된 주소가 없습니다."),
 
+	//인증번호 응답
+	SMS_CERTIFICATION_CODE_MISMATCH(400, "인증번호가 일치하지 않습니다."),
+	SMS_CERTIFICATION_CODE_EXPIRED(402, "인증번호 제한시간이 만료되었습니다."),
+	SMS_NOT_ENOUGH_BALANCE(500, "서버에러"),
 	//
 	JWT_ACCESS_EXPIRED(401, "access토큰이 만료되었습니다."),
 	JWT_ACCESS_NULL(401, "access토큰이 없습니다."),

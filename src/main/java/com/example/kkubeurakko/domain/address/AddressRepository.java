@@ -12,7 +12,7 @@ import com.example.kkubeurakko.domain.user.User;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
-	Optional<List<Address>> findAllByUser(User user);
+	List<Address> findAllByUser(User user);
 
 	Optional<Address> findFirstByUserOrderById(@Param("user") User user);
 	@Query("select a from Address a where a.user = :user and a.isPrimary = true")
