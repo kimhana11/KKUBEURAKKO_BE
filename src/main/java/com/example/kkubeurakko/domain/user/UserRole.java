@@ -18,10 +18,12 @@ public enum UserRole {
         return this.accessLevel >= requiredLevel;
     }
     public static UserRole findRole(String role){
-        if(role.equals(ADMIN.getText())){
+        if("ADMIN".equals(role)){
             return ADMIN;
-        } else if (role.equals(CUSTOMER.getText())) {
+        } else if ("CUSTOMER".equals(role)) {
             return CUSTOMER;
+        } else if ("GUEST".equals(role)) {
+            return GUEST;
         } else{
             throw new RuntimeException(); // 예외처리 로직 추가 예정
         }
