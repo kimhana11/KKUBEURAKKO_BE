@@ -1,2 +1,6 @@
-package com.example.kkubeurakko.domain.menu;public interface MenuRepository {
+package com.example.kkubeurakko.domain.menu;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MenuRepository extends JpaRepository<Menu, Long> {
 }
