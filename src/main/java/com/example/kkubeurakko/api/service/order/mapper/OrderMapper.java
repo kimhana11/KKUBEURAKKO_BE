@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {OptionRepository.class})
 public interface OrderMapper {
