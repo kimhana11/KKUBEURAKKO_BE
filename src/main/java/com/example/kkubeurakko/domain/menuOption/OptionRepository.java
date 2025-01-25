@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface OptionRepository extends JpaRepository<MenuOptionDetail, Long> {
 
-    @Query("SELECT m.menuOption.label FROM MenuOptionDetail m WHERE m.id IN :ids")
+    @Query("SELECT m.optionValue FROM MenuOptionDetail m WHERE m.id IN :ids")
     List<String> findLabelsByOptionIds(@Param("ids") List<Long> ids);
 }
