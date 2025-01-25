@@ -1,8 +1,10 @@
 package com.example.kkubeurakko.api.service.order.mapper;
 
 import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
+import com.example.kkubeurakko.domain.menuOption.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderItem;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -10,7 +12,7 @@ import org.mapstruct.Named;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {OptionRepository.class})
 public interface OrderMapper {
 
     @Mapping(target = "member", expression = "java(order.getUser() != null)")
@@ -24,17 +26,22 @@ public interface OrderMapper {
     @Mapping(target = "roadName", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getRoadName() : null)")
     @Mapping(target = "detailedAddress", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getDetailedAddress() : null)")
     @Mapping(target = "postalCode", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getPostalCode() : null)")
+
     @Mapping(target = "orderItems", source = "orderItems")
-    OrderResponseDTO toOrderResponseDTO(Order order);
+    OrderResponseDTO toOrderResponseDTO(Order order, @Context OptionRepository optionRepository);
 
     @Mapping(target = "name", source = "menu.name")
     @Mapping(target = "quantity", source = "quantity")
     @Mapping(target = "options", source = "selectedOptionIds", qualifiedByName = "mapOptions")
-    OrderResponseDTO.OrderItemDTO toOrderItemDTO(OrderItem orderItem);
+    OrderResponseDTO.OrderItemDTO toOrderItemDTO(OrderItem orderItem, @Context OptionRepository optionRepository);
 
     @Named("mapOptions")
-    default List<String> mapOptions(List<Long> optionIds) {
-        // 옵션 ID를 라벨로 매핑하는 로직 필요 (옵션을 DB에서 조회하거나 별도 매퍼 필요)
-        return optionIds.stream().map(id -> "옵션 " + id).collect(Collectors.toList());
+    default List<String> mapOptions(List<Long> optionIds, @Context OptionRepository optionRepository) {
+        if (optionIds == null || optionIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<String> labels = optionRepository.findLabelsByOptionIds(optionIds);
+        System.out.println("Mapped options: " + labels);
+        return labels;
     }
 }

@@ -3,7 +3,9 @@ package com.example.kkubeurakko.api.service.order;
 import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
 import com.example.kkubeurakko.api.exception.order.OrderNotFoundException;
 import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
+import com.example.kkubeurakko.domain.menuOption.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
+import com.example.kkubeurakko.domain.order.OrderItem;
 import com.example.kkubeurakko.domain.order.OrderRepository;
 import com.example.kkubeurakko.domain.order.OrderStatus;
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
@@ -21,6 +23,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final OptionRepository optionRepository;
 
     @Transactional
     public OrderResponseDTO updateOrderStatus(Long id, String newStatus, Integer estimatedMinutes) {
@@ -44,17 +47,23 @@ public class OrderService {
         }
         order.setOrderStatus(status);
         orderRepository.save(order);
-        return orderMapper.toOrderResponseDTO(order);
+        return orderMapper.toOrderResponseDTO(order, optionRepository);
     }
 
+
+    //@Transactional(readOnly = true)
     public List<OrderResponseDTO> getAllOrders() {
-        try {
-            List<Order> orders = orderRepository.findAll(); // 모든 주문 가져오기
-            return orders.stream()
-                    .map(orderMapper::toOrderResponseDTO) // Order를 OrderResponseDTO로 변환
-                    .collect(Collectors.toList());
-        } catch (RuntimeException e) {
-            throw  new OrderNotFoundException(BadResponseMsgEnum.ORDERS_NOT_FOUND);
+        // 모든 주문을 조회하고 변환
+        List<Order> orders = orderRepository.findAll();
+
+        // 주문이 없을 경우 예외 처리
+        if (orders.isEmpty()) {
+            throw new OrderNotFoundException(BadResponseMsgEnum.ORDERS_NOT_FOUND);
         }
+
+        // 주문을 OrderResponseDTO로 변환하여 반환
+        return orders.stream()
+                .map(order -> orderMapper.toOrderResponseDTO(order, optionRepository))
+                .collect(Collectors.toList());
     }
 }
