@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MenuController {
 	private final MenuService menuService;
-	@GetMapping("/menu/img/{category}")
+	@GetMapping("/api/menu/{category}")
 	public ResponseEntity<CommonResponse> findMenuImgForCategory(@PathVariable String category){
 		List<byte[]> filesData = menuService.getMenuListForCategory(category);
 		return ResponseEntity.status(HttpStatus.OK).body(
