@@ -65,6 +65,6 @@ public class MenuService {
 	}
 
 	private FindMenuResponse getMenuPriceAndId(String name){
-		return menuRepository.findPriceByMenuNameAndId(name);
+		return menuRepository.findPriceAndIdByMenuName(name);
 	}
 }
