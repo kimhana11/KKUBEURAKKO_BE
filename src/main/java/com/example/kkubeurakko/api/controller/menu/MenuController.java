@@ -19,9 +19,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MenuController {
 	private final MenuService menuService;
-	@GetMapping("/api/menu/{category}")
-	public ResponseEntity<CommonResponse> findMenuImgForCategory(@PathVariable String category){
-		List<MenuImgResponse> menuImgResponseList = menuService.getMenuListForCategory(category);
+	@GetMapping("/api/menu/{label}")
+	public ResponseEntity<CommonResponse> findMenuImgForCategory(@PathVariable String label){
+		List<MenuImgResponse> menuImgResponseList = menuService.getMenuListForCategory(label);
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
 				ResponseMsgEnum.FIND_MENU_IMG_LIST_SUCCESS.getCode(),
