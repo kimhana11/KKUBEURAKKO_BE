@@ -17,6 +17,9 @@ public enum BadResponseMsgEnum {
 	//파일 관련 응답
 	FILE_NOT_FOUND(500, "조회된 파일이 없습니다."),
 
+	//메뉴 관련 응답
+	MENU_CATEGORY_NOT_FOUND(400, "잘못된 카테고리 요청입니다."),
+
 	//인증번호 응답
 	SMS_CERTIFICATION_CODE_MISMATCH(400, "인증번호가 일치하지 않습니다."),
 	SMS_CERTIFICATION_CODE_EXPIRED(402, "인증번호 제한시간이 만료되었습니다."),
