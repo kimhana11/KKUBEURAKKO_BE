@@ -85,7 +85,7 @@ public class SecurityConfig {
 			);
 		http
 			.authorizeHttpRequests((auth) -> auth
-				.requestMatchers("/", "/reissue", "/reissue/guest", "/api/sms/send", "/api/sms/verify/guest", "/api/menu/{category}").permitAll()
+				.requestMatchers("/", "/reissue", "/reissue/guest", "/api/sms/send", "/api/sms/verify/guest", "/api/menulist").permitAll()
 				.anyRequest().authenticated()
 			);
 		http
