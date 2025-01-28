@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.kkubeurakko.api.controller.menu.response.MenuImgResponse;
 import com.example.kkubeurakko.api.exception.menu.MenuImgNotFoundException;
+import com.example.kkubeurakko.api.service.menu.response.FindMenuResponse;
 import com.example.kkubeurakko.domain.menu.MenuLabel;
 import com.example.kkubeurakko.domain.menu.MenuRepository;
 
@@ -47,8 +48,15 @@ public class MenuService {
 					.key(key)
 					.build()
 				).asByteArray();
-
-				menuImgResponseList.add(new MenuImgResponse(name, img, getMenuPrice(name)));
+				FindMenuResponse findMenuResponse = getMenuPriceAndId(name);
+				menuImgResponseList.add(
+					new MenuImgResponse(
+						findMenuResponse.getMenuId(),
+						name,
+						img,
+						findMenuResponse.getPrice()
+					)
+				);
 			} catch (Exception e){
 				throw new MenuImgNotFoundException();
 			}
@@ -56,7 +64,7 @@ public class MenuService {
 		return menuImgResponseList;
 	}
 
-	private BigDecimal getMenuPrice(String name){
-		return menuRepository.findPriceByMenuName(name);
+	private FindMenuResponse getMenuPriceAndId(String name){
+		return menuRepository.findPriceByMenuNameAndId(name);
 	}
 }
