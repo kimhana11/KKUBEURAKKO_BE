@@ -18,7 +18,7 @@ public enum BadResponseMsgEnum {
 	FILE_NOT_FOUND(500, "조회된 파일이 없습니다."),
 
 	//메뉴 관련 응답
-	MENU_CATEGORY_NOT_FOUND(400, "잘못된 카테고리 요청입니다."),
+	MENU_LABEL_NOT_FOUND(400, "잘못된 라벨 요청입니다."),
 
 	//인증번호 응답
 	SMS_CERTIFICATION_CODE_MISMATCH(400, "인증번호가 일치하지 않습니다."),
