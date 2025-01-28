@@ -1,6 +1,6 @@
 package com.example.kkubeurakko.domain.menu;
 
-import com.example.kkubeurakko.api.exception.menu.MenuCategoryNotFoundException;
+import com.example.kkubeurakko.api.exception.menu.MenuLabelNotFoundException;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public enum MenuLabel {
         } else if (category.equals(CHICKEN.getText())) {
             return CHICKEN.toString().toLowerCase();
         } else{
-            throw new MenuCategoryNotFoundException();
+            throw new MenuLabelNotFoundException();
         }
     }
 }
