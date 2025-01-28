@@ -1,5 +1,6 @@
 package com.example.kkubeurakko.api.service.menu;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.kkubeurakko.api.controller.menu.response.MenuImgResponse;
 import com.example.kkubeurakko.api.exception.menu.MenuImgNotFoundException;
+import com.example.kkubeurakko.domain.menu.MenuLabel;
+import com.example.kkubeurakko.domain.menu.MenuRepository;
 
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -23,18 +26,21 @@ public class MenuService {
 	private String bucketName;
 	@Value("${spring.cloud.aws.s3.url}")
 	private String path;
-	public List<MenuImgResponse> getMenuListForCategory(String category){
+
+	private final MenuRepository menuRepository;
+	public List<MenuImgResponse> getMenuListForCategory(String label){
 		List<MenuImgResponse> menuImgResponseList = new ArrayList<>();
+		String menuLabel = MenuLabel.getMenuLabelToLowerCase(label);
 		ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
 			.bucket(bucketName)
-			.prefix(path + "/" + category + "/")
+			.prefix(path + "/" + menuLabel + "/")
 			.build();
 
 		ListObjectsV2Response listObjectsV2Response = s3Client.listObjectsV2(listObjectsV2Request);
 
 		for(S3Object s3Object : listObjectsV2Response.contents()){
 			String key = s3Object.key();
-			String title = key.substring(key.lastIndexOf("/") + 1);
+			String name = key.substring(key.lastIndexOf("/") + 1);
 			try{
 				byte[] img = s3Client.getObjectAsBytes(builder -> builder
 					.bucket(bucketName)
@@ -42,12 +48,15 @@ public class MenuService {
 					.build()
 				).asByteArray();
 
-
-				menuImgResponseList.add(new MenuImgResponse(title, img));
+				menuImgResponseList.add(new MenuImgResponse(name, img, getMenuPrice(name)));
 			} catch (Exception e){
 				throw new MenuImgNotFoundException();
 			}
 		}
 		return menuImgResponseList;
+	}
+
+	private BigDecimal getMenuPrice(String name){
+		return menuRepository.findPriceByMenuName(name);
 	}
 }
