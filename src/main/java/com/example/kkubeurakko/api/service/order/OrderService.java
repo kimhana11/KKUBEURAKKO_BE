@@ -1,11 +1,10 @@
 package com.example.kkubeurakko.api.service.order;
 
-import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
+import com.example.kkubeurakko.api.controller.order.response.OrderResponse;
 import com.example.kkubeurakko.api.exception.order.OrderNotFoundException;
 import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
 import com.example.kkubeurakko.domain.menuOption.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
-import com.example.kkubeurakko.domain.order.OrderItem;
 import com.example.kkubeurakko.domain.order.OrderRepository;
 import com.example.kkubeurakko.domain.order.OrderStatus;
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
@@ -26,7 +25,7 @@ public class OrderService {
     private final OptionRepository optionRepository;
 
     @Transactional
-    public OrderResponseDTO updateOrderStatus(Long id, String newStatus, Integer estimatedMinutes) {
+    public OrderResponse updateOrderStatus(Long id, String newStatus, Integer estimatedMinutes) {
         // 주문 ID로 주문 찾기
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(BadResponseMsgEnum.ORDER_NOT_FOUND));
@@ -49,7 +48,7 @@ public class OrderService {
     }
 
 
-    public List<OrderResponseDTO> getAllOrders() {
+    public List<OrderResponse> getAllOrders() {
         // 모든 주문을 조회하고 변환
         List<Order> orders = orderRepository.findAll();
 

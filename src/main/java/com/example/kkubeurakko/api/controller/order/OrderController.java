@@ -1,7 +1,7 @@
 package com.example.kkubeurakko.api.controller.order;
 
 import com.example.kkubeurakko.api.controller.order.request.UpdateOrderStatusRequest;
-import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
+import com.example.kkubeurakko.api.controller.order.response.OrderResponse;
 import com.example.kkubeurakko.api.service.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/order")
 public class OrderController {
 
     private final OrderService orderService;
     private final SimpMessagingTemplate messagingTemplate; // 소켓 메시지 전송
 
 
-    @MessageMapping("/start")
-    public ResponseEntity<OrderResponseDTO> updateOrderStatus(@Payload UpdateOrderStatusRequest request) {
-        OrderResponseDTO updatedOrder =
+    @MessageMapping("/status")
+    public ResponseEntity<OrderResponse> updateOrderStatus(@Payload UpdateOrderStatusRequest request) {
+        OrderResponse updatedOrder =
                 orderService.updateOrderStatus(request.getOrderId(), request.getStatus(), request.getEstimatedMinutes());
         messagingTemplate.convertAndSend("/topic/orders/" + request.getOrderId(), updatedOrder); // 상태 변경을 실시간으로 전송
         return ResponseEntity.ok().build();
@@ -29,9 +30,9 @@ public class OrderController {
 
 
     // 여러 주문 반환
-    @GetMapping("/orders")
-    public ResponseEntity<List<OrderResponseDTO>> getAllOrders() {
-        List<OrderResponseDTO> orders = orderService.getAllOrders();
+    @GetMapping("/list")
+    public ResponseEntity<List<OrderResponse>> getAllOrders() {
+        List<OrderResponse> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
     }
 }

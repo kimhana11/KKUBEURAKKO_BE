@@ -1,6 +1,6 @@
 package com.example.kkubeurakko.api.service.order.mapper;
 
-import com.example.kkubeurakko.api.controller.order.response.OrderResponseDTO;
+import com.example.kkubeurakko.api.controller.order.response.OrderResponse;
 import com.example.kkubeurakko.domain.menuOption.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderItem;
@@ -27,12 +27,12 @@ public interface OrderMapper {
     @Mapping(target = "postalCode", expression = "java(order.getGuestOrder() != null ? order.getGuestOrder().getPostalCode() : null)")
 
     @Mapping(target = "orderItems", source = "orderItems")
-    OrderResponseDTO toOrderResponseDTO(Order order, @Context OptionRepository optionRepository);
+    OrderResponse toOrderResponseDTO(Order order, @Context OptionRepository optionRepository);
 
     @Mapping(target = "name", source = "menu.name")
     @Mapping(target = "quantity", source = "quantity")
     @Mapping(target = "options", source = "selectedOptionIds", qualifiedByName = "mapOptions")
-    OrderResponseDTO.OrderItemDTO toOrderItemDTO(OrderItem orderItem, @Context OptionRepository optionRepository);
+    OrderResponse.OrderItemDTO toOrderItemDTO(OrderItem orderItem, @Context OptionRepository optionRepository);
 
     @Named("mapOptions")
     default List<String> mapOptions(List<Long> optionIds, @Context OptionRepository optionRepository) {
