@@ -3,7 +3,7 @@ package com.example.kkubeurakko.api.controller.order.response;
 import java.math.BigDecimal;
 import java.util.List;
 
-public record OrderResponseDTO(
+public record OrderResponse(
         Long id,
         boolean member,
         String nickname,
