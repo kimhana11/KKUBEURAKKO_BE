@@ -15,7 +15,9 @@ public class GuestOrder extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String roadName;
+    private String detailedAddress;
+    private String postalCode;
     private String guestContact;
     private String guestPassword;
 

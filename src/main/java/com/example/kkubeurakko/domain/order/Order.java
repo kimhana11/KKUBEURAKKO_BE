@@ -3,10 +3,9 @@ package com.example.kkubeurakko.domain.order;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,14 +20,12 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String orderType;
     private BigDecimal totalAmount;
     private LocalDateTime orderDate;
     private LocalDateTime estimatedCompletionTime;
     private String storeRequests;
     private String deliveryInstructions;
-    private String addressLine;
-    private String postalCode;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod; // 결제 수단
@@ -38,6 +35,7 @@ public class Order extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
+    @JsonBackReference
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -49,4 +47,11 @@ public class Order extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "guest_order_id", nullable = true)
     private GuestOrder guestOrder;
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+    public void setEstimatedCompletionTime(LocalDateTime estimatedCompletionTime){
+        this.estimatedCompletionTime = estimatedCompletionTime;
+    }
 }
