@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.kkubeurakko.api.controller.menu.response.MenuImgResponse;
 import com.example.kkubeurakko.api.exception.menu.MenuImgNotFoundException;
 import com.example.kkubeurakko.api.service.menu.response.FindMenuResponse;
+import com.example.kkubeurakko.domain.menu.MenuCategory;
 import com.example.kkubeurakko.domain.menu.MenuLabel;
 import com.example.kkubeurakko.domain.menu.MenuRepository;
 
@@ -31,7 +32,7 @@ public class MenuService {
 	private final MenuRepository menuRepository;
 	public List<MenuImgResponse> getMenuListForCategory(String label){
 		List<MenuImgResponse> menuImgResponseList = new ArrayList<>();
-		String menuLabel = MenuLabel.getMenuLabelToLowerCase(label);
+		String menuLabel = MenuCategory.getMenuCategoryToLowerCase(label);
 		ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
 			.bucket(bucketName)
 			.prefix(path + "/" + menuLabel + "/")
