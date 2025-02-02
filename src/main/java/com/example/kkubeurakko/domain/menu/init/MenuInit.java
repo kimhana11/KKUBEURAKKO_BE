@@ -8,7 +8,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.example.kkubeurakko.domain.menu.Menu;
+import com.example.kkubeurakko.domain.menu.MenuCategory;
 import com.example.kkubeurakko.domain.menu.MenuRepository;
+import com.example.kkubeurakko.domain.menu.Menu_MenuCategory;
+import com.example.kkubeurakko.domain.menu.Menu_MenuCategoryRepository;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +20,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MenuInit {
 	private final MenuRepository menuRepository;
-	// @PostConstruct
-	// private void initialize(){
-	// 	initializeCategory();
-	// 	initializeMenu();
-	// }
-	//
-	// private void initializeCategory(){
-	//
-	// }
+	private final Menu_MenuCategoryRepository menuMenuCategoryRepository;
 	@PostConstruct
+	private void initialize(){
+		initializeMenu();
+		initializeCategory();
+	}
 	private void initializeMenu(){
 		List<Menu> menuList = List.of(
 			new Menu(
@@ -275,5 +274,143 @@ public class MenuInit {
 		);
 
 		menuRepository.saveAll(menuList);
+	}
+	private void initializeCategory(){
+		List<Menu_MenuCategory> menuCategoryList = List.of(
+			new Menu_MenuCategory(
+				1L,
+				MenuCategory.TRENDING
+			),
+			new Menu_MenuCategory(
+				1L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				2L,
+				MenuCategory.TRENDING
+			),
+			new Menu_MenuCategory(
+				2L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				3L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				4L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				5L,
+				MenuCategory.TRENDING
+			),
+			new Menu_MenuCategory(
+				5L,
+				MenuCategory.PACKAGE
+			),
+			new Menu_MenuCategory(
+				6L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				7L,
+				MenuCategory.NEW
+			),
+			new Menu_MenuCategory(
+				7L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				8L,
+				MenuCategory.NEW
+			),
+			new Menu_MenuCategory(
+				8L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				9L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				10L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				11L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				12L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				13L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				13L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				14L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				15L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				16L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				17L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				18L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				19L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				20L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				21L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				22L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				23L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				24L,
+				MenuCategory.PACKAGE
+			),
+			new Menu_MenuCategory(
+				25L,
+				MenuCategory.CHICKEN
+			),
+			new Menu_MenuCategory(
+				26L,
+				MenuCategory.SIDE
+			),
+			new Menu_MenuCategory(
+				27L,
+				MenuCategory.SIDE
+			)
+		);
+
+		menuMenuCategoryRepository.saveAll(menuCategoryList);
 	}
 }
