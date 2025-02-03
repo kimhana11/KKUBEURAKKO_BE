@@ -1,2 +1,8 @@
-package com.example.kkubeurakko.domain.store;public interface StoreRepository {
+package com.example.kkubeurakko.domain.store;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StoreRepository extends JpaRepository<Store, Long> {
 }
