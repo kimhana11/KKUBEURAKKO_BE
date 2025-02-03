@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 public enum MenuCategory {
 
     TRENDING("인기"),
-    NEW("신메뉴"),
+    NEW("신 메뉴"),
     SIDE("사이드"),
     BEVERAGE("음료"),
     PACKAGE("세트"),
@@ -18,19 +18,19 @@ public enum MenuCategory {
 
     private final String text;
 
-    public static String getMenuCategoryToLowerCase(String category){
+    public static MenuCategory getMenuCategory(String category){
         if(category.equals(TRENDING.getText())){
-            return TRENDING.toString().toLowerCase();
+            return TRENDING;
         } else if(category.equals(NEW.getText())){
-            return NEW.toString().toLowerCase();
+            return NEW;
         } else if (category.equals(SIDE.getText())) {
-            return SIDE.toString().toLowerCase();
+            return SIDE;
         } else if (category.equals(BEVERAGE.getText())) {
-            return BEVERAGE.toString().toLowerCase();
+            return BEVERAGE;
         } else if (category.equals(PACKAGE.getText())) {
-            return PACKAGE.toString().toLowerCase();
+            return PACKAGE;
         } else if (category.equals(CHICKEN.getText())) {
-            return CHICKEN.toString().toLowerCase();
+            return CHICKEN;
         } else{
             throw new MenuLabelNotFoundException();
         }
