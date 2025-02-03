@@ -31,9 +31,6 @@ public class Menu extends BaseEntity {
     private String description;
     private String imageUrl;
 
-    // @Enumerated(EnumType.STRING)
-    // private MenuCategory category;
-
     @ElementCollection(targetClass = MenuLabel.class)
     @CollectionTable(name = "menu_label", joinColumns = @JoinColumn(name = "menu_id"))
     @Enumerated(EnumType.STRING)
@@ -42,9 +39,9 @@ public class Menu extends BaseEntity {
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuOption> options = new ArrayList<>();
 
-    // @ManyToOne
-    // @JoinColumn(name = "store_id")
-    // private Store store;
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @OneToMany(mappedBy = "menu")
     private List<OrderItem> orderItems = new ArrayList<>();
