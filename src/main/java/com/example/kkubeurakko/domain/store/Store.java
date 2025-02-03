@@ -40,4 +40,15 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Alarm> alarms = new ArrayList<>();
+
+    public Store(Long id, String phone, Time openTime, Time closeTime, Boolean isOpen, BigDecimal minOrderPrice, Integer deliveryRadius, BigDecimal deliveryTip){
+        this.id = id;
+        this.phone = phone;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.isOpen = isOpen;
+        this.minOrderPrice = minOrderPrice;
+        this.deliveryRadius = deliveryRadius;
+        this.deliveryTip = deliveryTip;
+    }
 }
