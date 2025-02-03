@@ -28,5 +28,6 @@ public class StoreInit {
 			3,
 			BigDecimal.valueOf(20_000)
 		);
+		storeRepository.save(store);
 	}
 }
