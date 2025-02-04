@@ -23,7 +23,7 @@ public class MenuController {
 	@PostMapping("/api/menulist")
 	public ResponseEntity<CommonResponse> findMenuImgForCategory(@RequestBody MenuImgRequest menuImgRequest){
 
-		List<MenuImgResponse> menuImgResponseList = menuService.getMenuListForCategory(menuImgRequest.label());
+		List<MenuImgResponse> menuImgResponseList = menuService.getMenuListForCategory(menuImgRequest.category());
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
 				ResponseMsgEnum.FIND_MENU_IMG_LIST_SUCCESS.getCode(),
