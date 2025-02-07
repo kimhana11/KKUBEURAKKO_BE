@@ -8,9 +8,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MenuCategory {
-
-    TRENDING("인기"),
-    NEW("신 메뉴"),
     SIDE("사이드"),
     BEVERAGE("음료"),
     PACKAGE("세트"),
