@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kkubeurakko.domain.menu.Menu;
-import com.example.kkubeurakko.domain.menu.MenuCategory;
-import com.example.kkubeurakko.domain.menu.MenuLabel;
+import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
+import com.example.kkubeurakko.domain.menu.menuenum.MenuLabel;
 import com.example.kkubeurakko.domain.menu.MenuRepository;
 import com.example.kkubeurakko.domain.menu.Menu_MenuCategory;
 import com.example.kkubeurakko.domain.menu.Menu_MenuCategoryRepository;

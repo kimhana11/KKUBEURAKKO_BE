@@ -2,6 +2,7 @@ package com.example.kkubeurakko.domain.menu;
 
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.cart.CartItem;
+import com.example.kkubeurakko.domain.menu.menuenum.MenuLabel;
 import com.example.kkubeurakko.domain.menuOption.MenuOption;
 import com.example.kkubeurakko.domain.order.OrderItem;
 import com.example.kkubeurakko.domain.order.Order;

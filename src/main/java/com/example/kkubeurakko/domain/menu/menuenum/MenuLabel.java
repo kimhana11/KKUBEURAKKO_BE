@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.menu;
+package com.example.kkubeurakko.domain.menu.menuenum;
 
 import com.example.kkubeurakko.api.exception.menu.MenuLabelNotFoundException;
 

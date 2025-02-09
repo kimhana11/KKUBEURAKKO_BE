@@ -1,6 +1,5 @@
 package com.example.kkubeurakko.api.service.menu;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -12,8 +11,8 @@ import com.example.kkubeurakko.api.controller.menu.response.MenuImgResponse;
 import com.example.kkubeurakko.api.exception.menu.MenuImgNotFoundException;
 import com.example.kkubeurakko.api.service.menu.mapper.MenuMapper;
 import com.example.kkubeurakko.domain.menu.Menu;
-import com.example.kkubeurakko.domain.menu.MenuCategory;
-import com.example.kkubeurakko.domain.menu.MenuLabel;
+import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
+import com.example.kkubeurakko.domain.menu.menuenum.MenuLabel;
 import com.example.kkubeurakko.domain.menu.MenuRepository;
 import com.example.kkubeurakko.domain.menu.Menu_MenuCategoryRepository;
 import com.example.kkubeurakko.domain.menu.Menu_MenuLabelRepository;

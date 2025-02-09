@@ -1,5 +1,7 @@
 package com.example.kkubeurakko.domain.menu;
 
+import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

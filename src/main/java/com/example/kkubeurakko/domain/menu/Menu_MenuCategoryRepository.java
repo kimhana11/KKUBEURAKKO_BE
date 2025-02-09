@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
+
 @Repository
 public interface Menu_MenuCategoryRepository extends JpaRepository<Menu_MenuCategory, Long> {
 	@Query("select m.menuId from Menu_MenuCategory m where m.menuCategory = :category")
