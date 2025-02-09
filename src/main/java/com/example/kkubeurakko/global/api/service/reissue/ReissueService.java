@@ -53,7 +53,7 @@ public class ReissueService {
 		return newAccess;
 	}
 
-	private String getRefreshTokenFromCookies(HttpServletRequest request) {
+	public String getRefreshTokenFromCookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			throw new GlobalException(BadResponseMsgEnum.COOKIE_NULL);
@@ -80,7 +80,7 @@ public class ReissueService {
 		}
 	}
 
-	private void isExistRefreshToken(String refresh){
+	public void isExistRefreshToken(String refresh){
 		Boolean isExist = refreshTokenRepository.existsByRefresh(refresh);
 		if (!isExist) {
 			throw new GlobalException(BadResponseMsgEnum.JWT_REFRESH_EXPIRED);  // 로그아웃 요청을 보내도록 -> 재로그인 요청하도록
