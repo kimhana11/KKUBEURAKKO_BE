@@ -16,11 +16,7 @@ public enum MenuCategory {
     private final String text;
 
     public static MenuCategory getMenuCategory(String category){
-        if(category.equals(TRENDING.getText())){
-            return TRENDING;
-        } else if(category.equals(NEW.getText())){
-            return NEW;
-        } else if (category.equals(SIDE.getText())) {
+        if (category.equals(SIDE.getText())) {
             return SIDE;
         } else if (category.equals(BEVERAGE.getText())) {
             return BEVERAGE;
