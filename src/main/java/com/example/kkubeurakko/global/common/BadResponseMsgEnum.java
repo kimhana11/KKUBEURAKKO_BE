@@ -14,8 +14,15 @@ public enum BadResponseMsgEnum {
 	//주소 관련 응답
 	ADDRESS_NOT_FOUND(506, "조회된 주소가 없습니다."),
 
+	//파일 관련 응답
+	FILE_NOT_FOUND(500, "조회된 파일이 없습니다."),
+
+	//메뉴 관련 응답
+	MENU_LABEL_NOT_FOUND(400, "잘못된 라벨 요청입니다."),
+
 	ORDER_NOT_FOUND(506, "주문을 찾을 수 없습니다."),
 	ORDERS_NOT_FOUND(506, "조회된 주문 리스트가 없습니다."),
+
 
 	//인증번호 응답
 	SMS_CERTIFICATION_CODE_MISMATCH(400, "인증번호가 일치하지 않습니다."),
