@@ -5,6 +5,7 @@ import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -19,18 +20,36 @@ public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id", updatable = false, nullable = false)
     private Long id;
+
+    @NotNull
+    @Column(name = "order_type", nullable = false, length = 20)
     private String orderType;
+
+    @NotNull
+    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount;
+
+    @NotNull
+    @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
+
+    @Column(name = "estimated_completion_time")
     private LocalDateTime estimatedCompletionTime;
+
+    @Column(name = "store_requests", length = 255)
     private String storeRequests;
+
+    @Column(name = "delivery_instructions", length = 255)
     private String deliveryInstructions;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method", nullable = false, length = 20)
     private PaymentMethod paymentMethod; // 결제 수단
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false, length = 20)
     private OrderStatus orderStatus;
 
     @ManyToOne
