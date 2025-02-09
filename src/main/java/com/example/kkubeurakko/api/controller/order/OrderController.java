@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/order")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -30,7 +30,7 @@ public class OrderController {
 
 
     // 여러 주문 반환
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<OrderResponse>> getAllOrders() {
         List<OrderResponse> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
