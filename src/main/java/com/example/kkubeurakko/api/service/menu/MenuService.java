@@ -32,12 +32,6 @@ public class MenuService {
 	private final MenuMapper menuMapper;
 	private final Menu_MenuLabelRepository menuMenuLabelRepository;
 
-	private final Map<String, Function<String, List<Long>>> ID_FETCH_STRATEGY =
-		Map.of(
-			"category", variable -> menuMenuCategoryRepository.findMenuIdListByCategory(MenuCategory.getMenuCategory(variable)),
-			"label", variable -> menuMenuLabelRepository.findMenuIdListByLabel(MenuLabel.getMenuLabel(variable))
-		);
-
 	public List<MenuImgResponse> getMenuList(String classification, String variable){
 
 		List<Long> menuIdList = fetchMenuIds(classification, variable);
@@ -45,7 +39,11 @@ public class MenuService {
 	}
 
 	private List<Long> fetchMenuIds(String classification, String variable){
-		return ID_FETCH_STRATEGY.getOrDefault(classification, v -> List.of())
+		Map<String, Function<String, List<Long>>> idFetchStrategy = Map.of(
+			"category", v -> menuMenuCategoryRepository.findMenuIdListByCategory(MenuCategory.getMenuCategory(variable)),
+			"label", v -> menuMenuLabelRepository.findMenuIdListByLabel(MenuLabel.getMenuLabel(variable))
+		);
+		return idFetchStrategy.getOrDefault(classification, v -> List.of())
 			.apply(variable);
 	}
 
