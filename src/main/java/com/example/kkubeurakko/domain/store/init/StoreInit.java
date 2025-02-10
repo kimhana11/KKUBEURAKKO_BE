@@ -21,8 +21,8 @@ public class StoreInit {
 		Store store = new Store(
 			1L,
 			"010-1234-1234",
-			Time.valueOf("00"),
-			Time.valueOf("00"),
+			Time.valueOf("00:00:00"),
+			Time.valueOf("00:00:00"),
 			true,
 			BigDecimal.valueOf(100),
 			3,
