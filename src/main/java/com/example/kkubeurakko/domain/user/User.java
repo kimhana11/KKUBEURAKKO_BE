@@ -24,12 +24,14 @@ public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     @Embedded
     private UserIdentifier userIdentifier;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
