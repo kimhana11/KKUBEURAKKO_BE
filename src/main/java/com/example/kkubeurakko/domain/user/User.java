@@ -6,6 +6,7 @@ import com.example.kkubeurakko.domain.cart.Cart;
 import com.example.kkubeurakko.domain.coupon.UserCoupon;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
+import com.example.kkubeurakko.domain.user.embedded.UserIdentifier;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -25,17 +26,8 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userNumber", unique = true, nullable = false)
-    private String userNumber; //사용자 정보 제공자 + 제공 id 숫자
-
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "phone", unique = true)
-    private String phone;
-
-    @Column(name = "nickname", unique = true, nullable = false)
-    private String nickname;
+    @Embedded
+    private UserIdentifier userIdentifier;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -63,18 +55,13 @@ public class User extends BaseEntity {
         String nickname,
         UserRole role
     ){
-        this.userNumber = userNumber;
-        this.email = email;
-        this.nickname = nickname;
+        this.userIdentifier = new UserIdentifier(userNumber, email, nickname);
         this.role = role;
-    }
-    User(String nickname){
-        this.nickname = nickname;
     }
 
     public void updateNickname(String nickname) {
-        this.nickname = nickname;
+        this.userIdentifier.updateNickname(nickname);
     }
 
-    public void updateUserPhone(String phone){this.phone = phone;}
+    public void updateUserPhone(String phone){this.userIdentifier.updateUserPhone(phone);}
 }
