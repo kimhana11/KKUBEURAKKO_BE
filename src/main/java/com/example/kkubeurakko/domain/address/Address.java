@@ -18,12 +18,17 @@ public class Address extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
     private Long id;
-
+    @Column(name = "address_nickname", nullable = false)
     private String addressNickname;
+    @Column(name = "road_name", nullable = false)
     private String roadName;
+    @Column(name = "detail_address", nullable = false)
     private String detailedAddress;
+    @Column(name = "postal_code", nullable = false, length = 5)
     private String postalCode;
+    @Column(name = "is_primary")
     private Boolean isPrimary;
 
     @ManyToOne
