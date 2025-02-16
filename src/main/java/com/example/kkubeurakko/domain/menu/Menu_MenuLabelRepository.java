@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.menu.repository;
+package com.example.kkubeurakko.domain.menu;
 
 import java.util.List;
 

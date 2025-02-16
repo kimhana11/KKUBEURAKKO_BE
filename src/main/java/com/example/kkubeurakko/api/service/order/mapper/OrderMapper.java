@@ -1,7 +1,7 @@
 package com.example.kkubeurakko.api.service.order.mapper;
 
 import com.example.kkubeurakko.api.controller.order.response.OrderResponse;
-import com.example.kkubeurakko.domain.menuOption.repository.OptionRepository;
+import com.example.kkubeurakko.domain.menuOption.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderItem;
 import org.mapstruct.Context;

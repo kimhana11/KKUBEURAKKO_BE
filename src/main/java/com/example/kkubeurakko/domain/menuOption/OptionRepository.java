@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.menuOption.repository;
+package com.example.kkubeurakko.domain.menuOption;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
