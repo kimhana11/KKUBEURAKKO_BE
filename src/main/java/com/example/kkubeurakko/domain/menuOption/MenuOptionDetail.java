@@ -16,7 +16,9 @@ public class MenuOptionDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "option_value", nullable = false)
     private String optionValue;
+    @Column(name = "additional_price", nullable = false)
     private BigDecimal additionalPrice;
 
     @ManyToOne

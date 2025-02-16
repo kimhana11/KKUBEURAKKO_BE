@@ -16,9 +16,10 @@ public class MenuOption extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "label", nullable = false)
     private String label;
-    private boolean mult_select;
+    @Column(name = "multi_select", nullable = false)
+    private boolean multiSelect;
 
     @ManyToOne
     @JoinColumn(name = "menu_id")
