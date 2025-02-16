@@ -3,6 +3,7 @@ package com.example.kkubeurakko.domain.menuOption;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.menu.Menu;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,11 +17,16 @@ public class MenuOption extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "label", nullable = false)
+
+    @NotNull
+    @Column(name = "label", length = 20)
     private String label;
-    @Column(name = "multi_select", nullable = false)
+
+    @NotNull
+    @Column(name = "multi_select", columnDefinition = "BOOLEAN DEFAULT false")
     private boolean multiSelect;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "menu_id")
     private Menu menu;
