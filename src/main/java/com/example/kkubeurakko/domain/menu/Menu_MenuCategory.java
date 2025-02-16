@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +20,14 @@ import lombok.NoArgsConstructor;
 public class Menu_MenuCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", updatable = false)
 	private Long id;
+
+	@NotNull
 	@Column(name = "menu_id", nullable = false)
 	private Long menuId;
+
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "menu_category", nullable = false)
 	private MenuCategory menuCategory;

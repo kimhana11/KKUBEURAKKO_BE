@@ -9,6 +9,7 @@ import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.store.Store;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,14 +26,22 @@ public class Menu extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     private Long id;
+
+    @NotNull
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Column(name = "price", nullable = false)
+
+    @NotNull
+    @Column(name = "price", nullable = false, precision = 10)
     private BigDecimal price;
-    @Column(name = "description")
+
+    @Column(name = "description", length = 100)
     private String description;
-    @Column(name = "image_url", nullable = false, unique = true)
+
+    @NotNull
+    @Column(name = "image_url", nullable = false, unique = true, length = 1000)
     private String imageUrl;
 
     @ElementCollection(targetClass = MenuLabel.class)
@@ -44,7 +53,7 @@ public class Menu extends BaseEntity {
     private List<MenuOption> options = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
     @OneToMany(mappedBy = "menu")
