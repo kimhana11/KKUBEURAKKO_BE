@@ -6,7 +6,7 @@ import java.sql.Time;
 import org.springframework.stereotype.Component;
 
 import com.example.kkubeurakko.domain.store.Store;
-import com.example.kkubeurakko.domain.store.StoreRepository;
+import com.example.kkubeurakko.domain.store.repository.StoreRepository;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
