@@ -2,6 +2,7 @@ package com.example.kkubeurakko.domain.menu;
 
 import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -19,8 +20,10 @@ public class Menu_MenuCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "menu_id", nullable = false)
 	private Long menuId;
 	@Enumerated(EnumType.STRING)
+	@Column(name = "menu_category", nullable = false)
 	private MenuCategory menuCategory;
 
 	public Menu_MenuCategory(Long menuId, MenuCategory menuCategory){
