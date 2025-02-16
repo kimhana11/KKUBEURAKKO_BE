@@ -7,13 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.kkubeurakko.api.service.user.UserService;
-import com.example.kkubeurakko.domain.user.UserRepository;
-import com.example.kkubeurakko.global.common.CommonResponse;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import retrofit2.http.GET;
 
 @Controller
 @RequiredArgsConstructor

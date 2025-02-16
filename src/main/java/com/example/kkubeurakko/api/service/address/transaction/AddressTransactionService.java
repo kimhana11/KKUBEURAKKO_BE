@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kkubeurakko.api.exception.address.AddressNotFoundException;
 import com.example.kkubeurakko.domain.address.Address;
-import com.example.kkubeurakko.domain.address.AddressRepository;
+import com.example.kkubeurakko.domain.address.repository.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
 
 import lombok.RequiredArgsConstructor;

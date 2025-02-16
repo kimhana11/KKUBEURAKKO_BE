@@ -3,7 +3,7 @@ package com.example.kkubeurakko.api.service.order;
 import com.example.kkubeurakko.api.controller.order.response.OrderResponse;
 import com.example.kkubeurakko.api.exception.order.OrderNotFoundException;
 import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
-import com.example.kkubeurakko.domain.menuOption.OptionRepository;
+import com.example.kkubeurakko.domain.menuOption.repository.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.OrderRepository;
 import com.example.kkubeurakko.domain.order.OrderStatus;

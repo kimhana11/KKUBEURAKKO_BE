@@ -13,9 +13,9 @@ import com.example.kkubeurakko.api.service.address.mapper.AddressMapper;
 import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
 import com.example.kkubeurakko.api.service.address.transaction.AddressTransactionService;
 import com.example.kkubeurakko.domain.address.Address;
-import com.example.kkubeurakko.domain.address.AddressRepository;
+import com.example.kkubeurakko.domain.address.repository.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
-import com.example.kkubeurakko.domain.user.UserRepository;
+import com.example.kkubeurakko.domain.user.repository.UserRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import lombok.RequiredArgsConstructor;
