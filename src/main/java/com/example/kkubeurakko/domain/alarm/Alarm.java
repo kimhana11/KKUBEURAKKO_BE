@@ -17,7 +17,7 @@ public class Alarm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "alarm_id", updatable = false, nullable = false)
+    @Column(name = "alarm_id", updatable = false)
     private Long id;
 
     @NotNull

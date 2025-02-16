@@ -20,7 +20,7 @@ public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id", updatable = false, nullable = false)
+    @Column(name = "order_id", updatable = false)
     private Long id;
 
     @NotNull
@@ -32,22 +32,24 @@ public class Order extends BaseEntity {
     private BigDecimal totalAmount;
 
     @NotNull
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "order_date", nullable = false, updatable = false)
     private LocalDateTime orderDate;
 
-    @Column(name = "estimated_completion_time")
+    @Column(name = "estimated_completion_time", nullable = true)
     private LocalDateTime estimatedCompletionTime;
 
-    @Column(name = "store_requests", length = 255)
+    @Column(name = "store_requests", nullable = true, length = 255)
     private String storeRequests;
 
-    @Column(name = "delivery_instructions", length = 255)
+    @Column(name = "delivery_instructions", nullable = true, length = 255)
     private String deliveryInstructions;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_method", nullable = false, length = 20)
-    private PaymentMethod paymentMethod; // 결제 수단
+    private PaymentMethod paymentMethod;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false, length = 20)
     private OrderStatus orderStatus;
@@ -61,9 +63,10 @@ public class Order extends BaseEntity {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "review_id", nullable = true)
     private Review review;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     @JoinColumn(name = "guest_order_id", nullable = true)
     private GuestOrder guestOrder;
 
