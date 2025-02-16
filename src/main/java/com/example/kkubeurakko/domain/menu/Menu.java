@@ -30,18 +30,18 @@ public class Menu extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", unique = true)
     private String name;
 
     @NotNull
-    @Column(name = "price", nullable = false, precision = 10)
+    @Column(name = "price", precision = 10)
     private BigDecimal price;
 
     @Column(name = "description", length = 100)
     private String description;
 
     @NotNull
-    @Column(name = "image_url", nullable = false, unique = true, length = 1000)
+    @Column(name = "image_url", unique = true, length = 1000)
     private String imageUrl;
 
     @ElementCollection(targetClass = MenuLabel.class)
@@ -52,8 +52,9 @@ public class Menu extends BaseEntity {
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuOption> options = new ArrayList<>();
 
+    @NotNull
     @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
+    @JoinColumn(name = "store_id")
     private Store store;
 
     @OneToMany(mappedBy = "menu")

@@ -24,12 +24,12 @@ public class Menu_MenuCategory {
 	private Long id;
 
 	@NotNull
-	@Column(name = "menu_id", nullable = false)
+	@Column(name = "menu_id")
 	private Long menuId;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "menu_category", nullable = false)
+	@Column(name = "menu_category")
 	private MenuCategory menuCategory;
 
 	public Menu_MenuCategory(Long menuId, MenuCategory menuCategory){
