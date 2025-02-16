@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     private UserIdentifier userIdentifier;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
