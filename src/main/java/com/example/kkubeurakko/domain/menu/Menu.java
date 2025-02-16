@@ -26,10 +26,13 @@ public class Menu extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
+    @Column(name = "price", nullable = false)
     private BigDecimal price;
+    @Column(name = "description")
     private String description;
+    @Column(name = "image_url", nullable = false, unique = true)
     private String imageUrl;
 
     @ElementCollection(targetClass = MenuLabel.class)
