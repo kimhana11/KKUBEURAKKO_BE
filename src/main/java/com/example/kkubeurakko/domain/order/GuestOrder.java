@@ -1,5 +1,6 @@
 package com.example.kkubeurakko.domain.order;
 
+
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.order.Order;
 import jakarta.persistence.*;
@@ -15,7 +16,7 @@ public class GuestOrder extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "guest_order_id", updatable = false, nullable = false)
+    @Column(name = "guest_order_id", updatable = false)
     private Long id;
 
     @NotNull
@@ -38,6 +39,7 @@ public class GuestOrder extends BaseEntity {
     @Column(name = "guest_password", nullable = false)
     private String guestPassword;
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;

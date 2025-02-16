@@ -1,5 +1,4 @@
 package com.example.kkubeurakko.domain.review;
-
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,13 +12,14 @@ public class ReviewImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_image_id", updatable = false, nullable = false)
+    @Column(name = "review_image_id", updatable = false)
     private Long id;
 
     @NotNull
     @Column(name = "image_url", nullable = false, length = 1000)
     private String imageUrl;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "review_id", nullable = false)
     private Review review;

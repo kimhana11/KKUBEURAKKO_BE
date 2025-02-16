@@ -1,5 +1,6 @@
 package com.example.kkubeurakko.domain.coupon;
 
+
 import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ public class UserCoupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_coupon_id", updatable = false, nullable = false)
+    @Column(name = "user_coupon_id", updatable = false)
     private Long id;
 
     @NotNull
@@ -27,10 +28,12 @@ public class UserCoupon {
     @Column(name = "issued_at", nullable = false)
     private LocalDateTime issuedAt;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 쿠폰 소유자
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "coupon_id", nullable = false)
     private Coupon coupon;

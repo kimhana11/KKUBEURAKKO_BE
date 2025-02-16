@@ -1,5 +1,6 @@
 package com.example.kkubeurakko.domain.store;
 
+
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.alarm.Alarm;
 import com.example.kkubeurakko.domain.coupon.Coupon;
@@ -22,7 +23,7 @@ public class Store extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id", updatable = false, nullable = false)
+    @Column(name = "store_id", updatable = false)
     private Long id;
 
     @NotNull

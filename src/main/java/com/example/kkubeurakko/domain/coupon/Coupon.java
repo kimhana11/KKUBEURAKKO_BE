@@ -1,5 +1,6 @@
 package com.example.kkubeurakko.domain.coupon;
 
+
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.store.Store;
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ public class Coupon extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coupon_id", updatable = false, nullable = false)
+    @Column(name = "coupon_id", updatable = false)
     private Long id;
 
     @NotNull
@@ -41,24 +42,27 @@ public class Coupon extends BaseEntity {
     @Column(name = "code", nullable = false, unique = true, length = 20)
     private String code;
 
-    @Column(name = "content", length = 255)
+    @NotNull
+    @Column(name = "content", nullable = false, length = 255)
     private String content;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "coupon_type", nullable = false, length = 20)
     private CouponType couponType;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "condition_type", nullable = false, length = 20)
-    private CouponConditionType conditionType;
+    private CouponConditionType conditionType; //쿠폰 사용 조건
 
-
-    @Column(name = "min_order_amount", precision = 10, scale = 2)
+    @Column(name = "min_order_amount", nullable = true, precision = 10, scale = 2)
     private BigDecimal minOrderAmount;
 
-    @Column(name = "required_menu_items", length = 255)
-    private String requiredMenuItems;
+    @Column(name = "required_menu_items", nullable = true, length = 255)
+    private String requiredMenuItems; //필수 메뉴 항목
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
