@@ -11,6 +11,6 @@ import com.example.kkubeurakko.domain.user.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByUserNumber(String userNumber);
 
-	@Query("select case when count(u) > 0 then true else false end from User u where u.userNumber = :userNumber and u.phone is not null")
+	@Query("select case when count(u) > 0 then true else false end from User u where u.userIdentifier.userNumber = :userNumber and u.userIdentifier.phone is not null")
 	boolean existsUserPhoneByUserNumber(@Param("userNumber") String userNumber);
 }
