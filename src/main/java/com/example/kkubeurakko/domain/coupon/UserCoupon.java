@@ -21,21 +21,21 @@ public class UserCoupon {
     private Long id;
 
     @NotNull
-    @Column(name = "is_used", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "is_used", columnDefinition = "boolean default false")
     private boolean isUsed;
 
     @NotNull
-    @Column(name = "issued_at", nullable = false)
+    @Column(name = "issued_at")
     private LocalDateTime issuedAt;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user; // 쿠폰 소유자
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "coupon_id", nullable = false)
+    @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
     // 쿠폰 사용 메서드

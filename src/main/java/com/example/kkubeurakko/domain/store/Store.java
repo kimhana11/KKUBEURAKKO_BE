@@ -27,35 +27,35 @@ public class Store extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "address",nullable = false)
+    @Column(name = "address")
     private String address;
 
     @NotNull
-    @Column(name = "phone", nullable = false, length = 20)
+    @Column(name = "phone", length = 11)
     private String phone;
 
     @NotNull
-    @Column(name = "open_time", nullable = false)
+    @Column(name = "open_time")
     private Time openTime;
 
     @NotNull
-    @Column(name = "close_time", nullable = false)
+    @Column(name = "close_time")
     private Time closeTime;
 
     @NotNull
-    @Column(name = "is_open", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "is_open", columnDefinition = "boolean default false")
     private Boolean isOpen;
 
     @NotNull
-    @Column(name = "min_order_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "min_order_price", precision = 10, scale = 0)
     private BigDecimal minOrderPrice;
 
     @NotNull
-    @Column(name = "delivery_radius", nullable = false)
+    @Column(name = "delivery_radius")
     private Integer deliveryRadius;
 
     @NotNull
-    @Column(name = "delivery_tip", nullable = false, precision = 10, scale = 2)
+    @Column(name = "delivery_tip", precision = 10, scale = 0)
     private BigDecimal deliveryTip;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)

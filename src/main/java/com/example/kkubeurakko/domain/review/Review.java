@@ -25,16 +25,16 @@ public class Review extends BaseEntity {
     private String content;
 
     @NotNull
-    @Column(name = "rate", nullable = false, columnDefinition = "double default 0.0")
+    @Column(name = "rate", columnDefinition = "double default 0.0")
     private double rate;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "order_id", nullable = false, unique = true) //주문 필수, 한 리뷰당 한 주문
+    @JoinColumn(name = "order_id", unique = true) //주문 필수, 한 리뷰당 한 주문
     private Order order;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)

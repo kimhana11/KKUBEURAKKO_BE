@@ -22,25 +22,25 @@ public class OrderItem {
     private Long id;
 
     @NotNull
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity")
     private int quantity;
 
     @NotNull
-    @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total_price", precision = 10, scale = 0)
     private BigDecimal totalPrice;
 
     @NotNull
     @ElementCollection
-    @Column(name = "selected_option_id", nullable = false)
+    @Column(name = "selected_option_id")
     private List<Long> selectedOptionIds = new ArrayList<>(); // 선택된 옵션 ID 리스트
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "menu_id", nullable = false)
+    @JoinColumn(name = "menu_id")
     private Menu menu;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
     private Order order;
 }
