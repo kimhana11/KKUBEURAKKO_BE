@@ -47,7 +47,7 @@ public class Store extends BaseEntity {
     private Boolean isOpen;
 
     @NotNull
-    @Column(name = "min_order_price", precision = 10, scale = 0)
+    @Column(name = "min_order_price", precision = 10)
     private BigDecimal minOrderPrice;
 
     @NotNull
@@ -55,7 +55,7 @@ public class Store extends BaseEntity {
     private Integer deliveryRadius;
 
     @NotNull
-    @Column(name = "delivery_tip", precision = 10, scale = 0)
+    @Column(name = "delivery_tip", precision = 10)
     private BigDecimal deliveryTip;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)

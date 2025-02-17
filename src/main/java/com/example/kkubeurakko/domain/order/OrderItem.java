@@ -26,7 +26,7 @@ public class OrderItem {
     private int quantity;
 
     @NotNull
-    @Column(name = "total_price", precision = 10, scale = 0)
+    @Column(name = "total_price", precision = 10)
     private BigDecimal totalPrice;
 
     @NotNull

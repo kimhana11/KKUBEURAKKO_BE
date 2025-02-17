@@ -28,20 +28,20 @@ public class Order extends BaseEntity {
     private String orderType;
 
     @NotNull
-    @Column(name = "total_amount", precision = 10, scale = 0)
+    @Column(name = "total_amount", precision = 10)
     private BigDecimal totalAmount;
 
     @NotNull
     @Column(name = "order_date", updatable = false)
     private LocalDateTime orderDate;
 
-    @Column(name = "estimated_completion_time", nullable = true)
+    @Column(name = "estimated_completion_time")
     private LocalDateTime estimatedCompletionTime;
 
-    @Column(name = "store_requests", nullable = true, length = 255)
+    @Column(name = "store_requests")
     private String storeRequests;
 
-    @Column(name = "delivery_instructions", nullable = true, length = 255)
+    @Column(name = "delivery_instructions")
     private String deliveryInstructions;
 
     @NotNull
@@ -55,7 +55,7 @@ public class Order extends BaseEntity {
     private OrderStatus orderStatus;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
