@@ -5,6 +5,7 @@ import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -19,22 +20,42 @@ public class Order extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id", updatable = false)
     private Long id;
+
+    @NotNull
+    @Column(name = "order_type", length = 20)
     private String orderType;
+
+    @NotNull
+    @Column(name = "total_amount", precision = 10)
     private BigDecimal totalAmount;
+
+    @NotNull
+    @Column(name = "order_date", updatable = false)
     private LocalDateTime orderDate;
+
+    @Column(name = "estimated_completion_time")
     private LocalDateTime estimatedCompletionTime;
+
+    @Column(name = "store_requests")
     private String storeRequests;
+
+    @Column(name = "delivery_instructions")
     private String deliveryInstructions;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod; // 결제 수단
+    @Column(name = "payment_method", length = 20)
+    private PaymentMethod paymentMethod;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", length = 20)
     private OrderStatus orderStatus;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
@@ -44,8 +65,7 @@ public class Order extends BaseEntity {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "guest_order_id", nullable = true)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private GuestOrder guestOrder;
 
     public void setOrderStatus(OrderStatus orderStatus) {

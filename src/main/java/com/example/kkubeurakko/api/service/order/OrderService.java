@@ -12,6 +12,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,5 +62,16 @@ public class OrderService {
         return orders.stream()
                 .map(order -> orderMapper.toOrderResponseDTO(order, optionRepository))
                 .collect(Collectors.toList());
+    }
+
+    //주문 옵션 추가금액을 계산하는 매서드
+    private BigDecimal calculateTotalAdditionalPrice(Order order) {
+        return order.getOrderItems().stream()
+                .flatMap(orderItem -> orderItem.getSelectedOptionIds().stream())
+                .distinct()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        optionIds -> optionIds.isEmpty() ? BigDecimal.ZERO : optionRepository.findTotalAdditionalPriceByOptionIds(optionIds)
+                ));
     }
 }
