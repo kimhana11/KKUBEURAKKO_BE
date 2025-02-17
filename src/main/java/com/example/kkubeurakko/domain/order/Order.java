@@ -24,15 +24,15 @@ public class Order extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "order_type", nullable = false, length = 20)
+    @Column(name = "order_type", length = 20)
     private String orderType;
 
     @NotNull
-    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
+    @Column(name = "total_amount", precision = 10, scale = 0)
     private BigDecimal totalAmount;
 
     @NotNull
-    @Column(name = "order_date", nullable = false, updatable = false)
+    @Column(name = "order_date", updatable = false)
     private LocalDateTime orderDate;
 
     @Column(name = "estimated_completion_time", nullable = true)
@@ -46,12 +46,12 @@ public class Order extends BaseEntity {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "payment_method", nullable = false, length = 20)
+    @Column(name = "payment_method", length = 20)
     private PaymentMethod paymentMethod;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false, length = 20)
+    @Column(name = "order_status", length = 20)
     private OrderStatus orderStatus;
 
     @ManyToOne
@@ -63,11 +63,9 @@ public class Order extends BaseEntity {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "review_id", nullable = true)
     private Review review;
 
-    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
-    @JoinColumn(name = "guest_order_id", nullable = true)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private GuestOrder guestOrder;
 
     public void setOrderStatus(OrderStatus orderStatus) {

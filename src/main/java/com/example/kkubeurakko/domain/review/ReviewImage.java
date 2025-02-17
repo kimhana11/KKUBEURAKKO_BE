@@ -16,12 +16,12 @@ public class ReviewImage {
     private Long id;
 
     @NotNull
-    @Column(name = "image_url", nullable = false, length = 1000)
+    @Column(name = "image_url", length = 1000)
     private String imageUrl;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "review_id", nullable = false)
+    @JoinColumn(name = "review_id")
     private Review review;
 
 }

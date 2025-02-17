@@ -23,40 +23,40 @@ public class Coupon extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", length = 100)
     private String name;
 
     @NotNull
-    @Column(name = "discount_amount", nullable = false, precision = 10, scale = 2)
+    @Column(name = "discount_amount", precision = 10, scale = 2)
     private BigDecimal discountAmount;
 
     @NotNull
-    @Column(name = "valid_from", nullable = false)
+    @Column(name = "valid_from")
     private LocalDateTime validFrom;
 
     @NotNull
-    @Column(name = "valid_until", nullable = false)
+    @Column(name = "valid_until")
     private LocalDateTime validUntil;
 
     @NotNull
-    @Column(name = "code", nullable = false, unique = true, length = 20)
+    @Column(name = "code", unique = true, length = 20)
     private String code;
 
     @NotNull
-    @Column(name = "content", nullable = false, length = 255)
+    @Column(name = "content",length = 300)
     private String content;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "coupon_type", nullable = false, length = 20)
+    @Column(name = "coupon_type", length = 20)
     private CouponType couponType;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "condition_type", nullable = false, length = 20)
+    @Column(name = "condition_type", length = 20)
     private CouponConditionType conditionType; //쿠폰 사용 조건
 
-    @Column(name = "min_order_amount", nullable = true, precision = 10, scale = 2)
+    @Column(name = "min_order_amount", nullable = true, precision = 10, scale = 0)
     private BigDecimal minOrderAmount;
 
     @Column(name = "required_menu_items", nullable = true, length = 255)
@@ -64,7 +64,7 @@ public class Coupon extends BaseEntity {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
+    @JoinColumn(name = "store_id")
     private Store store;
 
 }

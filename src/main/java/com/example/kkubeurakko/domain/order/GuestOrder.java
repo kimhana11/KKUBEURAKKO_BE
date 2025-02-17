@@ -20,27 +20,26 @@ public class GuestOrder extends BaseEntity {
     private Long id;
 
     @NotNull
-    @Column(name = "road_name",nullable = false)
+    @Column(name = "road_name")
     private String roadName;
 
     @NotNull
-    @Column(name = "detailed_address",nullable = false)
+    @Column(name = "detailed_address")
     private String detailedAddress;
 
     @NotNull
-    @Column(name = "postal_code", nullable = false,length = 20)
+    @Column(name = "postal_code", length = 20)
     private String postalCode;
 
     @NotNull
-    @Column(name = "guest_contact", nullable = false, length = 20)
+    @Column(name = "guest_contact", length = 20)
     private String guestContact;
 
     @NotNull
-    @Column(name = "guest_password", nullable = false)
+    @Column(name = "guest_password")
     private String guestPassword;
 
-    @NotNull
     @OneToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", unique = true)
     private Order order;
 }
