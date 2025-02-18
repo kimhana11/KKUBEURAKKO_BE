@@ -3,6 +3,7 @@ package com.example.kkubeurakko.domain.cart;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Cart extends BaseEntity {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
 
+    @NotNull
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
