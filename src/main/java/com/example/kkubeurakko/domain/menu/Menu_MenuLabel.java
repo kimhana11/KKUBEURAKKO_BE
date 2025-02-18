@@ -23,12 +23,12 @@ public class Menu_MenuLabel {
 	private Long id;
 
 	@NotNull
-	@Column(name = "menu_id", nullable = false)
+	@Column(name = "menu_id")
 	private Long menuId;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "menu_label", nullable = false)
+	@Column(name = "menu_label")
 	private MenuLabel menuLabel;
 
 	public Menu_MenuLabel(Long menuId, MenuLabel menuLabel){
