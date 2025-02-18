@@ -6,9 +6,9 @@ import com.example.kkubeurakko.domain.cart.Cart;
 import com.example.kkubeurakko.domain.coupon.UserCoupon;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
-import com.example.kkubeurakko.domain.user.embedded.UserIdentifier;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,8 +26,20 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private UserIdentifier userIdentifier;
+    @NotNull
+    @Column(name = "userNumber", unique = true)
+    private String userNumber; //사용자 정보 제공자 + 제공 id 숫자
+
+    @NotNull
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone", unique = true, length = 11)
+    private String phone;
+
+    @NotNull
+    @Column(name = "nickname", unique = true)
+    private String nickname;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
@@ -56,13 +68,17 @@ public class User extends BaseEntity {
         String nickname,
         UserRole role
     ){
-        this.userIdentifier = new UserIdentifier(userNumber, email, nickname);
+        this.userNumber = userNumber;
+        this.email = email;
+        this.nickname = nickname;
         this.role = role;
     }
 
-    public void updateNickname(String nickname) {
-        this.userIdentifier.updateNickname(nickname);
+    public void updateNickname(String nickname){
+        this.nickname = nickname;
     }
 
-    public void updateUserPhone(String phone){this.userIdentifier.updateUserPhone(phone);}
+    public void updateUserPhone(String phone){
+        this.phone = phone;
+    }
 }
