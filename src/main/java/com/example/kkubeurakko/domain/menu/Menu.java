@@ -72,12 +72,13 @@ public class Menu extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
-    public Menu(Long id, String name, BigDecimal price, String description, String imageUrl, LocalDateTime createDateTime, LocalDateTime modifiedDateTime){
+    public Menu(Long id, String name, BigDecimal price, String description, String imageUrl, Store store, LocalDateTime createDateTime, LocalDateTime modifiedDateTime){
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.store = store;
         this.createDateTime = createDateTime;
         this.modifiedDateTime = modifiedDateTime;
     }
