@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.kkubeurakko.domain.menu.Menu_MenuCategory;
 import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
 
 @Repository

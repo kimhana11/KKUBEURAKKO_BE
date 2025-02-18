@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.kkubeurakko.domain.address.Address;
 import com.example.kkubeurakko.domain.user.User;
 
 @Repository

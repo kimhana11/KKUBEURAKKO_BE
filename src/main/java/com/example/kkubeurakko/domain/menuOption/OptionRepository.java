@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.example.kkubeurakko.domain.menuOption.MenuOptionDetail;
+
 @Repository
 public interface OptionRepository extends JpaRepository<MenuOptionDetail, Long> {
 

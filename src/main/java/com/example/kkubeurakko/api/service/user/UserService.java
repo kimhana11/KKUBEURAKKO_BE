@@ -1,5 +1,4 @@
 package com.example.kkubeurakko.api.service.user;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
