@@ -28,7 +28,7 @@ public class MenuOptionDetail {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "menu_option_id")
+    @JoinColumn(name = "id")
     private MenuOption menuOption;
 
 }
