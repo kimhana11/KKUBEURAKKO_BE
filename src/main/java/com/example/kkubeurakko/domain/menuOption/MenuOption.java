@@ -28,7 +28,7 @@ public class MenuOption extends BaseEntity {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id", updatable = false)
+    @JoinColumn(name = "menu_id", updatable = false)
     private Menu menu;
 
     @OneToMany(mappedBy = "menuOption", cascade = CascadeType.ALL, orphanRemoval = true)

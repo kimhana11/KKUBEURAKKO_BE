@@ -54,7 +54,7 @@ public class Menu extends BaseEntity {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id", updatable = false)
+    @JoinColumn(name = "store_id", updatable = false)
     private Store store;
 
     @OneToMany(mappedBy = "menu")

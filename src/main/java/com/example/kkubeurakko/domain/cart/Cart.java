@@ -25,7 +25,7 @@ public class Cart extends BaseEntity {
 
     @NotNull
     @OneToOne
-    @JoinColumn(name = "id", unique = true, updatable = false)
+    @JoinColumn(name = "user_id", unique = true, updatable = false)
     private User user;
 
     // 장바구니 비우기
