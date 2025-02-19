@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.kkubeurakko.api.controller.menu.response.MenuImgResponse;
@@ -17,11 +19,14 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/api/menus")
 public class MenuController {
 	private final MenuService menuService;
-	@PostMapping("/api/menulist")
-	public ResponseEntity<CommonResponse> findMenuImg(@RequestParam String classification, @RequestParam String variable){
-
+	@GetMapping
+	public ResponseEntity<CommonResponse> findMenuImg(
+		@RequestParam String classification,
+		@RequestParam String variable)
+	{
 		List<MenuImgResponse> menuImgResponseList = menuService.getMenuList(classification ,variable);
 		return ResponseEntity.status(HttpStatus.OK).body(
 			new CommonResponse(
