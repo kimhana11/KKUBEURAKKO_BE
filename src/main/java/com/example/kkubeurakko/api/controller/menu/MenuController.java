@@ -28,7 +28,7 @@ public class MenuController {
 		@RequestParam String variable)
 	{
 		List<MenuImgResponse> menuImgResponseList = menuService.getMenuList(classification ,variable);
-		return ResponseEntity.status(HttpStatus.OK).body(
+		return ResponseEntity.ok(
 			new CommonResponse(
 				ResponseMsgEnum.FIND_MENU_IMG_LIST_SUCCESS.getCode(),
 				ResponseMsgEnum.FIND_MENU_IMG_LIST_SUCCESS.getResponseMsg(),

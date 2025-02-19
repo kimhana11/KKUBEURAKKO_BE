@@ -36,7 +36,7 @@ public class AddressController {
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	) {
 		List<AddressResponse> addressList = addressService.findAddressAll(customOAuth2User);
-		return ResponseEntity.status(HttpStatus.OK).body(addressList);
+		return ResponseEntity.ok(addressList);
 	}
 
 	// 기본 주소 조회 API
@@ -45,7 +45,7 @@ public class AddressController {
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	) {
 		AddressResponse addressResponse = addressService.findPrimaryAddress(customOAuth2User);
-		return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
+		return ResponseEntity.ok(addressResponse);
 	}
 
 	// 주소 추가 API
@@ -72,7 +72,7 @@ public class AddressController {
 		@Valid @RequestBody AddressRequest addressRequest
 	) {
 		addressService.updateAddress(customOAuth2User, addressId, addressRequest);
-		return ResponseEntity.status(HttpStatus.OK).body(
+		return ResponseEntity.ok(
 			new CommonResponse(
 				ResponseMsgEnum.UPDATE_ADDRESS_SUCCESS.getCode(),
 				ResponseMsgEnum.UPDATE_ADDRESS_SUCCESS.getResponseMsg(),
