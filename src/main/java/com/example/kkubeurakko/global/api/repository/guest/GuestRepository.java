@@ -22,7 +22,7 @@ public class GuestRepository {
 			"{\"postalCode\":\"%s\",\"roadName\":\"%s\",\"detailAddress\":\"%s\"}",
 			guestRequest.postalCode(),
 			guestRequest.roadName(),
-			guestRequest.detailAddress()
+			guestRequest.detailedAddress()
 		);
 		stringRedisTemplate.opsForValue().set(key, value, Duration.ofSeconds(LIMIT_TIME));
 	}
