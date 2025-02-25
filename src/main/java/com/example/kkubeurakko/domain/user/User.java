@@ -6,6 +6,7 @@ import com.example.kkubeurakko.domain.cart.Cart;
 import com.example.kkubeurakko.domain.coupon.UserCoupon;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
+import com.example.kkubeurakko.domain.user.userenum.UserRole;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

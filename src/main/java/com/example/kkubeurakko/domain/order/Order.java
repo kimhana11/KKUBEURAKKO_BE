@@ -1,6 +1,8 @@
 package com.example.kkubeurakko.domain.order;
 
 import com.example.kkubeurakko.domain.BaseEntity;
+import com.example.kkubeurakko.domain.order.orderenum.OrderStatus;
+import com.example.kkubeurakko.domain.order.orderenum.PaymentMethod;
 import com.example.kkubeurakko.domain.review.Review;
 import com.example.kkubeurakko.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;

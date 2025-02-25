@@ -6,7 +6,7 @@ import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
 import com.example.kkubeurakko.domain.menuOption.repository.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.repository.OrderRepository;
-import com.example.kkubeurakko.domain.order.OrderStatus;
+import com.example.kkubeurakko.domain.order.orderenum.OrderStatus;
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

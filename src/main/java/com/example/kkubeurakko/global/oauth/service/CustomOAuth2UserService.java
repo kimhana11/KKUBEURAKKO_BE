@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
 import com.example.kkubeurakko.domain.user.User;
-import com.example.kkubeurakko.domain.user.UserRole;
+import com.example.kkubeurakko.domain.user.userenum.UserRole;
 import com.example.kkubeurakko.domain.user.repository.UserRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 import com.example.kkubeurakko.global.oauth.dto.KakaoResponse;

@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.coupon;
+package com.example.kkubeurakko.domain.coupon.couponenum;
 
 
 import lombok.Getter;
