@@ -16,7 +16,7 @@ public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(name = "cart_item_id", updatable = false)
     private Long id;
 
     @NotNull

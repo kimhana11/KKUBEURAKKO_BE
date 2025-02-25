@@ -24,10 +24,11 @@ public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", updatable = false)
     private Long id;
 
     @NotNull
-    @Column(name = "userNumber", unique = true)
+    @Column(name = "user_number", unique = true)
     private String userNumber; //사용자 정보 제공자 + 제공 id 숫자
 
     @NotNull
