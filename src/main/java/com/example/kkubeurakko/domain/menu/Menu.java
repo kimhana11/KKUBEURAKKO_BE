@@ -41,7 +41,7 @@ public class Menu extends BaseEntity {
     private String description;
 
     @NotNull
-    @Column(name = "image_url", unique = true, length = 1000)
+    @Column(name = "image_url", unique = true, length = 500)
     private String imageUrl;
 
     @ElementCollection(targetClass = MenuLabel.class)
