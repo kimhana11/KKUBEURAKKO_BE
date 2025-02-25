@@ -16,6 +16,7 @@ public class MenuOption extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "menu_option_id", updatable = false)
     private Long id;
 
     @NotNull

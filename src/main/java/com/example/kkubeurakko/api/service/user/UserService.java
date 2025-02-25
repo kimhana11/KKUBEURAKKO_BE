@@ -4,7 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kkubeurakko.api.exception.user.UserNotFoundException;
 import com.example.kkubeurakko.domain.user.User;
-import com.example.kkubeurakko.domain.user.UserRepository;
+import com.example.kkubeurakko.domain.user.repository.UserRepository;
 import com.example.kkubeurakko.global.oauth.dto.CustomOAuth2User;
 
 import lombok.RequiredArgsConstructor;

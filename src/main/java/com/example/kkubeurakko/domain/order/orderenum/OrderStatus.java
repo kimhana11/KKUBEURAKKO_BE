@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.order;
+package com.example.kkubeurakko.domain.order.orderenum;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
