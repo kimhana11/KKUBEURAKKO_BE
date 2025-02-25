@@ -23,7 +23,7 @@ public class AddressTransactionService {
 	public void updatePrimary(User user){
 		Address address = addressRepository.findPrimaryAddressByUser(user)
 			.orElseThrow(()->new AddressNotFoundException());
-		address.updatePrimary(!address.getIsPrimary());
+		address.updatePrimary(!address.isPrimary());
 	}
 
 }

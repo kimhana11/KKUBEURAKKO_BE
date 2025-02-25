@@ -31,7 +31,7 @@ public class Store extends BaseEntity {
     private String address;
 
     @NotNull
-    @Column(name = "phone", length = 11)
+    @Column(name = "phone", length = 13)
     private String phone;
 
     @NotNull

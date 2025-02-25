@@ -68,7 +68,7 @@ public class AddressService {
 			.orElseThrow(()-> new AddressNotFoundException());
 		User user = findUser(customOAuth2User);
 
-		if(addressRequest.isPrimary() && !address.getIsPrimary()){
+		if(addressRequest.isPrimary() && !address.isPrimary()){
 			addressTransactionService.updatePrimary(user);
 			log.info("기본 주소 수정 완료 : {}", user.getId());
 		}

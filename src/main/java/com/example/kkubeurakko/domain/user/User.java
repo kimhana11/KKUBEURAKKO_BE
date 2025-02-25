@@ -34,15 +34,16 @@ public class User extends BaseEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone", unique = true, length = 11)
+    @Column(name = "phone", unique = true, length = 13)
     private String phone;
 
     @NotNull
     @Column(name = "nickname", unique = true)
     private String nickname;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
