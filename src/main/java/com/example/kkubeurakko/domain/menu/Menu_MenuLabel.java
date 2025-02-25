@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Menu_MenuLabel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable = false)
+	@Column(name = "menu_menu_label_id", updatable = false)
 	private Long id;
 
 	@NotNull

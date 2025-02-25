@@ -1,4 +1,4 @@
-package com.example.kkubeurakko.domain.user;
+package com.example.kkubeurakko.domain.user.repository;
 
 import java.util.Optional;
 

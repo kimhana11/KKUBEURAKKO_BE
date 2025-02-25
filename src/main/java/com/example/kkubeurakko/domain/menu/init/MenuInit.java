@@ -11,14 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.kkubeurakko.domain.menu.Menu;
 import com.example.kkubeurakko.domain.menu.menuenum.MenuCategory;
 import com.example.kkubeurakko.domain.menu.menuenum.MenuLabel;
-import com.example.kkubeurakko.domain.menu.MenuRepository;
+import com.example.kkubeurakko.domain.menu.repository.MenuRepository;
 import com.example.kkubeurakko.domain.menu.Menu_MenuCategory;
-import com.example.kkubeurakko.domain.menu.Menu_MenuCategoryRepository;
+import com.example.kkubeurakko.domain.menu.repository.Menu_MenuCategoryRepository;
 import com.example.kkubeurakko.domain.menu.Menu_MenuLabel;
-import com.example.kkubeurakko.domain.menu.Menu_MenuLabelRepository;
+import com.example.kkubeurakko.domain.menu.repository.Menu_MenuLabelRepository;
 import com.example.kkubeurakko.domain.store.Store;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Component

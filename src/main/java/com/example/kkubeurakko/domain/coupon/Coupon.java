@@ -2,6 +2,8 @@ package com.example.kkubeurakko.domain.coupon;
 
 
 import com.example.kkubeurakko.domain.BaseEntity;
+import com.example.kkubeurakko.domain.coupon.couponenum.CouponConditionType;
+import com.example.kkubeurakko.domain.coupon.couponenum.CouponType;
 import com.example.kkubeurakko.domain.store.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
