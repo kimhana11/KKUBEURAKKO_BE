@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.kkubeurakko.api.exception.address.AddressNotFoundException;
 import com.example.kkubeurakko.domain.address.Address;
-import com.example.kkubeurakko.domain.address.AddressRepository;
+import com.example.kkubeurakko.domain.address.repository.AddressRepository;
 import com.example.kkubeurakko.domain.user.User;
 
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class AddressTransactionService {
 	public void updatePrimary(User user){
 		Address address = addressRepository.findPrimaryAddressByUser(user)
 			.orElseThrow(()->new AddressNotFoundException());
-		address.updatePrimary(!address.getIsPrimary());
+		address.updatePrimary(!address.isPrimary());
 	}
 
 }

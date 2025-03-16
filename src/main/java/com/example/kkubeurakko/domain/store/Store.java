@@ -31,7 +31,7 @@ public class Store extends BaseEntity {
     private String address;
 
     @NotNull
-    @Column(name = "phone", length = 11)
+    @Column(name = "phone", length = 13)
     private String phone;
 
     @NotNull
@@ -47,7 +47,7 @@ public class Store extends BaseEntity {
     private Boolean isOpen;
 
     @NotNull
-    @Column(name = "min_order_price", precision = 10, scale = 0)
+    @Column(name = "min_order_price", precision = 10)
     private BigDecimal minOrderPrice;
 
     @NotNull
@@ -55,7 +55,7 @@ public class Store extends BaseEntity {
     private Integer deliveryRadius;
 
     @NotNull
-    @Column(name = "delivery_tip", precision = 10, scale = 0)
+    @Column(name = "delivery_tip", precision = 10)
     private BigDecimal deliveryTip;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
@@ -66,4 +66,15 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Alarm> alarms = new ArrayList<>();
+
+    public Store(Long id, String phone, Time openTime, Time closeTime, Boolean isOpen, BigDecimal minOrderPrice, Integer deliveryRadius, BigDecimal deliveryTip){
+        this.id = id;
+        this.phone = phone;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.isOpen = isOpen;
+        this.minOrderPrice = minOrderPrice;
+        this.deliveryRadius = deliveryRadius;
+        this.deliveryTip = deliveryTip;
+    }
 }

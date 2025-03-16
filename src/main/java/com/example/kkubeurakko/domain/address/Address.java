@@ -4,6 +4,7 @@ import com.example.kkubeurakko.api.controller.address.request.AddressRequest;
 import com.example.kkubeurakko.domain.BaseEntity;
 import com.example.kkubeurakko.domain.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,14 +19,30 @@ public class Address extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id", updatable = false)
     private Long id;
 
+    @NotNull
+    @Column(name = "address_nickname", length = 30)
     private String addressNickname;
-    private String roadName;
-    private String detailedAddress;
-    private String postalCode;
-    private Boolean isPrimary;
 
+    @NotNull
+    @Column(name = "road_name", length = 50)
+    private String roadName;
+
+    @NotNull
+    @Column(name = "detail_address", length = 20)
+    private String detailedAddress;
+
+    @NotNull
+    @Column(name = "postal_code", length = 5)
+    private String postalCode;
+
+    @NotNull
+    @Column(name = "is_primary", columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean isPrimary;
+
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

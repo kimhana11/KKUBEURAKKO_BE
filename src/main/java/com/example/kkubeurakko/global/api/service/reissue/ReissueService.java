@@ -1,7 +1,7 @@
 package com.example.kkubeurakko.global.api.service.reissue;
 
 
-import com.example.kkubeurakko.domain.user.UserRole;
+import com.example.kkubeurakko.domain.user.userenum.UserRole;
 import com.example.kkubeurakko.global.api.controller.reissue.request.GuestRequest;
 import com.example.kkubeurakko.global.api.repository.guest.GuestRepository;
 import com.example.kkubeurakko.global.common.BadResponseMsgEnum;

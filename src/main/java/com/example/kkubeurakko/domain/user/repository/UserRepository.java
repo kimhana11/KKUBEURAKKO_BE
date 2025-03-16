@@ -1,10 +1,12 @@
-package com.example.kkubeurakko.domain.user;
+package com.example.kkubeurakko.domain.user.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import com.example.kkubeurakko.domain.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByUserNumber(String userNumber);

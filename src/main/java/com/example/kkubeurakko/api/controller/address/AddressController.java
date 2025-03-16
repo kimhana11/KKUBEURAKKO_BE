@@ -31,12 +31,12 @@ public class AddressController {
 	private final AddressService addressService;
 
 	// 모든 주소 조회 API
-	@GetMapping("/list")
+	@GetMapping("")
 	public ResponseEntity<List<AddressResponse>> listAddresses(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	) {
 		List<AddressResponse> addressList = addressService.findAddressAll(customOAuth2User);
-		return ResponseEntity.status(HttpStatus.OK).body(addressList);
+		return ResponseEntity.ok(addressList);
 	}
 
 	// 기본 주소 조회 API
@@ -45,11 +45,11 @@ public class AddressController {
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User
 	) {
 		AddressResponse addressResponse = addressService.findPrimaryAddress(customOAuth2User);
-		return ResponseEntity.status(HttpStatus.OK).body(addressResponse);
+		return ResponseEntity.ok(addressResponse);
 	}
 
 	// 주소 추가 API
-	@PostMapping("/create")
+	@PostMapping("")
 	public ResponseEntity<CommonResponse> createAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@Valid @RequestBody AddressRequest addressRequest
@@ -65,14 +65,14 @@ public class AddressController {
 	}
 
 	// 주소 수정 API
-	@PutMapping("/update/{addressId}")
+	@PutMapping("/{addressId}")
 	public ResponseEntity<CommonResponse> updateAddress(
 		@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
 		@PathVariable(name = "addressId") Long addressId,
 		@Valid @RequestBody AddressRequest addressRequest
 	) {
 		addressService.updateAddress(customOAuth2User, addressId, addressRequest);
-		return ResponseEntity.status(HttpStatus.OK).body(
+		return ResponseEntity.ok(
 			new CommonResponse(
 				ResponseMsgEnum.UPDATE_ADDRESS_SUCCESS.getCode(),
 				ResponseMsgEnum.UPDATE_ADDRESS_SUCCESS.getResponseMsg(),
@@ -82,7 +82,7 @@ public class AddressController {
 	}
 
 	// 주소 삭제 API
-	@DeleteMapping("/delete/{addressId}")
+	@DeleteMapping("/{addressId}")
 	public ResponseEntity<CommonResponse> deleteAddress(@PathVariable(name = "addressId") Long addressId) {
 		addressService.deleteAddress(addressId);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(

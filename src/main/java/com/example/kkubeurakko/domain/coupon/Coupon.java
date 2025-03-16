@@ -2,6 +2,8 @@ package com.example.kkubeurakko.domain.coupon;
 
 
 import com.example.kkubeurakko.domain.BaseEntity;
+import com.example.kkubeurakko.domain.coupon.couponenum.CouponConditionType;
+import com.example.kkubeurakko.domain.coupon.couponenum.CouponType;
 import com.example.kkubeurakko.domain.store.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -27,7 +29,7 @@ public class Coupon extends BaseEntity {
     private String name;
 
     @NotNull
-    @Column(name = "discount_amount", precision = 10, scale = 2)
+    @Column(name = "discount_amount", precision = 10)
     private BigDecimal discountAmount;
 
     @NotNull
@@ -56,10 +58,10 @@ public class Coupon extends BaseEntity {
     @Column(name = "condition_type", length = 20)
     private CouponConditionType conditionType; //쿠폰 사용 조건
 
-    @Column(name = "min_order_amount", nullable = true, precision = 10, scale = 0)
+    @Column(name = "min_order_amount", precision = 10)
     private BigDecimal minOrderAmount;
 
-    @Column(name = "required_menu_items", nullable = true, length = 255)
+    @Column(name = "required_menu_items")
     private String requiredMenuItems; //필수 메뉴 항목
 
     @NotNull

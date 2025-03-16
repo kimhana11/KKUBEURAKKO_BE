@@ -21,7 +21,7 @@ public class Review extends BaseEntity {
     @Column(name = "review_id", updatable = false)
     private Long id;
 
-    @Column(name = "content",nullable = true, length = 500)
+    @Column(name = "content", length = 500)
     private String content;
 
     @NotNull

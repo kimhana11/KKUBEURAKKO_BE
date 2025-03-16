@@ -6,8 +6,10 @@ import com.example.kkubeurakko.domain.cart.Cart;
 import com.example.kkubeurakko.domain.coupon.UserCoupon;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.review.Review;
+import com.example.kkubeurakko.domain.user.userenum.UserRole;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,21 +25,27 @@ public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", updatable = false)
     private Long id;
 
-    @Column(name = "userNumber", unique = true, nullable = false)
+    @NotNull
+    @Column(name = "user_number", unique = true)
     private String userNumber; //사용자 정보 제공자 + 제공 id 숫자
 
-    @Column(name = "email", nullable = false)
+    @NotNull
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phone", unique = true)
+    @Column(name = "phone", unique = true, length = 13)
     private String phone;
 
-    @Column(name = "nickname", unique = true, nullable = false)
+    @NotNull
+    @Column(name = "nickname", unique = true)
     private String nickname;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -68,13 +76,12 @@ public class User extends BaseEntity {
         this.nickname = nickname;
         this.role = role;
     }
-    User(String nickname){
+
+    public void updateNickname(String nickname){
         this.nickname = nickname;
     }
 
-    public void updateNickname(String nickname) {
-        this.nickname = nickname;
+    public void updateUserPhone(String phone){
+        this.phone = phone;
     }
-
-    public void updateUserPhone(String phone){this.phone = phone;}
 }
