@@ -60,7 +60,7 @@ public class Menu extends BaseEntity {
     @OneToMany(mappedBy = "menu")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<CartItem> cartItems = new ArrayList<>();
 
     //메뉴에 달린 모든 리뷰 조회

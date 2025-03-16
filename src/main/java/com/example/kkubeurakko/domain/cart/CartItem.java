@@ -24,6 +24,7 @@ public class CartItem {
     private int quantity;
 
     @ElementCollection
+    @Column(name = "selected_option_id")
     private List<Long> selectedOptionIds = new ArrayList<>(); // 선택된 옵션 ID 리스트
 
     @NotNull
@@ -32,7 +33,7 @@ public class CartItem {
     private Menu menu;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "cart_id")
     private Cart cart;
 

@@ -3,6 +3,7 @@ package com.example.kkubeurakko.api.service.order;
 import com.example.kkubeurakko.api.controller.order.response.OrderResponse;
 import com.example.kkubeurakko.api.exception.order.OrderNotFoundException;
 import com.example.kkubeurakko.api.service.order.mapper.OrderMapper;
+import com.example.kkubeurakko.domain.address.repository.AddressRepository;
 import com.example.kkubeurakko.domain.menuOption.repository.OptionRepository;
 import com.example.kkubeurakko.domain.order.Order;
 import com.example.kkubeurakko.domain.order.repository.OrderRepository;
@@ -24,6 +25,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OptionRepository optionRepository;
+    private final AddressRepository addressRepository;
 
     @Transactional
     public OrderResponse updateOrderStatus(Long id, String newStatus, Integer estimatedMinutes) {
@@ -45,7 +47,7 @@ public class OrderService {
         }
         order.setOrderStatus(status);
         orderRepository.save(order);
-        return orderMapper.toOrderResponseDTO(order, optionRepository);
+        return orderMapper.toOrderResponseDTO(order, optionRepository,addressRepository);
     }
 
 
@@ -60,7 +62,7 @@ public class OrderService {
 
         // 주문을 OrderResponseDTO로 변환하여 반환
         return orders.stream()
-                .map(order -> orderMapper.toOrderResponseDTO(order, optionRepository))
+                .map(order -> orderMapper.toOrderResponseDTO(order, optionRepository,addressRepository))
                 .collect(Collectors.toList());
     }
 
